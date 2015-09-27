@@ -6,6 +6,10 @@ package com.example.manuel.pilarapp.Objects;
 public class LugarInscripcion {
 
     private String requisitosInscrip;
+    private String telefonoInscrip;
+    private String webInscip;
+
+
 
     /**
      * No args constructor for use in serialization
@@ -38,5 +42,21 @@ public class LugarInscripcion {
      */
     public void setRequisitosInscrip(String requisitosInscrip) {
         this.requisitosInscrip = requisitosInscrip;
+    }
+
+    public String getWebInscip() {
+        return webInscip;
+    }
+
+    public void setWebInscip(String webInscip) {
+        this.webInscip = webInscip;
+    }
+
+    public String getTelefonoInscrip() {
+        return telefonoInscrip;
+    }
+
+    public void setTelefonoInscrip(String telefonoInscrip) {
+        this.telefonoInscrip = telefonoInscrip;
     }
 }

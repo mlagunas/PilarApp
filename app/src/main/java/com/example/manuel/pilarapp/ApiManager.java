@@ -28,7 +28,6 @@ public class ApiManager {
         @Headers("Accept: application/json")
         @GET("/recurso/cultura-ocio/evento-zaragoza?results_only=false&rows=1")
         public void getRequest(Callback<Request> callback);
-
     }
 
 }
