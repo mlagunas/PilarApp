@@ -24,6 +24,9 @@ dependencies {
     compile('com.mikepenz:materialdrawer:4.3.0@aar') {
         transitive = true
     }
+    dependencies {
+        compile 'com.mikepenz:iconics-core:1.7.6@aar'
+    }
     compile "com.android.support:appcompat-v7:21.0.+"
     compile 'com.squareup.retrofit:retrofit:1.9.0'
     compile 'com.google.code.gson:gson:1.7.2'

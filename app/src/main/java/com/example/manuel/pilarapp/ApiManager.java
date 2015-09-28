@@ -26,7 +26,7 @@ public class ApiManager {
 
     public interface APIService {
         @Headers("Accept: application/json")
-        @GET("/recurso/cultura-ocio/evento-zaragoza?results_only=false&rows=1")
+        @GET("/recurso/cultura-ocio/evento-zaragoza?rf=html&results_only=false&srsname=wgs84&rows=1000&q=programa%3D%3Dfiestas%20del%20pilar")
         public void getRequest(Callback<Request> callback);
     }
 
