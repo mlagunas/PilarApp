@@ -1,8 +1,11 @@
 package com.example.manuel.pilarapp;
 
 
+import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,6 +14,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 
+import com.example.manuel.pilarapp.Objects.Actos;
+import com.example.manuel.pilarapp.Objects.Request;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -39,6 +44,13 @@ import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
+
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Header;
+import retrofit.client.Response;
+
 
 public class MainActivity extends AppCompatActivity
         implements OnMapReadyCallback {
@@ -100,11 +112,6 @@ public class MainActivity extends AppCompatActivity
                 )
                 .withSavedInstance(savedInstanceState)
                 .build();
-
-
-        //set the back arrow in the toolbar
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setHomeButtonEnabled(false);
     }
 
     public LatLng getLangLong(String address)
@@ -177,31 +184,33 @@ public class MainActivity extends AppCompatActivity
         double longitude = -1;
         double latitude = -1;
 
-        /*ApiManager am = new ApiManager();
-        am.getApiService().getRequest(new Callback<Request>() {
-            @Override
-            public void success(Request resultado, Response response) {
-                List<Actos> actos = resultado.getResult();
-                for (Actos a : actos) {
-                    Log.d("DATA", a.getDescription());
-                    Log.d("DATA", a.getPrograma());
-                    Log.d("DATA", a.getEndDate());
-                    Log.d("DATA", a.getStartDate());
-                    Log.d("DATA", a.getTitle());
-                    Log.d("DATA", a.getEntidad().getTitle());
-                    Log.d("DATA", a.getGeometry().getCoordinates().toString());
-                    Log.d("DATA", a.getDiasParaTerminar() + " ");
-                    Log.d("DATA", a.getLugarInscripcion().getRequisitosInscrip());
+        ConnectivityManager cm =
+                (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if(activeNetwork != null &&
+                activeNetwork.isConnectedOrConnecting()) {
+            ApiManager am = new ApiManager();
+            am.getApiService().getRequest(new Callback<Request>() {
+                @Override
+                public void success(Request resultado, Response response) {
 
+                    List<Header> headerList = response.getHeaders();
+                    for (Header header : headerList) {
+
+                    }
+
+                    List<Actos> actos = resultado.getResult();
+                    for (Actos a : actos) {
+
+                    }
                 }
-            }
 
-            @Override
-            public void failure(RetrofitError error) {
-                Log.v("TAG", "Error: " + error.getMessage() + error.getStackTrace());
-            }
-        });
-*/
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.v("TAG", "Error: " + error.getMessage() + error.getStackTrace());
+                }
+            });
+        }
         final Marker melbourne = map.addMarker(new MarkerOptions()
                 .position(new LatLng(1,1))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));

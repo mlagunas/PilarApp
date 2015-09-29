@@ -26,44 +26,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     "diasParaTerminar INTEGER" +
                     ");";
 
-    private final String ENTIDAD_TABLE =
-            "CREATE TABLE entidad (" +
-                    "id INTEGER PRIMARY KEY, " +
-                    "title TEXT not NULL, " +
-                    "telefonoEntidad  TEXT, " +
-                    "horarioEntidad  TEXT, " +
-                    "webEntidad  TEXT" +
-                    ");";
-
-    private final String GEOMETRY_TABLE = "" +
-            "CREATE TABLE geometry (" +
-            "coordinate1 INTEGER, " +
-            "coordinate2 INTEGER, " +
-            "typo TEXT," +
-            "PRIMARY KEY (coordinate1, coordinate2)" +
-            ");";
-
-    private final String LUGAR_TABLE = "" +
-            "CREATE TABLE lugar (" +
-            "id TEXT PRIMARY KEY, " +
-            "title TEXT, " +
-            "direccion TEXT, " +
-            "cp TEXT, " +
-            "provincia TEXT, " +
-            "pais TEXT, " +
-            "telefono TEXT, " +
-            "fax TEXT, " +
-            "mail TEXT, " +
-            "idGeometry1 INTEGER, " +
-            "idGeomtry2 INTEGER, " +
-            "autobuses TEXT" +
-            ");";
-
-    private final String LUGAR_INSCRIPCION_TABLE = "";
-    private final String POBLACION_TABLE = "";
-    private final String REQUEST_TABLE = "";
-    private final String SUBEVENT_TABLE = "";
-    private final String TEMA_TABLE = "";
 
 
     public DatabaseHandler(Context context, String name, CursorFactory factory, int version) {

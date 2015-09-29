@@ -18,16 +18,27 @@ public class ApiManager {
             .setEndpoint(API_URL)
             .build();
 
-    private static final APIService API_SERVICE = REST_ADAPTER.create(APIService.class);
+    private static final APIActos API_SERVICE = REST_ADAPTER.create(APIActos.class);
 
-    public static APIService getApiService() {
+    public static APIActos getApiService() {
         return API_SERVICE;
     }
 
-    public interface APIService {
+    public interface APIActos{
         @Headers("Accept: application/json")
         @GET("/recurso/cultura-ocio/evento-zaragoza?rf=html&results_only=false&srsname=wgs84&rows=1000&q=programa%3D%3Dfiestas%20del%20pilar")
         public void getRequest(Callback<Request> callback);
     }
 
+    public interface APIAlojamiento{
+        @Headers("Accept: application/json")
+        @GET("/recurso/cultura-ocio/evento-zaragoza?rf=html&results_only=false&srsname=wgs84&rows=1000&q=programa%3D%3Dfiestas%20del%20pilar")
+        public void getRequest(Callback<Request> callback);
+    }
+
+    public interface APIRestauracion{
+        @Headers("Accept: application/json")
+        @GET("/recurso/cultura-ocio/evento-zaragoza?rf=html&results_only=false&srsname=wgs84&rows=1000&q=programa%3D%3Dfiestas%20del%20pilar")
+        public void getRequest(Callback<Request> callback);
+    }
 }
