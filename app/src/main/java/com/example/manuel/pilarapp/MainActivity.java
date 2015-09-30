@@ -212,7 +212,7 @@ public class MainActivity extends AppCompatActivity
             });
         }
         final Marker melbourne = map.addMarker(new MarkerOptions()
-                .position(new LatLng(1,1))
+                .position(new LatLng(41.655556011465016,-0.9064338869860967))
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 
         //Place the Map View nearby Zaragoza

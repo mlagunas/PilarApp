@@ -18,12 +18,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     "programa TEXT not NULL, " +
                     "destacada BOOLEAN, " +
                     "web TEXT, " +
-                    "idEntidad INTEGER," +
-                    "idLugarInscripcion INTEGER, " +
-                    "lastUpdated TEXT, " +
-                    "idGeometry1 INTEGER, " +
-                    "idGeomtry2 INTEGER, " +
-                    "diasParaTerminar INTEGER" +
+                    "diasParaTerminar INTEGER, " +
+                    "tipoEntrada INTEGER, " +
                     ");";
 
 
