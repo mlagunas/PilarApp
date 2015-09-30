@@ -1,4 +1,4 @@
-package com.example.manuel.pilarapp;
+package com.example.manuel.pilarapp.Activities;
 
 
 import android.content.Context;
@@ -14,8 +14,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.CompoundButton;
 
+import com.example.manuel.pilarapp.ApiManager;
 import com.example.manuel.pilarapp.Objects.Actos;
 import com.example.manuel.pilarapp.Objects.Request;
+import com.example.manuel.pilarapp.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;

@@ -1,4 +1,4 @@
-package com.example.manuel.pilarapp;
+package com.example.manuel.pilarapp.Activities;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -10,6 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.example.manuel.pilarapp.Fragments.ProgramaFragment;
+import com.example.manuel.pilarapp.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -19,7 +19,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     "destacada BOOLEAN, " +
                     "web TEXT, " +
                     "diasParaTerminar INTEGER, " +
-                    "tipoEntrada INTEGER, " +
+                    "tipoEntrada TEXT, " +
+                    "precioEntrada TEXT" +
                     ");";
 
 
@@ -34,7 +35,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO Auto-generated method stub
 
     }
 

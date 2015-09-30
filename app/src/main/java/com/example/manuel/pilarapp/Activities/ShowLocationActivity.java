@@ -1,4 +1,4 @@
-package com.example.manuel.pilarapp;
+package com.example.manuel.pilarapp.Activities;
 import android.app.Activity;
 import android.content.Context;
 import android.location.Criteria;
@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.manuel.pilarapp.R;
 import com.mikepenz.materialdrawer.DrawerBuilder;
 
 public class ShowLocationActivity extends Activity implements LocationListener {

@@ -1,4 +1,4 @@
-package com.example.manuel.pilarapp;
+package com.example.manuel.pilarapp.Fragments;
 
 import android.support.v4.app.Fragment;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package com.example.manuel.pilarapp;
+package com.example.manuel.pilarapp.Fragments;
 
 
 import android.os.Bundle;
@@ -11,7 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.manuel.pilarapp.ApiManager;
 import com.example.manuel.pilarapp.Objects.Request;
+import com.example.manuel.pilarapp.ProgramaAdapter;
+import com.example.manuel.pilarapp.R;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;

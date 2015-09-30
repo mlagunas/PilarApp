@@ -21,16 +21,16 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".ShowLocationActivity"
+            android:name=".Activities.ShowLocationActivity"
             android:label="@string/title_activity_maps" >
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/MaterialDrawerTheme" >
         </activity>
         <activity
-            android:name=".ProgramaActivity"
+            android:name=".Activities.ProgramaActivity"
             android:label="@string/title_activity_programa"
             android:theme="@style/AppTheme">
             <intent-filter>
