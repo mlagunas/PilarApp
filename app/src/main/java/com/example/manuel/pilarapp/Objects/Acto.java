@@ -720,14 +720,14 @@ public class Acto {
 
     public double getLat(){
         if (geometry != null)
-            return geometry.getCoordinates().get(0);
+            return geometry.getCoordinates().get(1);
         else
             return -1;
     }
 
     public double getLng(){
         if (geometry != null)
-            return geometry.getCoordinates().get(1);
+            return geometry.getCoordinates().get(0);
         else
             return -1;
     }

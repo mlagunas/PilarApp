@@ -52,7 +52,7 @@ public class DaoActos extends DaoBase {
         if (c.moveToFirst()) {
             do {
                 Acto a = new Acto();
-                // do smthing
+                
             } while (c.moveToNext());
         }
         return actos;
