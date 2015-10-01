@@ -15,7 +15,7 @@ import android.view.MenuItem;
 import android.widget.CompoundButton;
 
 import com.example.manuel.pilarapp.ApiManager;
-import com.example.manuel.pilarapp.Objects.Actos;
+import com.example.manuel.pilarapp.Objects.Acto;
 import com.example.manuel.pilarapp.Objects.Request;
 import com.example.manuel.pilarapp.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -201,9 +201,22 @@ public class MainActivity extends AppCompatActivity
 
                     }
 
-                    List<Actos> actos = resultado.getResult();
-                    for (Actos a : actos) {
-
+                    List<Acto> actos = resultado.getResult();
+                    for (Acto acto : actos) {
+                        Log.d("TAG diasTermina",acto.getDiasParaTerminar()+" ");
+                        Log.d("TAG title",acto.getTitle()+" ");
+                        Log.d("TAG description",acto.getDescription()+" ");
+                        Log.d("TAG image",acto.getImage()+" ");
+                        Log.d("TAG entrada",acto.getPrecioEntrada()+" ");
+                        Log.d("TAG startdate",acto.getStartDate()+" ");
+                        Log.d("TAG enddate",acto.getEndDate()+" ");
+                        Log.d("TAG id",acto.getId()+" ");
+                        Log.d("TAG web",acto.getWeb()+" ");
+                        Log.d("TAG prgrama",acto.getPrograma()+" ");
+                        Log.d("TAG destacada",acto.getDestacada()+" ");
+                        Log.d("TAG lat",acto.getLat()+" ");
+                        Log.d("TAG lng",acto.getLng()+" ");
+                        Log.d("TAG tipo ent",acto.getTipoEntrada()+" ");
                     }
                 }
 

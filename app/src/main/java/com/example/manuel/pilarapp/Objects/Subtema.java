@@ -4,7 +4,7 @@ package com.example.manuel.pilarapp.Objects;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Tema {
+public class Subtema {
 
     @SerializedName("id")
     @Expose
@@ -12,27 +12,22 @@ public class Tema {
     @SerializedName("title")
     @Expose
     private String title;
-    @SerializedName("image")
-    @Expose
-    private String image;
 
     /**
      * No args constructor for use in serialization
      * 
      */
-    public Tema() {
+    public Subtema() {
     }
 
     /**
      * 
      * @param id
      * @param title
-     * @param image
      */
-    public Tema(Integer id, String title, String image) {
+    public Subtema(Integer id, String title) {
         this.id = id;
         this.title = title;
-        this.image = image;
     }
 
     /**
@@ -69,24 +64,6 @@ public class Tema {
      */
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    /**
-     * 
-     * @return
-     *     The image
-     */
-    public String getImage() {
-        return image;
-    }
-
-    /**
-     * 
-     * @param image
-     *     The image
-     */
-    public void setImage(String image) {
-        this.image = image;
     }
 
 }

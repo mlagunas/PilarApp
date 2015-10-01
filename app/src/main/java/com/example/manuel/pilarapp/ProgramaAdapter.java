@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.manuel.pilarapp.Objects.Actos;
+import com.example.manuel.pilarapp.Objects.Acto;
 
 import java.util.List;
 
@@ -20,32 +20,32 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
 
     private OnItemClickListener onItemClickListener;
 
-    private SortedList<Actos> mDataset;
+    private SortedList<Acto> mDataset;
 
     private int layoutResource;
 
     public ProgramaAdapter(int layoutResource) {
         this.layoutResource = layoutResource;
-        mDataset = new SortedList<>(Actos.class, new SortedListAdapterCallback<Actos>(this) {
+        mDataset = new SortedList<>(Acto.class, new SortedListAdapterCallback<Acto>(this) {
             // TODO - Complete this class
             @Override
-            public int compare(Actos o1, Actos o2) {
+            public int compare(Acto o1, Acto o2) {
                 return -1;
             }
 
             @Override
-            public boolean areContentsTheSame(Actos oldItem, Actos newItem) {
+            public boolean areContentsTheSame(Acto oldItem, Acto newItem) {
                 return false;
             }
 
             @Override
-            public boolean areItemsTheSame(Actos item1, Actos item2) {
+            public boolean areItemsTheSame(Acto item1, Acto item2) {
                 return false;
             }
         });
     }
 
-    public void setData(List<Actos> updates) {
+    public void setData(List<Acto> updates) {
         if (updates != null && !updates.isEmpty()) {
             mDataset.beginBatchedUpdates();
             mDataset.addAll(updates);
@@ -66,7 +66,7 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // Get elements from dataset
-        Actos acto = mDataset.get(position);
+        Acto acto = mDataset.get(position);
 
         // Save position in tag and set onClickListener
         holder.root.setTag(acto);
@@ -91,7 +91,7 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
         return mDataset != null ? mDataset.size() : 0;
     }
 
-    public Actos getItem(int position) {
+    public Acto getItem(int position) {
         if (mDataset == null || mDataset.size() == 0) {
             return null;
         } else {
@@ -102,7 +102,7 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
     @Override
     public void onClick(View v) {
         if (onItemClickListener != null) {
-            onItemClickListener.onItemClick(v, (Actos) v.getTag());
+            onItemClickListener.onItemClick(v, (Acto) v.getTag());
         }
     }
 
@@ -111,7 +111,7 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View v, Actos actos);
+        void onItemClick(View v, Acto acto);
     }
 
     // Provide a reference to the views for each data item

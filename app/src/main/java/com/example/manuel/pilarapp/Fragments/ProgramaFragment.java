@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 
 import com.example.manuel.pilarapp.Activities.DetallesActivity;
 import com.example.manuel.pilarapp.ApiManager;
-import com.example.manuel.pilarapp.Objects.Actos;
+import com.example.manuel.pilarapp.Objects.Acto;
 import com.example.manuel.pilarapp.Objects.Request;
 import com.example.manuel.pilarapp.ProgramaAdapter;
 import com.example.manuel.pilarapp.R;
@@ -98,9 +98,9 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
     }
 
     @Override
-    public void onItemClick(View v, Actos actos) {
+    public void onItemClick(View v, Acto acto) {
         Intent i = new Intent(getActivity(), DetallesActivity.class);
-        i.putExtra("id", actos.getId());
+        i.putExtra("id", acto.getId());
         startActivity(i);
     }
 }

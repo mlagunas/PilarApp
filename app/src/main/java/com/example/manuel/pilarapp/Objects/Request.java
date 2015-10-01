@@ -1,6 +1,6 @@
 package com.example.manuel.pilarapp.Objects;
 
-import com.example.manuel.pilarapp.Objects.Actos;
+import com.example.manuel.pilarapp.Objects.Acto;
 
 import java.util.List;
 
@@ -12,7 +12,7 @@ public class Request {
     private Integer totalCount;
     private Integer start;
     private Integer rows;
-    private List<Actos> result;
+    private List<Acto> result;
 
     public Integer getTotalCount() {
         return totalCount;
@@ -38,15 +38,15 @@ public class Request {
         this.rows = rows;
     }
 
-    public List<Actos> getResult() {
+    public List<Acto> getResult() {
         return result;
     }
 
-    public void setResult(List<Actos> result) {
+    public void setResult(List<Acto> result) {
         this.result = result;
     }
 
-    public Request(Integer totalCount, int start, int rows, List<Actos> result) {
+    public Request(Integer totalCount, int start, int rows, List<Acto> result) {
         this.totalCount = totalCount;
         this.start = start;
         this.rows = rows;

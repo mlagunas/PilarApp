@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.manuel.pilarapp.ApiManager;
-import com.example.manuel.pilarapp.Objects.Actos;
+import com.example.manuel.pilarapp.Objects.Acto;
 import com.example.manuel.pilarapp.R;
 
 import retrofit.Callback;
@@ -23,7 +24,7 @@ import retrofit.client.Response;
 
 public class DetallesActivity extends AppCompatActivity {
 
-    private Actos mActo;
+    private Acto mActo;
 
     private ImageView headerView;
     private TextView titleView;
@@ -67,14 +68,29 @@ public class DetallesActivity extends AppCompatActivity {
     }
 
     private void requestActo(int id) {
-        ApiManager.getApiService().getActo(id, new Callback<Actos>() {
+        ApiManager.getApiService().getActo(id, new Callback<Acto>() {
             @Override
-            public void success(Actos acto, Response response) {
+            public void success(Acto acto, Response response) {
                 mActo = acto;
                 titleView.setText(acto.getTitle());
 //                if (acto.getPrograma() != null) {
 //                    subtitleView.setText(acto.getPrograma());
 //                }
+                Log.d("TAG",acto.getDiasParaTerminar()+" ");
+                Log.d("TAG",acto.getTitle()+" ");
+                Log.d("TAG",acto.getDescription()+" ");
+                Log.d("TAG",acto.getImage()+" ");
+                Log.d("TAG",acto.getPrecioEntrada()+" ");
+                Log.d("TAG",acto.getStartDate().toString()+" ");
+                Log.d("TAG",acto.getEndDate().toString()+" ");
+                Log.d("TAG",acto.getId()+" ");
+                Log.d("TAG",acto.getWeb()+" ");
+                Log.d("TAG",acto.getPrograma()+" ");
+                Log.d("TAG",acto.getDestacada()+" ");
+                Log.d("TAG",acto.getLat()+" ");
+                Log.d("TAG",acto.getLng()+" ");
+                Log.d("TAG",acto.getTipoEntrada()+" ");
+
                 if (acto.getDescription() != null) {
                     contentView.setText(Html.fromHtml(acto.getDescription()));
                 }

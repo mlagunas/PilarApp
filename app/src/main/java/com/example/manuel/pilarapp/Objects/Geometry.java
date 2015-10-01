@@ -2,21 +2,31 @@ package com.example.manuel.pilarapp.Objects;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
-/**
- * Created by Manuel on 20/09/2015.
- */
-public class Geometry_ {
+public class Geometry {
 
+    @SerializedName("type")
+    @Expose
     private String type;
-    private List<Float> coordinates = new ArrayList<Float>();
+    @SerializedName("coordinates")
+    @Expose
+    private List<Double> coordinates = new ArrayList<Double>();
+
+    /**
+     * No args constructor for use in serialization
+     *
+     */
+    public Geometry() {
+    }
 
     /**
      *
      * @param type
      * @param coordinates
      */
-    public Geometry_(String type, List<Float> coordinates) {
+    public Geometry(String type, List<Double> coordinates) {
         this.type = type;
         this.coordinates = coordinates;
     }
@@ -44,7 +54,7 @@ public class Geometry_ {
      * @return
      * The coordinates
      */
-    public List<Float> getCoordinates() {
+    public List<Double> getCoordinates() {
         return coordinates;
     }
 
@@ -53,7 +63,8 @@ public class Geometry_ {
      * @param coordinates
      * The coordinates
      */
-    public void setCoordinates(List<Float> coordinates) {
+    public void setCoordinates(List<Double> coordinates) {
         this.coordinates = coordinates;
     }
+
 }

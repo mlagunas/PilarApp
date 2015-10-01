@@ -2,7 +2,7 @@ package com.example.manuel.pilarapp.Database;
 
 import android.content.Context;
 
-import com.example.manuel.pilarapp.Objects.Actos;
+import com.example.manuel.pilarapp.Objects.Acto;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -32,26 +32,26 @@ public class DaoActos extends DaoBase {
         this.context = pContext;
     }
 
-    public List<Actos> getActos()
+    public List<Acto> getActos()
     {
-        ArrayList<Actos> actos = new ArrayList<Actos>();
+        ArrayList<Acto> actos = new ArrayList<Acto>();
         c = super.mDb.rawQuery("", null);
         if (c.moveToFirst()) {
             do {
-                Actos a = new Actos();
+                Acto a = new Acto();
                 // do smthing
             } while (c.moveToNext());
         }
         return actos;
     }
 
-    public List<Actos> getActos(Date date)
+    public List<Acto> getActos(Date date)
     {
-        ArrayList<Actos> actos = new ArrayList<Actos>();
+        ArrayList<Acto> actos = new ArrayList<Acto>();
         c = super.mDb.rawQuery("", null);
         if (c.moveToFirst()) {
             do {
-                Actos a = new Actos();
+                Acto a = new Acto();
                 // do smthing
             } while (c.moveToNext());
         }
