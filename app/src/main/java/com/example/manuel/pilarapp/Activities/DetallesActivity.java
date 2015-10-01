@@ -44,27 +44,8 @@ public class DetallesActivity extends AppCompatActivity {
         subtitleView = (TextView) findViewById(R.id.subtitle);
         contentView = (TextView) findViewById(R.id.content);
 
-        // TODO - Cargar imagen dinamicamente y no esto
-        Glide.with(this)
-                .load("https://maps.googleapis.com/maps/api/staticmap?center=41.6564447,-0.878618&zoom=17&size=720x400")
-                .into(headerView);
-
-        headerView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // TODO - Cargar posicion dinamicamente
-                Uri gmmIntentUri = Uri.parse("geo:41.6564447,-0.878618?z=17");
-                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                if (mapIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(mapIntent);
-                }
-            }
-        });
-
         int id = getIntent().getIntExtra("id", 0);
         requestActo(id);
-
     }
 
     private void requestActo(int id) {
@@ -76,29 +57,49 @@ public class DetallesActivity extends AppCompatActivity {
 //                if (acto.getPrograma() != null) {
 //                    subtitleView.setText(acto.getPrograma());
 //                }
-                Log.d("TAG",acto.getDiasParaTerminar()+" ");
-                Log.d("TAG",acto.getTitle()+" ");
-                Log.d("TAG",acto.getDescription()+" ");
-                Log.d("TAG",acto.getImage()+" ");
-                Log.d("TAG",acto.getPrecioEntrada()+" ");
-                Log.d("TAG",acto.getStartDate().toString()+" ");
-                Log.d("TAG",acto.getEndDate().toString()+" ");
-                Log.d("TAG",acto.getId()+" ");
-                Log.d("TAG",acto.getWeb()+" ");
-                Log.d("TAG",acto.getPrograma()+" ");
-                Log.d("TAG",acto.getDestacada()+" ");
-                Log.d("TAG",acto.getLat()+" ");
-                Log.d("TAG",acto.getLng()+" ");
-                Log.d("TAG",acto.getTipoEntrada()+" ");
+                Log.d("TAG", acto.getDiasParaTerminar() + " ");
+                Log.d("TAG", acto.getTitle() + " ");
+                Log.d("TAG", acto.getDescription() + " ");
+                Log.d("TAG", acto.getImage() + " ");
+                Log.d("TAG", acto.getPrecioEntrada() + " ");
+                Log.d("TAG", acto.getStartDate().toString() + " ");
+                Log.d("TAG", acto.getEndDate().toString() + " ");
+                Log.d("TAG", acto.getId() + " ");
+                Log.d("TAG", acto.getWeb() + " ");
+                Log.d("TAG", acto.getPrograma() + " ");
+                Log.d("TAG", acto.getDestacada() + " ");
+                Log.d("TAG", acto.getLat() + " ");
+                Log.d("TAG", acto.getLng() + " ");
+                Log.d("TAG", acto.getTipoEntrada() + " ");
 
                 if (acto.getDescription() != null) {
                     contentView.setText(Html.fromHtml(acto.getDescription()));
                 }
+                setupHeaderImage(acto.getLat(), acto.getLng());
             }
 
             @Override
             public void failure(RetrofitError error) {
 
+            }
+        });
+    }
+
+    private void setupHeaderImage(final double lat, final double lng) {
+        //TODO - Tamaño de la imagen dinamico
+        Glide.with(this)
+                .load("https://maps.googleapis.com/maps/api/staticmap?center="+lng+","+lat+"&zoom=17&size=720x400")
+                .into(headerView);
+
+        headerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Uri gmmIntentUri = Uri.parse("geo:"+lng+","+lat+"+?z=17");
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(mapIntent);
+                }
             }
         });
     }
@@ -118,16 +119,11 @@ public class DetallesActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }
