@@ -39,7 +39,7 @@ public class ApiManager {
         public void getRequest(@Query("q") String fecha, Callback<Request> callback);
 
         @Headers("Accept: application/json")
-        @GET("/recurso/cultura-ocio/evento-zaragoza/{id}")
+        @GET("/recurso/cultura-ocio/evento-zaragoza/{id}?srsname=wgs84")
         public void getActo(@Path("id") int id, Callback<Acto> callback);
     }
 }
