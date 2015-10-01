@@ -3,6 +3,7 @@ package com.example.manuel.pilarapp;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.util.SortedListAdapterCallback;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,9 +46,11 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
     }
 
     public void setData(List<Actos> updates) {
-        mDataset.beginBatchedUpdates();
-        mDataset.addAll(updates);
-        mDataset.endBatchedUpdates();
+        if (updates != null && !updates.isEmpty()) {
+            mDataset.beginBatchedUpdates();
+            mDataset.addAll(updates);
+            mDataset.endBatchedUpdates();
+        }
     }
 
     // Create new views (invoked by the layout manager)
@@ -63,21 +66,23 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // Get elements from dataset
-        Actos actos = mDataset.get(position);
+        Actos acto = mDataset.get(position);
 
         // Save position in tag and set onClickListener
-        holder.root.setTag(actos);
+        holder.root.setTag(acto);
         holder.root.setOnClickListener(this);
 
         // Replace contents of the view
-        holder.primaryText.setText(actos.getTitle());
-        holder.secondaryText.setText(actos.getStartDate());
-        //holder.secondaryText.setText(DateUtils.getRelativeDateTimeString(App.getContext(), actos.getPublishedTime().getTime(), DateUtils.HOUR_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
-        //holder.secondaryText.setText(DateUtils.formatDateTime(App.getContext(), actos.getPublishedTime().getTime(), 0));
-        //holder.secondaryText.setText(actos.getPublishedTime());
-        if (holder.support != null) {
-            holder.support.setText(actos.getDescription());
+        holder.primaryText.setText(acto.getTitle());
+        if (acto.getDescription() != null) {
+            holder.secondaryText.setText(Html.fromHtml(acto.getDescription()));
         }
+        //holder.secondaryText.setText(DateUtils.getRelativeDateTimeString(App.getContext(), acto.getPublishedTime().getTime(), DateUtils.HOUR_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
+        //holder.secondaryText.setText(DateUtils.formatDateTime(App.getContext(), acto.getPublishedTime().getTime(), 0));
+        //holder.secondaryText.setText(acto.getPublishedTime());
+//        if (holder.support != null) {
+//            holder.support.setText(acto.getPrograma());
+//        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -106,7 +111,7 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
     }
 
     public interface OnItemClickListener {
-        void onItemClick(View v, Actos packageInfo);
+        void onItemClick(View v, Actos actos);
     }
 
     // Provide a reference to the views for each data item
@@ -122,7 +127,7 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
             root = v.findViewById(R.id.root);
             primaryText = (TextView) v.findViewById(R.id.textPrimary);
             secondaryText = (TextView) v.findViewById(R.id.textSecondary);
-            support = (TextView) v.findViewById(R.id.support);
+            //support = (TextView) v.findViewById(R.id.support);
         }
     }
 

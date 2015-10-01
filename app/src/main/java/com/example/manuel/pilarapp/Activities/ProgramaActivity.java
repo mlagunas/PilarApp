@@ -14,10 +14,16 @@ import android.view.MenuItem;
 import com.example.manuel.pilarapp.Fragments.ProgramaFragment;
 import com.example.manuel.pilarapp.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ProgramaActivity extends AppCompatActivity {
+
+    public static final long COMIENZO_PILAR = 1444392000000L; // 9 de octubre a las 12 del mediodía
+    public static final long FINAL_PILAR = 1445169600000L; // 18 de octubre a las 12 del mediodía
+    public static final long DIA_EN_MS = 86400000L;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,15 +42,15 @@ public class ProgramaActivity extends AppCompatActivity {
 
     private void setupViewPager(ViewPager viewPager) {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
-        adapter.addFragment(new ProgramaFragment(), "Martes 14");
-        adapter.addFragment(new ProgramaFragment(), "Miércoles 15");
-        adapter.addFragment(new ProgramaFragment(), "Jueves 16");
-        adapter.addFragment(new ProgramaFragment(), "Viernes 17");
-        adapter.addFragment(new ProgramaFragment(), "Sábado 18");
-        adapter.addFragment(new ProgramaFragment(), "Domingo 19");
-        adapter.addFragment(new ProgramaFragment(), "Lunes 20");
-
+        for (long l = COMIENZO_PILAR; l <= FINAL_PILAR; l += DIA_EN_MS) {
+            adapter.addFragment(ProgramaFragment.newInstance(l), getTabTitle(l));
+        }
         viewPager.setAdapter(adapter);
+    }
+
+    private String getTabTitle(long l) {
+        SimpleDateFormat sdf = new SimpleDateFormat("cccc d");
+        return sdf.format(new Date(l));
     }
 
 
