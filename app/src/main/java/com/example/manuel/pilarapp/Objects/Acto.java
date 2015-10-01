@@ -1,6 +1,10 @@
 
 package com.example.manuel.pilarapp.Objects;
 
+
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -102,6 +106,9 @@ public class Acto {
     @SerializedName("endDate")
     @Expose
     private Date endDate;
+
+    private double lat;
+    private double lng;
 
     /**
      * No args constructor for use in serialization
@@ -710,6 +717,10 @@ public class Acto {
         this.startDate = startDate;
     }
 
+    public void setStartDate(String date){
+        this.startDate = parseDate(date);
+    }
+
     public Date getEndDate() {
         return endDate;
     }
@@ -718,17 +729,51 @@ public class Acto {
         this.endDate = endDate;
     }
 
-    public double getLat(){
-        if (geometry != null)
-            return geometry.getCoordinates().get(1);
-        else
-            return -1;
+    public void setEndDate(String date){
+        this.endDate = parseDate(date);
     }
 
-    public double getLng(){
-        if (geometry != null)
-            return geometry.getCoordinates().get(0);
+    public double getLng(Boolean db) {
+        if (db)
+            return lng;
         else
-            return -1;
+        if(geometry != null)
+        {
+            lng = geometry.getCoordinates().get(1);
+            return lng;
+        }
+        else return -1;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public double getLat(Boolean db){
+        if (db)
+            return lat;
+        else
+            if(geometry != null) {
+                lat = geometry.getCoordinates().get(0);
+                return lat;
+            }
+        else return -1;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    private Date parseDate(String date){
+        Date parsed = new Date();
+        try {
+            SimpleDateFormat format =
+                    new SimpleDateFormat("yyyy-mm-dd"); //EEE MMM dd HH:mm:ss zzz yyyy
+            parsed = format.parse(date);
+        }
+        catch(ParseException pe) {
+            throw new IllegalArgumentException();
+        }
+        return parsed;
     }
 }

@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.widget.CompoundButton;
 
 import com.example.manuel.pilarapp.ApiManager;
+import com.example.manuel.pilarapp.Database.DaoActos;
 import com.example.manuel.pilarapp.Objects.Acto;
 import com.example.manuel.pilarapp.Objects.Request;
 import com.example.manuel.pilarapp.R;
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity
     private Drawer result = null;
     static final LatLng MELBOURNE = new LatLng(-0.8901245089344004, 41.65140964533784);
     private Toolbar toolbar;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +75,7 @@ public class MainActivity extends AppCompatActivity
         MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
+        this.context = this;
         Toolbar toolbar = (Toolbar) findViewById(R.id.my_awesome_toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -185,7 +187,7 @@ public class MainActivity extends AppCompatActivity
 
         double longitude = -1;
         double latitude = -1;
-
+        final DaoActos DA = new DaoActos(context);
         ConnectivityManager cm =
                 (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -202,21 +204,9 @@ public class MainActivity extends AppCompatActivity
                     }
 
                     List<Acto> actos = resultado.getResult();
+                    DA.fillDB(actos);
                     for (Acto acto : actos) {
-                        Log.d("TAG diasTermina",acto.getDiasParaTerminar()+" ");
-                        Log.d("TAG title",acto.getTitle()+" ");
-                        Log.d("TAG description",acto.getDescription()+" ");
-                        Log.d("TAG image",acto.getImage()+" ");
-                        Log.d("TAG entrada",acto.getPrecioEntrada()+" ");
-                        Log.d("TAG startdate",acto.getStartDate()+" ");
-                        Log.d("TAG enddate",acto.getEndDate()+" ");
-                        Log.d("TAG id",acto.getId()+" ");
-                        Log.d("TAG web",acto.getWeb()+" ");
-                        Log.d("TAG prgrama",acto.getPrograma()+" ");
-                        Log.d("TAG destacada",acto.getDestacada()+" ");
-                        Log.d("TAG lat",acto.getLat()+" ");
-                        Log.d("TAG lng",acto.getLng()+" ");
-                        Log.d("TAG tipo ent",acto.getTipoEntrada()+" ");
+
                     }
                 }
 

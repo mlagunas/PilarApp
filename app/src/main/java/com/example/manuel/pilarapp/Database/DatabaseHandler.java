@@ -10,8 +10,8 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    private final String ACTOS_TABLE =
-            "CREATE TABLE Actos (" +
+    private final String INFO_TABLE =
+            "CREATE TABLE info (" +
                     "id     INTEGER PRIMARY KEY, " +
                     "title  TEXT not NUll, " +
                     "description TEXT not NULL, " +
@@ -20,7 +20,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     "web TEXT, " +
                     "diasParaTerminar INTEGER, " +
                     "tipoEntrada TEXT, " +
-                    "precioEntrada TEXT" +
+                    "precioEntrada TEXT, " +
+                    "startDate TEXT, " +
+                    "endDate TEXT," +
+                    "lat DOUBLE," +
+                    "lng DOUBLE " +
                     ");";
 
 
@@ -28,9 +32,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public DatabaseHandler(Context context, String name, CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
-
+        db.execSQL(INFO_TABLE);
     }
 
     @Override
