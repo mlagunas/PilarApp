@@ -4,6 +4,7 @@ import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.util.SortedListAdapterCallback;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +47,7 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
     }
 
     public void setData(List<Acto> updates) {
+        Log.d("TAG actos", updates.size()+" ");
         if (updates != null && !updates.isEmpty()) {
             mDataset.beginBatchedUpdates();
             mDataset.addAll(updates);

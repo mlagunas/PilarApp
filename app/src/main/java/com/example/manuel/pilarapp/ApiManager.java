@@ -19,7 +19,7 @@ public class ApiManager {
 
     private static final RestAdapter REST_ADAPTER = new RestAdapter.Builder()
             .setEndpoint(API_URL)
-            .setLogLevel(RestAdapter.LogLevel.FULL)
+            .setLogLevel(RestAdapter.LogLevel.NONE)
             .build();
 
     private static final APIActos API_SERVICE = REST_ADAPTER.create(APIActos.class);
@@ -33,6 +33,10 @@ public class ApiManager {
         @Headers("Accept: application/json")
         @GET("/recurso/cultura-ocio/evento-zaragoza?rf=html&results_only=false&srsname=wgs84&rows=1000&q=programa%3D%3Dfiestas%20del%20pilar")
         public void getRequest(Callback<Request> callback);
+
+        @Headers("Accept: application/json")
+        @GET("/recurso/cultura-ocio/evento-zaragoza?rf=html&results_only=false&srsname=utm30n&rows=1")
+        public void getHeaders(Callback<Request> callback);
 
         @Headers("Accept: application/json")
         @GET("/recurso/cultura-ocio/evento-zaragoza?rf=html&results_only=false&srsname=wgs84&rows=1000")

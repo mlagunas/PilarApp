@@ -41,14 +41,13 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
     private Boolean connection;
     private static NetworkInfo activeNetwork;
     private static ConnectivityManager cm;
+    private DaoActos DA;
 
     public static ProgramaFragment newInstance(long dia) {
         ProgramaFragment fragment = new ProgramaFragment();
         Bundle args = new Bundle();
         args.putLong(ARG_DIA, dia);
         fragment.setArguments(args);
-
-
 
         return fragment;
     }
@@ -60,10 +59,56 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        this.DA = new DaoActos(this.getContext());
         cm = (ConnectivityManager)this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         activeNetwork = cm.getActiveNetworkInfo();
+
         if (getArguments() != null) {
             mDia = getArguments().getLong(ARG_DIA);
+        }
+
+
+    }
+
+    private void checkDB(){
+        //Check if DB update needed
+        if(activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
+            Log.d("TAG", "Checking connection");
+            ApiManager.getApiService().getHeaders(new Callback<Request>() {
+                @Override
+                public void success(Request request, Response response) {
+
+                    //Update de la BD en caso de que haya sido modificada
+                    Log.d("TAG","Updating DB if needed");
+                    List<Header> headerList = response.getHeaders();
+                    for (Header header : headerList) {
+                        Log.d("TAG header", header.toString());
+                        if (header.toString().contains("Last-Modified:")) {
+                            if (header.toString().substring(14, header.toString().length())
+                                    != "/*VALOR DE PREFERENCES*/") {
+                                ApiManager.getApiService().getRequest(new Callback<Request>() {
+                                    @Override
+                                    public void success(Request request, Response response) {
+                                        DA.truncateDB();
+                                        DA.fillDB(request.getResult(), false);
+                                    }
+                                    @Override
+                                    public void failure(RetrofitError error) {
+
+                                    }
+                                });
+                            }
+                        }
+                        break;
+                    }
+                }
+                @Override
+                public void failure(RetrofitError error) {
+                    Log.d("TAG", "Request fallida");
+                    Snackbar.make(mRecyclerView, "Error de conexión", Snackbar.LENGTH_LONG).show();
+                }
+            });
         }
     }
 
@@ -73,6 +118,7 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
         mRecyclerView = (RecyclerView) inflater.inflate(
                 R.layout.fragment_programa, container, false);
         setupRecyclerView(mRecyclerView);
+        checkDB();
         return mRecyclerView;
     }
 
@@ -93,25 +139,11 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
         if(activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
             Log.d("TAG", "Request iniciada");
             ApiManager.getApiService().getRequest(getRequestQuery(mDia), new Callback<Request>() {
+
                 @Override
                 public void success(Request request, Response response) {
-
-                    //Update de la BD en caso de que haya sido modificada
-                    List<Header> headerList = response.getHeaders();
-                    for (Header header : headerList) {
-                        if (header.toString().regionMatches(0,"Last-Modified:",0,14)){
-                            if ( header.toString().substring(14,header.toString().length())
-                                    != "/*VALOR DE PREFERENCES*/"){
-                                DaoActos DA = new DaoActos(getContext());
-                                DA.truncateDB();;
-                                DA.fillDB(request.getResult());
-                            }
-                            Log.d("TAG header", header.toString());
-                        }
-                    }
-                    Log.d("TAG", "Request completada");
+                    Log.d("TAG", "Request completada" + request.getResult().size());
                     mAdapter.setData(request.getResult());
-
                 }
 
                 @Override
@@ -122,8 +154,8 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
             });
         }
         else {
-            Log.d("TAG BD","GETDATOS DESDE BD");
-            mAdapter.setData(new DaoActos(getContext()).getActos());
+            Log.d("TAG BD","GET_DATOS DESDE BD");
+            mAdapter.setData(DA.getActos(new Date(mDia)));
         }
     }
 
@@ -134,6 +166,7 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
 
     @Override
     public void onItemClick(View v, Acto acto) {
+        if (acto != null) Log.d("TAG acto","not null");
         Intent i = new Intent(getActivity(), DetallesActivity.class);
         i.putExtra("id", acto.getId());
         startActivity(i);

@@ -110,6 +110,12 @@ public class Acto {
     private double lat;
     private double lng;
 
+    private String tema;
+    private String subtema;
+
+    private String horaInicio;
+    private String horaFinal;
+
     /**
      * No args constructor for use in serialization
      * 
@@ -736,13 +742,12 @@ public class Acto {
     public double getLng(Boolean db) {
         if (db)
             return lng;
-        else
-        if(geometry != null)
-        {
-            lng = geometry.getCoordinates().get(1);
-            return lng;
+        else {
+            if (geometry != null) {
+                lng = geometry.getCoordinates().get(1);
+                return lng;
+            } else return -1;
         }
-        else return -1;
     }
 
     public void setLng(double lng) {
@@ -752,12 +757,12 @@ public class Acto {
     public double getLat(Boolean db){
         if (db)
             return lat;
-        else
-            if(geometry != null) {
+        else {
+            if (geometry != null) {
                 lat = geometry.getCoordinates().get(0);
                 return lat;
-            }
-        else return -1;
+            } else return -1;
+        }
     }
 
     public void setLat(double lat) {
@@ -775,5 +780,70 @@ public class Acto {
             throw new IllegalArgumentException();
         }
         return parsed;
+    }
+
+    public String getTema(Boolean db) {
+        if (db){
+            return tema;
+        }
+        else{
+            if (temas.size() > 0) {
+                tema = temas.get(0).getTitle();
+                return tema;
+            }else return "";
+        }
+
+    }
+
+    public void setTema(String tema) {
+        this.tema = tema;
+    }
+
+    public String getSubtema(Boolean db) {
+        if (db){
+            return subtema;
+        }
+        else{
+            if (subtemas.size() > 0) {
+                subtema = subtemas.get(0).getTitle();
+                return subtema;
+            }else return "";
+        }
+    }
+
+    public void setSubtema(String subtema) {
+        this.subtema = subtema;
+    }
+
+    public String getHoraInicio(Boolean db) {
+        if (db){
+            return horaInicio;
+        }
+        else{
+            if (subEvent.size()>0) {
+                horaInicio =  subEvent.get(0).getHoraInicio();
+                return horaInicio;
+            }else return "";
+        }
+    }
+
+    public void setHoraInicio(String horaInicio) {
+        this.horaInicio = horaInicio;
+    }
+
+    public String getHoraFinal(Boolean db) {
+        if (db){
+            return horaFinal;
+        }
+        else{
+            if (subEvent.size() > 0) {
+                horaFinal =  subEvent.get(0).getHoraFinal();
+                return horaFinal;
+            }else return "";
+        }
+    }
+
+    public void setHoraFinal(String horaFinal) {
+        this.horaFinal = horaFinal;
     }
 }

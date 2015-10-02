@@ -1,6 +1,8 @@
 package com.example.manuel.pilarapp.Database;
 
 import android.content.Context;
+import android.text.Html;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.manuel.pilarapp.Objects.Acto;
@@ -16,7 +18,21 @@ import java.util.List;
 public class DaoActos extends DaoBase {
 
     private Context context;
-
+    private final String INFO_TABLE = "CREATE TABLE info (" +
+                                        "id     INTEGER PRIMARY KEY, " +
+                                        "title  TEXT not NUll, " +
+                                        "description TEXT not NULL, " +
+                                        "programa TEXT not NULL, " +
+                                        "destacada BOOLEAN, " +
+                                        "web TEXT, " +
+                                        "diasParaTerminar INTEGER, " +
+                                        "tipoEntrada TEXT, " +
+                                        "precioEntrada TEXT, " +
+                                        "startDate TEXT, " +
+                                        "endDate TEXT," +
+                                        "lat DOUBLE," +
+                                        "lng DOUBLE " +
+                                        ");";
     private int id;
     private String title;
     private String description;
@@ -47,8 +63,8 @@ public class DaoActos extends DaoBase {
 
     public List<Acto> getActos(Date date){
         ArrayList<Acto> actos = new ArrayList<Acto>();
-        c = super.mDb.rawQuery("SELECT * FROM info" +
-                                "WHERE campofecha LIKE %"+new SimpleDateFormat("yyyy-MM-dd").format(date)+"%;", null);
+        c = super.mDb.rawQuery("SELECT * FROM info " +
+                                "WHERE startDate LIKE '%"+new SimpleDateFormat("yyyy-MM-dd").format(date)+"%';", null);
         if (c.moveToFirst()) {
             do {
                 actos.add(fillActo());
@@ -58,7 +74,8 @@ public class DaoActos extends DaoBase {
     }
 
     public Acto getActo(int i){
-        c = super.mDb.rawQuery("SELECT * FROM info" +
+        Log.d("TAG id",id + " ");
+        c = super.mDb.rawQuery("SELECT * FROM info " +
                                 "WHERE id = "+id+";", null);
         if (c.moveToFirst()) {
             do {
@@ -81,21 +98,32 @@ public class DaoActos extends DaoBase {
         a.setPrecioEntrada(c.getString(8));
         a.setStartDate(c.getString(9));
         a.setEndDate(c.getString(10));
-        a.setLat(c.getDouble(11));
+        a.setHoraInicio(c.getString(11));
+        a.setHoraFinal(c.getString(12));
+        a.setTema(c.getString(13));
+        a.setSubtema(c.getString(14));
+        a.setLat(c.getDouble(15));
+        a.setLng(c.getDouble(16));
         return a;
     }
 
-    public void fillDB(List<Acto> actos){
+    public void fillDB(List<Acto> actos, Boolean db){
      for(Acto a: actos){
          String startd = null;
-         if (a.getStartDate()!= null){
-             startd = new SimpleDateFormat("yyyy-MM-dd").format(a.getStartDate());
-         }
+         String endd = null;
+         int destacada = -1;
+
+         if (a.getStartDate()!= null)startd = new SimpleDateFormat("yyyy-MM-dd").format(a.getStartDate());
+         if (a.getStartDate()!= null)endd = new SimpleDateFormat("yyyy-MM-dd").format(a.getEndDate());
+
+         if(a.getDestacada())destacada = 1;
+         else destacada = 0;
+
          String consulta = "INSERT INTO info " +
                  "(" +
                  "id, " +
                  "title, " +
-                 "description," +
+                 "description, " +
                  "programa, " +
                  "destacada, " +
                  "web, " +
@@ -104,25 +132,34 @@ public class DaoActos extends DaoBase {
                  "precioEntrada, " +
                  "startDate, " +
                  "endDate, " +
+                 "horaInicio, " +
+                 "horaFinal, " +
+                 "tema, " +
+                 "subtema, " +
                  "lat, " +
-                 "lng) " +
+                 "lng" +
+                 ") " +
                  "VALUES (" +
                  a.getId() +", '" +
-                 formatSQL(a.getTitle()) +"', '" +
-                 formatSQL(a.getDescription()) +"', '" +
-                 formatSQL(a.getPrograma()) +"', " +
-                 a.getDestacada() +", '" +
-                 formatSQL(a.getWeb()) +"', " +
-                 a.getDiasParaTerminar() +", '" +
-                 formatSQL(a.getTipoEntrada()) +"', '" +
+                 formatSQL(a.getTitle()) +"',' " +
+                 formatSQL(a.getDescription()) +"','" +
+                 a.getPrograma() +"', " +
+                 destacada +", '" +
+                 formatSQL(a.getWeb()) +"' ," +
+                 a.getDiasParaTerminar() +" ,'" +
+                 formatSQL(a.getTipoEntrada()) +"','" +
                  formatSQL(a.getPrecioEntrada()) +"', '" +
                  formatSQL(startd) +"', '" +
-                 formatSQL(new SimpleDateFormat("yyyy-MM-dd").format(a.getEndDate())) +"', " +
-                 a.getLat(true) + ", " +
-                 a.getLng(true) + " " +
+                 formatSQL(endd) +"', '" +
+                 formatSQL(a.getHoraInicio(db)) +"', '" +
+                 formatSQL(a.getHoraFinal(db))+"', '" +
+                 formatSQL(a.getTema(db))+"', '" +
+                 formatSQL(a.getSubtema(db))+"', "+
+                 a.getLat(db) + ", " +
+                 a.getLng(db) + " " +
                  ");";
          Log.d("TAG consulta", consulta);
-         //mDb.execSQL(consulta);
+         mDb.execSQL(consulta);
      }
     }
 
@@ -131,7 +168,8 @@ public class DaoActos extends DaoBase {
         if(s != null){
             for(int i = 0; i<s.length(); i++){
                 if(s.charAt(i)==42){
-                    aux +="''";
+                    aux += "\\";
+                    aux += s.charAt(i);
                 }
                 else{
                     aux+=s.charAt(i);

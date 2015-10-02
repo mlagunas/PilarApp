@@ -12,19 +12,23 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     private final String INFO_TABLE =
             "CREATE TABLE info (" +
-                    "id     INTEGER PRIMARY KEY, " +
-                    "title  TEXT not NUll, " +
-                    "description TEXT not NULL, " +
-                    "programa TEXT not NULL, " +
-                    "destacada BOOLEAN, " +
-                    "web TEXT, " +
-                    "diasParaTerminar INTEGER, " +
-                    "tipoEntrada TEXT, " +
-                    "precioEntrada TEXT, " +
-                    "startDate TEXT, " +
-                    "endDate TEXT," +
-                    "lat DOUBLE," +
-                    "lng DOUBLE " +
+                    "id     INTEGER PRIMARY KEY, " +    //1
+                    "title  TEXT not NUll, " +          //2
+                    "description TEXT, " +              //3
+                    "programa TEXT, " +                 //4
+                    "destacada BOOLEAN, " +             //5
+                    "web TEXT, " +                      //6
+                    "diasParaTerminar INTEGER, " +      //7
+                    "tipoEntrada TEXT, " +              //8
+                    "precioEntrada TEXT, " +            //9
+                    "startDate TEXT, " +                //10
+                    "endDate TEXT," +                   //11
+                    "horaInicio TEXT, " +               //12
+                    "horaFinal TEXT, " +                //13
+                    "tema TEXT, " +                     //14
+                    "subTema TEXT, " +                  //15
+                    "lat DOUBLE, " +                    //16
+                    "lng DOUBLE " +                     //17
                     ");";
 
 

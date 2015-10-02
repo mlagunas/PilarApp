@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity
                     }
 
                     List<Acto> actos = resultado.getResult();
-                    DA.fillDB(actos);
+                    //DA.fillDB(actos);
                     for (Acto acto : actos) {
 
                     }

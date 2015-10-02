@@ -38,6 +38,7 @@ public class DetallesActivity extends AppCompatActivity {
     private TextView titleView;
     private TextView subtitleView;
     private TextView contentView;
+    private DaoActos DA;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class DetallesActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setupToolbar(toolbar);
+        DA = new DaoActos(this);
 
         cm =(ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
         activeNetwork = cm.getActiveNetworkInfo();
@@ -98,12 +100,14 @@ public class DetallesActivity extends AppCompatActivity {
         }
         else{
             Log.d("TAG BD","GETDATOS DESDE BD");
-            mActo = new DaoActos(this).getActo(id);
-            titleView.setText(mActo.getTitle());
-            if (mActo.getDescription() != null) {
-                contentView.setText(Html.fromHtml(mActo.getDescription()));
+            mActo = DA.getActo(id);
+            if (mActo != null) {
+                titleView.setText(mActo.getTitle());
+                if (mActo.getDescription() != null) {
+                    contentView.setText(Html.fromHtml(mActo.getDescription()));
+                }
+                setupHeaderImage(mActo.getLat(false), mActo.getLng(false));
             }
-            setupHeaderImage(mActo.getLat(false), mActo.getLng(false));
         }
     }
 
