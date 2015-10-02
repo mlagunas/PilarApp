@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.example.manuel.pilarapp.Fragments.ProgramaFragment;
 import com.example.manuel.pilarapp.R;
+import com.facebook.appevents.AppEventsLogger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,6 +42,21 @@ public class ProgramaActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // Logs 'install' and 'app activate' App Events.
+        AppEventsLogger.activateApp(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        // Logs 'app deactivate' App Event.
+        AppEventsLogger.deactivateApp(this);
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -95,6 +111,7 @@ public class ProgramaActivity extends AppCompatActivity {
             mFragments.add(fragment);
             mFragmentTitles.add(title);
         }
+
 
         @Override
         public Fragment getItem(int position) {

@@ -121,6 +121,12 @@ public class Acto {
      * 
      */
     public Acto() {
+        this.lat = -1;
+        this.lng = -1;
+        this.tema = "";
+        this.subtema = "";
+        this.horaFinal = "";
+        this.horaInicio = "";
     }
 
     /**
@@ -191,6 +197,12 @@ public class Acto {
         this.formatoActividad = formatoActividad;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.lat = -1;
+        this.lng = -1;
+        this.tema = "";
+        this.subtema = "";
+        this.horaFinal = "";
+        this.horaInicio = "";
     }
 
     /**
@@ -746,7 +758,7 @@ public class Acto {
             if (geometry != null) {
                 lng = geometry.getCoordinates().get(1);
                 return lng;
-            } else return -1;
+            } else return lng;
         }
     }
 
@@ -761,7 +773,7 @@ public class Acto {
             if (geometry != null) {
                 lat = geometry.getCoordinates().get(0);
                 return lat;
-            } else return -1;
+            } else return lat;
         }
     }
 
@@ -790,7 +802,7 @@ public class Acto {
             if (temas.size() > 0) {
                 tema = temas.get(0).getTitle();
                 return tema;
-            }else return "";
+            }else return tema;
         }
 
     }
@@ -807,7 +819,7 @@ public class Acto {
             if (subtemas.size() > 0) {
                 subtema = subtemas.get(0).getTitle();
                 return subtema;
-            }else return "";
+            }else return subtema;
         }
     }
 
@@ -823,7 +835,7 @@ public class Acto {
             if (subEvent.size()>0) {
                 horaInicio =  subEvent.get(0).getHoraInicio();
                 return horaInicio;
-            }else return "";
+            }else return horaInicio;
         }
     }
 
@@ -839,7 +851,7 @@ public class Acto {
             if (subEvent.size() > 0) {
                 horaFinal =  subEvent.get(0).getHoraFinal();
                 return horaFinal;
-            }else return "";
+            }else return horaFinal;
         }
     }
 

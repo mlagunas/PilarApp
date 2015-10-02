@@ -16,12 +16,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import com.facebook.FacebookSdk;
 
 import com.bumptech.glide.Glide;
 import com.example.manuel.pilarapp.ApiManager;
 import com.example.manuel.pilarapp.Database.DaoActos;
 import com.example.manuel.pilarapp.Objects.Acto;
 import com.example.manuel.pilarapp.R;
+import com.facebook.share.model.ShareLinkContent;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -41,6 +43,8 @@ public class DetallesActivity extends AppCompatActivity {
     private FloatingActionButton fab;
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +53,8 @@ public class DetallesActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setupToolbar(toolbar);
         DA = new DaoActos(this);
+
+        FacebookSdk.sdkInitialize(getApplicationContext());
 
         cm =(ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
         activeNetwork = cm.getActiveNetworkInfo();
@@ -84,7 +90,6 @@ public class DetallesActivity extends AppCompatActivity {
             });
         }
         else{
-            Log.d("TAG BD","GETDATOS DESDE BD");
             mActo = DA.getActo(id);
             if (mActo != null) {
                 titleView.setText(mActo.getTitle());
@@ -116,14 +121,21 @@ public class DetallesActivity extends AppCompatActivity {
     }
 
     public void setupFab(final String title){
+        ShareLinkContent content = new ShareLinkContent.Builder()
+                .setContentUrl(Uri.parse("https://developers.facebook.com"))
+                .build();
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent sendIntent = new Intent();
+                ShareLinkContent content = new ShareLinkContent.Builder()
+                        .setContentUrl(Uri.parse("https://developers.facebook.com"))
+                        .build();
+                /*Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, title);
                 sendIntent.setType("text/plain");
-                startActivity(sendIntent);
+                startActivity(sendIntent);*/
             }
         });
     }
