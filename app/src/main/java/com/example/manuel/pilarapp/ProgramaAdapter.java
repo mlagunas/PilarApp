@@ -1,13 +1,9 @@
 package com.example.manuel.pilarapp;
 
 import android.content.Context;
-import android.location.Address;
-import android.location.Geocoder;
-import android.net.ConnectivityManager;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.util.SortedListAdapterCallback;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +12,7 @@ import android.widget.TextView;
 
 import com.example.manuel.pilarapp.Objects.Acto;
 
-import java.io.IOException;
 import java.util.List;
-import java.util.Locale;
 
 /**
  * Created by Gerard on 30/9/2015.
@@ -34,10 +28,18 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
     public ProgramaAdapter(int layoutResource) {
         this.layoutResource = layoutResource;
         mDataset = new SortedList<>(Acto.class, new SortedListAdapterCallback<Acto>(this) {
-            // TODO - Complete this class
             @Override
             public int compare(Acto o1, Acto o2) {
-                return -1;
+                if ((o1.getHoraInicio(false) == null || o1.getHoraInicio(false).isEmpty()) && (o2.getHoraInicio(false) == null || o2.getHoraInicio(false).isEmpty())) {
+                    return 0;
+                }
+                if (o1.getHoraInicio(false) == null || o1.getHoraInicio(false).isEmpty()) {
+                    return 1;
+                }
+                if (o2.getHoraInicio(false) == null || o2.getHoraInicio(false).isEmpty()) {
+                    return -1;
+                }
+                return o1.getHoraInicio(false).compareTo(o2.getHoraInicio(false));
             }
 
             @Override
@@ -53,7 +55,7 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
     }
 
     public void setData(List<Acto> updates) {
-        Log.d("TAG actos", updates.size()+" ");
+        Log.d("TAG actos", updates.size() + " ");
         if (updates != null && !updates.isEmpty()) {
             mDataset.beginBatchedUpdates();
             mDataset.addAll(updates);
@@ -84,13 +86,11 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
         // Replace contents of the view
         holder.primaryText.setText(acto.getTitle());
         if ((acto.getHoraInicio(false) != null && acto.getHoraInicio(false).trim() != "")
-            && (acto.getHoraFinal(false)!= null && acto.getHoraFinal(false).trim() != "")) {
-            holder.secondaryText.setText("Horario :" + acto.getHoraInicio(true)+"-"+acto.getHoraFinal(true));
-        }
-        else if (acto.getHoraInicio(false) != null && acto.getHoraInicio(false).trim() != ""){
+                && (acto.getHoraFinal(false) != null && acto.getHoraFinal(false).trim() != "")) {
+            holder.secondaryText.setText("Horario: " + acto.getHoraInicio(true) + "-" + acto.getHoraFinal(true));
+        } else if (acto.getHoraInicio(false) != null && acto.getHoraInicio(false).trim() != "") {
             holder.secondaryText.setText("Hora de inicio: " + acto.getHoraInicio(true));
-        }
-        else{
+        } else {
             holder.secondaryText.setText("Acto sin hora especificada");
         }
 
@@ -177,7 +177,7 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
             root = v.findViewById(R.id.root);
             primaryText = (TextView) v.findViewById(R.id.textPrimary);
             secondaryText = (TextView) v.findViewById(R.id.textSecondary);
-            thirdText = (TextView)  v.findViewById(R.id.textThird);
+            thirdText = (TextView) v.findViewById(R.id.textThird);
             //support = (TextView) v.findViewById(R.id.support);
         }
     }

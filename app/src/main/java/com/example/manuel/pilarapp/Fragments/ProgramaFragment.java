@@ -116,7 +116,7 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
         mRecyclerView = (RecyclerView) inflater.inflate(
                 R.layout.fragment_programa, container, false);
         setupRecyclerView(mRecyclerView);
-        checkDB();
+        //checkDB();
         return mRecyclerView;
     }
 
