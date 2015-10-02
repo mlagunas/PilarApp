@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class ProgramaActivity extends AppCompatActivity {
 
@@ -46,11 +47,12 @@ public class ProgramaActivity extends AppCompatActivity {
         for (long l = COMIENZO_PILAR; l <= FINAL_PILAR; l += DIA_EN_MS) {
             adapter.addFragment(ProgramaFragment.newInstance(l), getTabTitle(l));
         }
+        viewPager.setOffscreenPageLimit(2);
         viewPager.setAdapter(adapter);
     }
 
     private String getTabTitle(long l) {
-        SimpleDateFormat sdf = new SimpleDateFormat("cccc d");
+        SimpleDateFormat sdf = new SimpleDateFormat("cccc d", new Locale("es", "ES"));
         return sdf.format(new Date(l));
     }
 

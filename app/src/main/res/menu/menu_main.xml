@@ -1,7 +1,76 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.manuel.pilarapp.Activities.MainActivity">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      tools:context="com.example.manuel.pilarapp.Activities.MainActivity">
+
+    <item
+        android:icon="@mipmap/ic_filter"
+        android:title="Filtrar"
+        app:showAsAction="always">
+        <menu>
+            <item android:title="Distancia">
+                <menu>
+                    <item
+                        android:id="@+id/dist_1"
+                        android:title="A menos de 1 km"/>
+                    <item
+                        android:id="@+id/dist_3"
+                        android:title="A menos de 3 km"/>
+                    <item
+                        android:id="@+id/dist_5"
+                        android:title="A menos de 5 km"/>
+                    <item
+                        android:id="@+id/dist_10"
+                        android:title="A menos de 10 km"/>
+                    <item
+                        android:id="@+id/dist_all"
+                        android:title="Todos"/>
+                </menu>
+            </item>
+
+            <item android:title="Fecha">
+                <menu>
+                    <item
+                        android:id="@+id/day_9"
+                        android:title="Viernes 9"/>
+                    <item
+                        android:id="@+id/day_10"
+                        android:title="Sábado 10"/>
+                    <item
+                        android:id="@+id/day_11"
+                        android:title="Domingo 11"/>
+                    <item
+                        android:id="@+id/day_12"
+                        android:title="Lunes 12"/>
+                    <item
+                        android:id="@+id/day_13"
+                        android:title="Martes 13"/>
+                    <item
+                        android:id="@+id/day_14"
+                        android:title="Miércoles 14"/>
+                    <item
+                        android:id="@+id/day_15"
+                        android:title="Jueves 15"/>
+                    <item
+                        android:id="@+id/day_16"
+                        android:title="Viernes 16"/>
+                    <item
+                        android:id="@+id/day_17"
+                        android:title="Sábado 17"/>
+                    <item
+                        android:id="@+id/day_18"
+                        android:title="Domingo 18"/>
+                    <item
+                        android:id="@+id/day_all"
+                        android:title="Todos"/>
+                </menu>
+            </item>
+        </menu>
+    </item>
+
+    <item
+        android:id="@+id/action_settings"
+        android:orderInCategory="100"
+        android:title="@string/action_settings"
+        app:showAsAction="never"/>
 </menu>

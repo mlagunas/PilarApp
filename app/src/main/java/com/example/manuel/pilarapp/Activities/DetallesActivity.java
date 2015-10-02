@@ -6,6 +6,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
@@ -22,11 +23,8 @@ import com.example.manuel.pilarapp.Database.DaoActos;
 import com.example.manuel.pilarapp.Objects.Acto;
 import com.example.manuel.pilarapp.R;
 
-import java.util.List;
-
 import retrofit.Callback;
 import retrofit.RetrofitError;
-import retrofit.client.Header;
 import retrofit.client.Response;
 
 public class DetallesActivity extends AppCompatActivity {
@@ -38,6 +36,7 @@ public class DetallesActivity extends AppCompatActivity {
     private TextView titleView;
     private TextView subtitleView;
     private TextView contentView;
+    private FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +54,7 @@ public class DetallesActivity extends AppCompatActivity {
         titleView = (TextView) findViewById(R.id.title);
         subtitleView = (TextView) findViewById(R.id.subtitle);
         contentView = (TextView) findViewById(R.id.content);
+        fab = (FloatingActionButton) findViewById(R.id.action_share);
 
         int id = getIntent().getIntExtra("id", 0);
         requestActo(id);
@@ -65,30 +65,13 @@ public class DetallesActivity extends AppCompatActivity {
             ApiManager.getApiService().getActo(id, new Callback<Acto>() {
                 @Override
                 public void success(Acto acto, Response response) {
-//                    if (acto.getPrograma() != null) {
-//                    subtitleView.setText(acto.getPrograma());
-//                }
-/*                   Log.d("TAG", acto.getDiasParaTerminar() + " ");
-                    Log.d("TAG", acto.getTitle() + " ");
-                    Log.d("TAG", acto.getDescription() + " ");
-                    Log.d("TAG", acto.getImage() + " ");
-                    Log.d("TAG", acto.getPrecioEntrada() + " ");
-                    Log.d("TAG", acto.getStartDate().toString() + " ");
-                    Log.d("TAG", acto.getEndDate().toString() + " ");
-                    Log.d("TAG", acto.getId() + " ");
-                    Log.d("TAG", acto.getWeb() + " ");
-                    Log.d("TAG", acto.getPrograma() + " ");
-                    Log.d("TAG", acto.getDestacada() + " ");
-                    Log.d("TAG", acto.getLat(false) + " ");
-                    Log.d("TAG", acto.getLng(false) + " ");
-                    Log.d("TAG", acto.getTipoEntrada() + " ");*/
-
                     mActo = acto;
                     titleView.setText(acto.getTitle());
                     if (acto.getDescription() != null) {
                         contentView.setText(Html.fromHtml(acto.getDescription()));
                     }
                     setupHeaderImage(acto.getLat(false), acto.getLng(false));
+                    setupFab(acto.getTitle());
                 }
                 @Override
                 public void failure(RetrofitError error) {
@@ -110,18 +93,31 @@ public class DetallesActivity extends AppCompatActivity {
     private void setupHeaderImage(final double lat, final double lng) {
         //TODO - Tamanno de la imagen dinamico
         Glide.with(this)
-                .load("https://maps.googleapis.com/maps/api/staticmap?center="+lng+","+lat+"&zoom=17&size=720x400&markers=color:blue%7Clabel:S%7C"+lng+","+lat)
+                .load("https://maps.googleapis.com/maps/api/staticmap?center="+lng+","+lat+"&zoom=17&size=720x400&markers=color:red%7Clabel:S%7C"+lng+","+lat)
                 .into(headerView);
 
         headerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Uri gmmIntentUri = Uri.parse("geo:" + lng + "," + lat + "+?z=17");
+                Uri gmmIntentUri = Uri.parse("geo:"+lng+","+lat+"?q="+lng+","+lat+"?z=17");
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
                 mapIntent.setPackage("com.google.android.apps.maps");
                 if (mapIntent.resolveActivity(getPackageManager()) != null) {
                     startActivity(mapIntent);
                 }
+            }
+        });
+    }
+
+    public void setupFab(final String title){
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent sendIntent = new Intent();
+                sendIntent.setAction(Intent.ACTION_SEND);
+                sendIntent.putExtra(Intent.EXTRA_TEXT, title);
+                sendIntent.setType("text/plain");
+                startActivity(sendIntent);
             }
         });
     }
