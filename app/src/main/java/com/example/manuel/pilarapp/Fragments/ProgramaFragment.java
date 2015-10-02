@@ -67,8 +67,6 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
         if (getArguments() != null) {
             mDia = getArguments().getLong(ARG_DIA);
         }
-
-
     }
 
     private void checkDB(){
@@ -78,7 +76,6 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
             ApiManager.getApiService().getHeaders(new Callback<Request>() {
                 @Override
                 public void success(Request request, Response response) {
-
                     //Update de la BD en caso de que haya sido modificada
                     Log.d("TAG","Updating DB if needed");
                     List<Header> headerList = response.getHeaders();
@@ -92,6 +89,7 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
                                     public void success(Request request, Response response) {
                                         DA.truncateDB();
                                         DA.fillDB(request.getResult(), false);
+
                                     }
                                     @Override
                                     public void failure(RetrofitError error) {
@@ -100,7 +98,7 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
                                 });
                             }
                         }
-                        break;
+
                     }
                 }
                 @Override
@@ -142,7 +140,13 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
 
                 @Override
                 public void success(Request request, Response response) {
-                    Log.d("TAG", "Request completada" + request.getResult().size());
+
+                    for (Acto a: request.getResult()){
+                        if (a.getSubEvent().size() > 0 &&
+                                a.getSubEvent().get(0).getLugar() != null)
+                        Log.d("TAG LUGAR", a.getSubEvent().get(0).getLugar().getAutobuses()+
+                                a.getSubEvent().get(0).getLugar().getDireccion());
+                    }
                     mAdapter.setData(request.getResult());
                 }
 

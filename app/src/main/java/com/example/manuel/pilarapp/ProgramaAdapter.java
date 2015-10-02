@@ -3,6 +3,7 @@ package com.example.manuel.pilarapp;
 import android.content.Context;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.ConnectivityManager;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.util.SortedListAdapterCallback;
@@ -93,7 +94,7 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
             holder.secondaryText.setText("Acto sin hora especificada");
         }
 
-        holder.thirdText.setText("Dirección: "+getAddress(acto.getLat(false), acto.getLng(false)));
+        holder.thirdText.setText("Dirección: ");
 
         //holder.secondaryText.setText(DateUtils.getRelativeDateTimeString(App.getContext(), acto.getPublishedTime().getTime(), DateUtils.HOUR_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
         //holder.secondaryText.setText(DateUtils.formatDateTime(App.getContext(), acto.getPublishedTime().getTime(), 0));
@@ -109,13 +110,12 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
         return mDataset != null ? mDataset.size() : 0;
     }
 
-    private String getAddress(double latitude,double longitude){
+    /*private String getAddress(double latitude,double longitude){
         Geocoder geocoder;
         List<Address> addresses;
         geocoder = new Geocoder(context, Locale.getDefault());
 
         try {
-            Log.d("TAG",latitude + " "+ longitude);
             addresses = geocoder.getFromLocation(longitude, latitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
 
             if(addresses.size()>0) {
@@ -127,8 +127,7 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
                 String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
 
                 Log.d("TAG",address+" - "+country+" - "+postalCode);
-                    return address;
-
+                return address;
             }
             else
             {
@@ -139,9 +138,7 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
             e.printStackTrace();
             return "Direccion no especificada";
         }
-
-
-    }
+    }*/
 
     public Acto getItem(int position) {
         if (mDataset == null || mDataset.size() == 0) {

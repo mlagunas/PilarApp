@@ -20,6 +20,9 @@ public class SubEvent {
     @SerializedName("horaFinal")
     @Expose
     private String horaFinal;
+    @SerializedName("lugar")
+    @Expose
+    private Lugar lugar;
     @SerializedName("openingHours")
     @Expose
     private List<OpeningHour> openingHours = new ArrayList<OpeningHour>();
@@ -45,6 +48,14 @@ public class SubEvent {
         this.horaInicio = horaInicio;
         this.horaFinal = horaFinal;
         this.openingHours = openingHours;
+    }
+
+    public Lugar getLugar() {
+        return lugar;
+    }
+
+    public void setLugar(Lugar lugar) {
+        this.lugar = lugar;
     }
 
     /**

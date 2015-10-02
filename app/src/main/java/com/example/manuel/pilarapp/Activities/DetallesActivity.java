@@ -24,7 +24,6 @@ import com.example.manuel.pilarapp.Database.DaoActos;
 import com.example.manuel.pilarapp.Objects.Acto;
 import com.example.manuel.pilarapp.R;
 import com.facebook.share.model.ShareLinkContent;
-
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -38,7 +37,6 @@ public class DetallesActivity extends AppCompatActivity {
     private TextView titleView;
     private TextView subtitleView;
     private TextView contentView;
-
     private DaoActos DA;
     private FloatingActionButton fab;
 
@@ -53,8 +51,6 @@ public class DetallesActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setupToolbar(toolbar);
         DA = new DaoActos(this);
-
-        FacebookSdk.sdkInitialize(getApplicationContext());
 
         cm =(ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
         activeNetwork = cm.getActiveNetworkInfo();
@@ -124,18 +120,14 @@ public class DetallesActivity extends AppCompatActivity {
         ShareLinkContent content = new ShareLinkContent.Builder()
                 .setContentUrl(Uri.parse("https://developers.facebook.com"))
                 .build();
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ShareLinkContent content = new ShareLinkContent.Builder()
-                        .setContentUrl(Uri.parse("https://developers.facebook.com"))
-                        .build();
-                /*Intent sendIntent = new Intent();
+                Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
                 sendIntent.putExtra(Intent.EXTRA_TEXT, title);
                 sendIntent.setType("text/plain");
-                startActivity(sendIntent);*/
+                startActivity(sendIntent);
             }
         });
     }
