@@ -2,7 +2,6 @@ package com.example.manuel.pilarapp.Activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +20,6 @@ import android.view.View;
 import com.example.manuel.pilarapp.ApiManager;
 import com.example.manuel.pilarapp.Database.DaoActos;
 import com.example.manuel.pilarapp.Fragments.ProgramaFragment;
-import com.example.manuel.pilarapp.Objects.Acto;
 import com.example.manuel.pilarapp.Objects.Request;
 import com.example.manuel.pilarapp.R;
 
@@ -36,6 +33,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Header;
 import retrofit.client.Response;
+import retrofit.http.HEAD;
 
 public class ProgramaActivity extends AppCompatActivity {
 
@@ -99,9 +97,7 @@ public class ProgramaActivity extends AppCompatActivity {
             if (id == R.id.action_ver_mapa) {
                 startMapActivity();
             }
-        }
-        else
-        {
+        } else {
             Snackbar.make(view, "Error de conexión", Snackbar.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
@@ -125,12 +121,12 @@ public class ProgramaActivity extends AppCompatActivity {
                         ApiManager.getApiService().getRequest(new Callback<Request>() {
                             @Override
                             public void success(final Request request, Response response) {
-                                new Thread(){
+                                new Thread() {
                                     public void run() {
                                         try {
                                             DA.truncateDB();
                                             DA.fillDB(request.getResult(), false);
-                                        } catch(Exception v) {
+                                        } catch (Exception v) {
                                             System.out.println(v);
                                         }
                                     }
