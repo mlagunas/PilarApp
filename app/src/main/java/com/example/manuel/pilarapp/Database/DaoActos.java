@@ -126,37 +126,22 @@ public class DaoActos extends DaoBase {
         super.open();
         ArrayList<Acto> actos = new ArrayList<Acto>();
         String fecha = new SimpleDateFormat("yyyy-MM-dd").format(date);
-        c = super.mDb.rawQuery("SELECT id,startDate,endDate FROM info ", null);
-        Log.d("Tag",fecha + fecha.substring(fecha.length()-2));
+        c = super.mDb.rawQuery("SELECT * FROM info " +
+                "WHERE endDate   <= '2015-10-18' " +
+                "AND startDate   >= '2015-10-09' " +
+                "AND '"+fecha+"' >= startDate " +
+                "AND '"+fecha+"' <= endDate  "
+                , null);
         if (c.moveToFirst()) {
             do {
-                int diaI = -1;
-                int diaE = -1;
-                int dias = -1;
-                int id = c.getInt(0);
-                Log.d("TAG substring",c.getString(1).substring(c.getString(1).length() -2)+c.getString(1)
-                +","+(c.getString(2).substring(c.getString(2).length() - 2))+c.getString(2));
-                if(c.getString(1).length()>3)
-                    diaI = Integer.parseInt(c.getString(1).substring(c.getString(1).length() -2, c.getString(1).length()-1));
-                if(c.getString(2).length()>3)
-                    diaE = Integer.parseInt(c.getString(2).substring(c.getString(2).length() - 2, c.getString(2).length()));
-                if(diaI != -1 && diaE != -1)
-                    dias = Integer.parseInt(fecha.substring(fecha.length() - 2));
-
-                //Caso de que tenga ambas fechas
-                if (dias != -1 && diaI >= 9 && diaE <= 18
-                        && dias >= diaI && dias >= diaE) {
-                    actos.add(getActo(id));
-                }
-                else if(dias == -1 && fecha==c.getString(2)){
-                    actos.add(getActo(id));
-                }
-                //actos.add(fillActo());
-            } while (c.moveToNext());
+                actos.add(fillActo());
+            }
+            while (c.moveToNext());
         }
         super.close();
         return actos;
     }
+
 
     public Acto getActo(int i) {
         super.open();
