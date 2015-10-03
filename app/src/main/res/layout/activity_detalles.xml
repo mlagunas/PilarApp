@@ -55,20 +55,58 @@
             android:paddingRight="28dp">
 
             <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:scrollHorizontally="true"
+                android:textAllCaps="true"
+                android:textColor="@color/text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+
+            <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:layout_marginTop="16dp"
                 android:textColor="@color/text_primary"
-                android:textSize="24sp"/>
+                android:textSize="20sp"/>
 
             <View
-                android:layout_width="198dp"
-                android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
                 android:layout_gravity="center"
-                android:layout_margin="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginTop="16dp"
                 android:background="@color/divider"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Precio"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/precio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:lineSpacingExtra="6dp"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Descripción"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/content"
@@ -91,5 +129,12 @@
         android:src="@mipmap/ic_share"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|right|end"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divider"
+        app:layout_anchor="@id/appbar"
+        app:layout_anchorGravity="bottom"/>
 
 </android.support.design.widget.CoordinatorLayout>

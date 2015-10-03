@@ -3,7 +3,10 @@ package com.example.manuel.pilarapp.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.location.Criteria;
 import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -37,9 +40,11 @@ import retrofit.client.Response;
 
 
 public class MainActivity extends AppCompatActivity
-        implements OnMapReadyCallback {
+        implements OnMapReadyCallback, LocationListener {
 
     private GoogleMap mMap;
+    private LocationManager mLocationManager;
+    private Location mLocation;
 
     private List<Acto> mActos;
     private List<Acto> mFiltered;
@@ -58,6 +63,20 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // Get the location manager
+        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        // Define the criteria how to select the locatioin provider -> use
+        // default
+        Criteria criteria = new Criteria();
+        String provider = mLocationManager.getBestProvider(criteria, false);
+        Location location = mLocationManager.getLastKnownLocation(provider);
+
+        // Initialize the location fields
+        if (location != null) {
+            System.out.println("Provider " + provider + " has been selected.");
+            onLocationChanged(location);
+        }
     }
 
     @Override
@@ -193,12 +212,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void filterByDistance(List<Acto> list, int km) {
-        if (km > 0) {
+        if (km > 0 && mLocation != null) {
             Iterator it = list.iterator();
             while (it.hasNext()) {
                 Acto a = (Acto) it.next();
-                float[] results = new float[]{};
-                Location.distanceBetween(0, 0, a.getLng(), a.getLat(), results);
+                float[] results = new float[]{99999,99999,99999};
+                Location.distanceBetween(mLocation.getLatitude(), mLocation.getLongitude(), a.getLng(), a.getLat(), results);
                 if (results[0] > km * 1000) {
                     it.remove();
                 }
@@ -228,4 +247,23 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+    @Override
+    public void onLocationChanged(Location location) {
+        mLocation = location;
+    }
+
+    @Override
+    public void onStatusChanged(String s, int i, Bundle bundle) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String s) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String s) {
+
+    }
 }
