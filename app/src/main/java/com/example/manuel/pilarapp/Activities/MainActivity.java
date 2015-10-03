@@ -2,6 +2,7 @@ package com.example.manuel.pilarapp.Activities;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -23,6 +24,7 @@ import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -164,6 +166,16 @@ public class MainActivity extends AppCompatActivity
             });
         }
 
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+
+            @Override
+            public void onInfoWindowClick(Marker marker) {
+                Intent i = new Intent(getApplicationContext(), DetallesActivity.class);
+                i.putExtra("id", Integer.parseInt(marker.getSnippet()));
+                startActivity(i);
+            }
+        });
+
         //Place the Map View nearby Zaragoza
         map.moveCamera(CameraUpdateFactory.newLatLngZoom((new LatLngBounds(
                 new LatLng(41.62827478, -0.97400665),
@@ -172,8 +184,8 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void applyFilters() {
-        Log.d("TAG","Dist filter: "+currentDistanceFilter);
-        Log.d("TAG","Day filter: "+currentDayFilter);
+        Log.d("TAG", "Dist filter: " + currentDistanceFilter);
+        Log.d("TAG", "Day filter: " + currentDayFilter);
         mFiltered = new ArrayList<>(mActos);
         filterByDistance(mFiltered, currentDistanceFilter);
         filterByDay(mFiltered, currentDayFilter);
@@ -211,7 +223,7 @@ public class MainActivity extends AppCompatActivity
             map.clear();
             for (Acto a : list) {
                 map.addMarker(new MarkerOptions()
-                        .position(new LatLng(a.getLng(false), a.getLat(false))));
+                        .position(new LatLng(a.getLng(false), a.getLat(false))).title(a.getTitle()).snippet(a.getId().toString()));
             }
         }
     }
