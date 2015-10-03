@@ -2,7 +2,6 @@ package com.example.manuel.pilarapp.Activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,7 +20,6 @@ import android.view.View;
 import com.example.manuel.pilarapp.ApiManager;
 import com.example.manuel.pilarapp.Database.DaoActos;
 import com.example.manuel.pilarapp.Fragments.ProgramaFragment;
-import com.example.manuel.pilarapp.Objects.Acto;
 import com.example.manuel.pilarapp.Objects.Request;
 import com.example.manuel.pilarapp.R;
 
@@ -99,9 +96,7 @@ public class ProgramaActivity extends AppCompatActivity {
             if (id == R.id.action_ver_mapa) {
                 startMapActivity();
             }
-        }
-        else
-        {
+        } else {
             Snackbar.make(view, "Error de conexión", Snackbar.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
@@ -113,30 +108,25 @@ public class ProgramaActivity extends AppCompatActivity {
         activeNetwork = cm.getActiveNetworkInfo();
 
         if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
-            Log.d("TAG", "Checking connection");
             ApiManager.getApiService().getHeaders(new Callback<Request>() {
                 @Override
                 public void success(Request request, Response response) {
                     //Update de la BD en caso de que haya sido modificada
-                    Log.d("TAG", "Updating DB if needed");
                     List<Header> headerList = response.getHeaders();
                     for (Header header : headerList) {
 
-                        Log.d("TAG header", header.toString());
                         //if (header.toString().contains("Last-Modified:")) {
                         //if (header.toString().substring(14, header.toString().length())
                         //!= "/*VALOR DE PREFERENCES*/") {
                         ApiManager.getApiService().getRequest(new Callback<Request>() {
                             @Override
                             public void success(final Request request, Response response) {
-                                new Thread(){
+                                new Thread() {
                                     public void run() {
                                         try {
                                             DA.truncateDB();
-                                            Log.d("TAG db","Comienzo db");
                                             DA.fillDB(request.getResult(), false);
-                                            Log.d("TAG db", "fin db");
-                                        } catch(Exception v) {
+                                        } catch (Exception v) {
                                             System.out.println(v);
                                         }
                                     }
@@ -156,7 +146,6 @@ public class ProgramaActivity extends AppCompatActivity {
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Log.d("TAG", "Request fallida");
                     //Snackbar.make(mRecyclerView, "Error de conexión", Snackbar.LENGTH_LONG).show();
                 }
             });
@@ -184,7 +173,6 @@ public class ProgramaActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            Log.d("TAG", position + " ");
             return mFragments.get(position);
         }
 

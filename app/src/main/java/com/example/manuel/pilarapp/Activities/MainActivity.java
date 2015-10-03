@@ -12,7 +12,6 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -180,7 +179,6 @@ public class MainActivity extends AppCompatActivity
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Log.v("TAG", "Error: " + error.getMessage() + error.getStackTrace());
                 }
             });
         }
@@ -203,8 +201,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void applyFilters() {
-        Log.d("TAG", "Dist filter: " + currentDistanceFilter);
-        Log.d("TAG", "Day filter: " + currentDayFilter);
         mFiltered = new ArrayList<>(mActos);
         filterByDistance(mFiltered, currentDistanceFilter);
         filterByDay(mFiltered, currentDayFilter);

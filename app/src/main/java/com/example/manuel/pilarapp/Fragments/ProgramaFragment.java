@@ -10,7 +10,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,11 +24,9 @@ import com.example.manuel.pilarapp.R;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
-import retrofit.client.Header;
 import retrofit.client.Response;
 
 public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItemClickListener{
@@ -94,30 +91,20 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
 
     private void requestProgram() {
         if(activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
-            Log.d("TAG", "Request iniciada");
             ApiManager.getApiService().getRequest(getRequestQuery(mDia), new Callback<Request>() {
 
                 @Override
                 public void success(Request request, Response response) {
-
-                    for (Acto a: request.getResult()){
-                        if (a.getSubEvent().size() > 0 &&
-                                a.getSubEvent().get(0).getLugar() != null)
-                        Log.d("TAG LUGAR", a.getSubEvent().get(0).getLugar().getAutobuses()+
-                                a.getSubEvent().get(0).getLugar().getDireccion());
-                    }
                     mAdapter.setData(request.getResult());
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Log.d("TAG", "Request fallida");
                     Snackbar.make(mRecyclerView, "Error de conexión", Snackbar.LENGTH_LONG).show();
                 }
             });
         }
         else {
-            Log.d("TAG BD","GET_DATOS DESDE BD");
             mAdapter.setData(DA.getActos(new Date(mDia)));
         }
     }
@@ -131,7 +118,6 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
 
     @Override
     public void onItemClick(View v, Acto acto) {
-        if (acto != null) Log.d("TAG acto","not null");
         Intent i = new Intent(getActivity(), DetallesActivity.class);
         i.putExtra("id", acto.getId());
         startActivity(i);
