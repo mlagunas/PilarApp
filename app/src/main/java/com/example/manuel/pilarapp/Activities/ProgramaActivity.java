@@ -113,16 +113,12 @@ public class ProgramaActivity extends AppCompatActivity {
         activeNetwork = cm.getActiveNetworkInfo();
 
         if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
-            Log.d("TAG", "Checking connection");
             ApiManager.getApiService().getHeaders(new Callback<Request>() {
                 @Override
                 public void success(Request request, Response response) {
                     //Update de la BD en caso de que haya sido modificada
-                    Log.d("TAG", "Updating DB if needed");
                     List<Header> headerList = response.getHeaders();
                     for (Header header : headerList) {
-
-                        Log.d("TAG header", header.toString());
                         //if (header.toString().contains("Last-Modified:")) {
                         //if (header.toString().substring(14, header.toString().length())
                         //!= "/*VALOR DE PREFERENCES*/") {
@@ -133,9 +129,7 @@ public class ProgramaActivity extends AppCompatActivity {
                                     public void run() {
                                         try {
                                             DA.truncateDB();
-                                            Log.d("TAG db","Comienzo db");
                                             DA.fillDB(request.getResult(), false);
-                                            Log.d("TAG db", "fin db");
                                         } catch(Exception v) {
                                             System.out.println(v);
                                         }
@@ -156,8 +150,7 @@ public class ProgramaActivity extends AppCompatActivity {
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Log.d("TAG", "Request fallida");
-                    //Snackbar.make(mRecyclerView, "Error de conexión", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(view, "Error de conexión", Snackbar.LENGTH_LONG).show();
                 }
             });
         }
@@ -184,7 +177,6 @@ public class ProgramaActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            Log.d("TAG", position + " ");
             return mFragments.get(position);
         }
 

@@ -1,10 +1,7 @@
 package com.example.manuel.pilarapp.Database;
 
 import android.content.Context;
-import android.database.Cursor;
-import android.text.Html;
-import android.text.TextUtils;
-import android.util.Log;
+
 
 import com.example.manuel.pilarapp.Objects.Acto;
 
@@ -118,7 +115,6 @@ public class DaoActos extends DaoBase {
                 a.getAddress() + "', '" +
                 a.getAddressInfo() + "'" +
                 ");";
-        Log.d("TAG consulta", consulta);
         mDb.execSQL(consulta);
     }
 
@@ -174,7 +170,6 @@ public class DaoActos extends DaoBase {
         a.setBuses(c.getString(17));
         a.setAddress(c.getString(18));
         a.setAddressInfo(c.getString(19));
-        Log.d("TAG ACTO", a.getAddress() + a.getTitle());
         return a;
     }
 
