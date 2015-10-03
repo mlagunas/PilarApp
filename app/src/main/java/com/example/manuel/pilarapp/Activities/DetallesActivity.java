@@ -107,14 +107,33 @@ public class DetallesActivity extends AppCompatActivity {
                 }
             });
         } else {
-            mActo = DA.getActo(id);
-            if (mActo != null) {
-                titleView.setText(mActo.getTitle());
-                if (mActo.getDescription() != null) {
-                    contentView.setText(Html.fromHtml(mActo.getDescription()));
-                }
-                setupHeaderImage(mActo.getLat(), mActo.getLng());
+            Acto acto = DA.getActo(id);
+            mActo = acto;
+            titleView.setText(acto.getTitle());
+            if (acto.getDescription() != null) {
+                contentView.setText(Html.fromHtml(acto.getDescription()));
+            } else {
+                contentView.setText("Sin descripción");
             }
+
+            SimpleDateFormat sdf = new SimpleDateFormat("cccc d", new Locale("es", "ES"));
+            String dateString = sdf.format(acto.getStartDate()) + " | ";
+
+            if ((acto.getHoraInicio() != null && acto.getHoraInicio().trim() != "")
+                    && (acto.getHoraFinal() != null && acto.getHoraFinal().trim() != "")) {
+                dateString += acto.getHoraInicio() + "-" + acto.getHoraFinal();
+            } else if (acto.getHoraInicio() != null && acto.getHoraInicio().trim() != "") {
+                dateString += acto.getHoraInicio();
+            }
+            setupHeaderImage(acto.getLat(), acto.getLng());
+            dateView.setText(dateString);
+
+            if (acto.getPrecioEntrada() != null && !acto.getPrecioEntrada().isEmpty()) {
+                precioView.setText(Jsoup.parse(acto.getPrecioEntrada()).text());
+            } else {
+                precioView.setText("Precio no establecido");
+            }
+            setupFab(acto.getTitle());
         }
     }
 

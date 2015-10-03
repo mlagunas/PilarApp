@@ -2,9 +2,11 @@ package com.example.manuel.pilarapp.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -15,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.manuel.pilarapp.ApiManager;
 import com.example.manuel.pilarapp.Database.DaoActos;
@@ -42,6 +45,7 @@ public class ProgramaActivity extends AppCompatActivity {
     private DaoActos DA;
     private ConnectivityManager cm;
     private NetworkInfo activeNetwork;
+    private View view;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +61,9 @@ public class ProgramaActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
+        view = this.findViewById(android.R.id.content);
         this.DA = new DaoActos(this);
-        cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-        activeNetwork = cm.getActiveNetworkInfo();
+
         checkDB();
     }
 
@@ -87,16 +91,27 @@ public class ProgramaActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_ver_mapa) {
-            startMapActivity();
-        }
+        cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        activeNetwork = cm.getActiveNetworkInfo();
 
+        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
+            int id = item.getItemId();
+            if (id == R.id.action_ver_mapa) {
+                startMapActivity();
+            }
+        }
+        else
+        {
+            Snackbar.make(view, "Error de conexión", Snackbar.LENGTH_LONG).show();
+        }
         return super.onOptionsItemSelected(item);
     }
 
     private void checkDB() {
         //Check if DB update needed
+        cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        activeNetwork = cm.getActiveNetworkInfo();
+
         if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
             Log.d("TAG", "Checking connection");
             ApiManager.getApiService().getHeaders(new Callback<Request>() {
