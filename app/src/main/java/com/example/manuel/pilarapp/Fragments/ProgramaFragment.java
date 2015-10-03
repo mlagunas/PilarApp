@@ -69,46 +69,6 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
         }
     }
 
-    private void checkDB(){
-        //Check if DB update needed
-        if(activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
-            Log.d("TAG", "Checking connection");
-            ApiManager.getApiService().getHeaders(new Callback<Request>() {
-                @Override
-                public void success(Request request, Response response) {
-                    //Update de la BD en caso de que haya sido modificada
-                    Log.d("TAG","Updating DB if needed");
-                    List<Header> headerList = response.getHeaders();
-                    for (Header header : headerList) {
-                        Log.d("TAG header", header.toString());
-                        if (header.toString().contains("Last-Modified:")) {
-                            if (header.toString().substring(14, header.toString().length())
-                                    != "/*VALOR DE PREFERENCES*/") {
-                                ApiManager.getApiService().getRequest(new Callback<Request>() {
-                                    @Override
-                                    public void success(Request request, Response response) {
-                                        DA.truncateDB();
-                                        DA.fillDB(request.getResult(), false);
-
-                                    }
-                                    @Override
-                                    public void failure(RetrofitError error) {
-
-                                    }
-                                });
-                            }
-                        }
-
-                    }
-                }
-                @Override
-                public void failure(RetrofitError error) {
-                    Log.d("TAG", "Request fallida");
-                    Snackbar.make(mRecyclerView, "Error de conexión", Snackbar.LENGTH_LONG).show();
-                }
-            });
-        }
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -116,7 +76,6 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
         mRecyclerView = (RecyclerView) inflater.inflate(
                 R.layout.fragment_programa, container, false);
         setupRecyclerView(mRecyclerView);
-        checkDB();
         return mRecyclerView;
     }
 

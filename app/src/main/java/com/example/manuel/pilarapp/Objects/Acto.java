@@ -116,6 +116,9 @@ public class Acto {
     private String horaInicio;
     private String horaFinal;
 
+    private String addressInfo;
+    private String address;
+    private String buses;
     /**
      * No args constructor for use in serialization
      * 
@@ -127,6 +130,9 @@ public class Acto {
         this.subtema = "";
         this.horaFinal = "";
         this.horaInicio = "";
+        this.buses ="";
+        this.address="";
+        this.addressInfo="";
     }
 
     /**
@@ -857,5 +863,45 @@ public class Acto {
 
     public void setHoraFinal(String horaFinal) {
         this.horaFinal = horaFinal;
+    }
+
+    public String getAddressInfo() {
+        if (subEvent.size() > 0 &&
+                subEvent.get(0).getLugar() != null){
+            addressInfo = subEvent.get(0).getLugar().getAutobuses();
+            return addressInfo;
+        }
+        else return addressInfo;
+    }
+
+    public void setAddressInfo(String addressInfo) {
+        this.addressInfo = addressInfo;
+    }
+
+    public String getAddress() {
+        if (subEvent.size() > 0 &&
+                subEvent.get(0).getLugar() != null){
+            address = subEvent.get(0).getLugar().getDireccion();
+            return address;
+        }
+        else return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getBuses() {
+        if (subEvent.size() > 0 &&
+                subEvent.get(0).getLugar() != null){
+            buses = subEvent.get(0).getLugar().getAutobuses();
+            return buses;
+        }
+        else return buses;
+    }
+
+    public void setBuses(String buses) {
+
+        this.buses = buses;
     }
 }

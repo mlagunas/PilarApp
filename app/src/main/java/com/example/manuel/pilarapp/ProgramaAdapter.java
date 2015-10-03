@@ -53,7 +53,7 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
     }
 
     public void setData(List<Acto> updates) {
-        Log.d("TAG actos", updates.size()+" ");
+        Log.d("TAG actos", updates.size() + " ");
         if (updates != null && !updates.isEmpty()) {
             mDataset.beginBatchedUpdates();
             mDataset.addAll(updates);
@@ -84,17 +84,30 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
         // Replace contents of the view
         holder.primaryText.setText(acto.getTitle());
         if ((acto.getHoraInicio(false) != null && acto.getHoraInicio(false).trim() != "")
-            && (acto.getHoraFinal(false)!= null && acto.getHoraFinal(false).trim() != "")) {
-            holder.secondaryText.setText("Horario :" + acto.getHoraInicio(true)+"-"+acto.getHoraFinal(true));
-        }
-        else if (acto.getHoraInicio(false) != null && acto.getHoraInicio(false).trim() != ""){
+                && (acto.getHoraFinal(false) != null && acto.getHoraFinal(false).trim() != "")) {
+            holder.secondaryText.setText("Horario :" + acto.getHoraInicio(true) + "-" + acto.getHoraFinal(true));
+        } else if (acto.getHoraInicio(false) != null && acto.getHoraInicio(false).trim() != "") {
             holder.secondaryText.setText("Hora de inicio: " + acto.getHoraInicio(true));
-        }
-        else{
+        } else {
             holder.secondaryText.setText("Acto sin hora especificada");
         }
 
-        holder.thirdText.setText("Dirección: ");
+        if (acto.getSubEvent().size() > 0 &&
+                acto.getSubEvent().get(0).getLugar() != null) {
+            if (acto.getSubEvent().get(0).getLugar().getDireccion() != null &&
+                    acto.getSubEvent().get(0).getLugar().getDireccion() != "" &&
+                    acto.getSubEvent().get(0).getLugar().getTitle() != null &&
+                    acto.getSubEvent().get(0).getLugar().getTitle() != "")
+                holder.thirdText.setText("Dirección: " + acto.getSubEvent().get(0).getLugar().getDireccion() + ", "
+                        + acto.getSubEvent().get(0).getLugar().getTitle());
+            else if (acto.getSubEvent().get(0).getLugar().getDireccion() != null &&
+                    acto.getSubEvent().get(0).getLugar().getDireccion() != "")
+                holder.thirdText.setText("Dirección: " + acto.getSubEvent().get(0).getLugar().getDireccion());
+            else
+                holder.thirdText.setText("No existe una dirección espeficiada");
+        }
+        else
+            holder.thirdText.setText("No existe una dirección espeficiada");
 
         //holder.secondaryText.setText(DateUtils.getRelativeDateTimeString(App.getContext(), acto.getPublishedTime().getTime(), DateUtils.HOUR_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
         //holder.secondaryText.setText(DateUtils.formatDateTime(App.getContext(), acto.getPublishedTime().getTime(), 0));
@@ -177,7 +190,7 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
             root = v.findViewById(R.id.root);
             primaryText = (TextView) v.findViewById(R.id.textPrimary);
             secondaryText = (TextView) v.findViewById(R.id.textSecondary);
-            thirdText = (TextView)  v.findViewById(R.id.textThird);
+            thirdText = (TextView) v.findViewById(R.id.textThird);
             //support = (TextView) v.findViewById(R.id.support);
         }
     }

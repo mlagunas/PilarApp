@@ -28,7 +28,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     "tema TEXT, " +                     //14
                     "subTema TEXT, " +                  //15
                     "lat DOUBLE, " +                    //16
-                    "lng DOUBLE " +                     //17
+                    "lng DOUBLE, " +                    //17
+                    "buses TEXT, " +                    //18
+                    "address TEXT," +                   //19
+                    "addressInfo TEXT " +               //20
                     ");";
 
 
