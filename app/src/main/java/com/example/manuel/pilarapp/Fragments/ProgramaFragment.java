@@ -124,7 +124,9 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
 
     private String getRequestQuery(long l) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return "programa==fiestas del pilar;startDate=="+sdf.format(new Date(l))+"T00:00:00Z";
+        return "programa==fiestas del pilar;endDate=ge="+sdf.format(new Date(l))+";startDate=le="+sdf.format(new Date(l))+
+                ";startDate=ge=2015-10-09;endDate=le=2015-10-18";
+        //return "programa==fiestas del pilar;startDate=="+sdf.format(new Date(l))+"T00:00:00Z";
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.example.manuel.pilarapp.Database;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
@@ -15,7 +16,7 @@ import java.util.List;
 /**
  * Created by Manuel on 30/09/2015.
  */
-public class DaoActos extends DaoBase implements java.io.Serializable {
+public class DaoActos extends DaoBase {
 
     private transient Context context;
     private final String INFO_TABLE = "CREATE TABLE info (" +
@@ -125,12 +126,32 @@ public class DaoActos extends DaoBase implements java.io.Serializable {
         super.open();
         ArrayList<Acto> actos = new ArrayList<Acto>();
         String fecha = new SimpleDateFormat("yyyy-MM-dd").format(date);
-        Log.d("TAG fecha",fecha);
-        c = super.mDb.rawQuery("SELECT * FROM info " +
-                "WHERE endDate LIKE '%" + fecha + "%';", null);
+        c = super.mDb.rawQuery("SELECT id,startDate,endDate FROM info ", null);
+        Log.d("Tag",fecha + fecha.substring(fecha.length()-2));
         if (c.moveToFirst()) {
             do {
-                actos.add(fillActo());
+                int diaI = -1;
+                int diaE = -1;
+                int dias = -1;
+                int id = c.getInt(0);
+                Log.d("TAG substring",c.getString(1).substring(c.getString(1).length() -2)+c.getString(1)
+                +","+(c.getString(2).substring(c.getString(2).length() - 2))+c.getString(2));
+                if(c.getString(1).length()>3)
+                    diaI = Integer.parseInt(c.getString(1).substring(c.getString(1).length() -2, c.getString(1).length()-1));
+                if(c.getString(2).length()>3)
+                    diaE = Integer.parseInt(c.getString(2).substring(c.getString(2).length() - 2, c.getString(2).length()));
+                if(diaI != -1 && diaE != -1)
+                    dias = Integer.parseInt(fecha.substring(fecha.length() - 2));
+
+                //Caso de que tenga ambas fechas
+                if (dias != -1 && diaI >= 9 && diaE <= 18
+                        && dias >= diaI && dias >= diaE) {
+                    actos.add(getActo(id));
+                }
+                else if(dias == -1 && fecha==c.getString(2)){
+                    actos.add(getActo(id));
+                }
+                //actos.add(fillActo());
             } while (c.moveToNext());
         }
         super.close();

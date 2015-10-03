@@ -34,7 +34,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Header;
 import retrofit.client.Response;
 
-public class ProgramaActivity extends AppCompatActivity implements java.io.Serializable {
+public class ProgramaActivity extends AppCompatActivity {
 
     public static final long COMIENZO_PILAR = 1444392000000L; // 9 de octubre a las 12 del mediodía
     public static final long FINAL_PILAR = 1445169600000L; // 18 de octubre a las 12 del mediodía

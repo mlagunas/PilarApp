@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 /**
  * Created by Manuel on 30/09/2015.
  */
-public abstract class DaoBase implements java.io.Serializable{
+public abstract class DaoBase{
 
     // First base version
     // Update this attribute if version change

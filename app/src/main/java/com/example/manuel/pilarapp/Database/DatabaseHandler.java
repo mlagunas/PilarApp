@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 /**
  * Created by Manuel on 21/09/2015.
  */
-public class DatabaseHandler extends SQLiteOpenHelper implements java.io.Serializable{
+public class DatabaseHandler extends SQLiteOpenHelper{
 
     private final String INFO_TABLE =
             "CREATE TABLE info (" +
