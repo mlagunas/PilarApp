@@ -10,13 +10,11 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.facebook.FacebookSdk;
 
 import com.bumptech.glide.Glide;
 import com.example.manuel.pilarapp.ApiManager;
@@ -24,6 +22,7 @@ import com.example.manuel.pilarapp.Database.DaoActos;
 import com.example.manuel.pilarapp.Objects.Acto;
 import com.example.manuel.pilarapp.R;
 import com.facebook.share.model.ShareLinkContent;
+
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -98,7 +97,13 @@ public class DetallesActivity extends AppCompatActivity {
     }
 
     private void setupHeaderImage(final double lat, final double lng) {
-        //TODO - Tamanno de la imagen dinamico
+        if (lat == -1 && lng == -1){
+            Glide.with(this)
+                    .load("https://maps.googleapis.com/maps/api/staticmap?center=41.6548748,-0.8806778&zoom=14&size=720x400&markers=color:red%7Clabel:S%7C"+lng+","+lat)
+                    .into(headerView);
+            return;
+        }
+
         Glide.with(this)
                 .load("https://maps.googleapis.com/maps/api/staticmap?center="+lng+","+lat+"&zoom=17&size=720x400&markers=color:red%7Clabel:S%7C"+lng+","+lat)
                 .into(headerView);
