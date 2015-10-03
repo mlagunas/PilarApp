@@ -94,7 +94,22 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
             holder.secondaryText.setText("Acto sin hora especificada");
         }
 
-        holder.thirdText.setText("Dirección: ");
+        if (acto.getSubEvent().size() > 0 &&
+                acto.getSubEvent().get(0).getLugar() != null) {
+            if (acto.getSubEvent().get(0).getLugar().getDireccion() != null &&
+                    acto.getSubEvent().get(0).getLugar().getDireccion() != "" &&
+                    acto.getSubEvent().get(0).getLugar().getTitle() != null &&
+                    acto.getSubEvent().get(0).getLugar().getTitle() != "")
+                holder.thirdText.setText("Dirección: " + acto.getSubEvent().get(0).getLugar().getDireccion() + ", "
+                        + acto.getSubEvent().get(0).getLugar().getTitle());
+            else if (acto.getSubEvent().get(0).getLugar().getDireccion() != null &&
+                    acto.getSubEvent().get(0).getLugar().getDireccion() != "")
+                holder.thirdText.setText("Dirección: " + acto.getSubEvent().get(0).getLugar().getDireccion());
+            else
+                holder.thirdText.setText("No existe una dirección espeficiada");
+        }
+        else
+            holder.thirdText.setText("No existe una dirección espeficiada");
 
         //holder.secondaryText.setText(DateUtils.getRelativeDateTimeString(App.getContext(), acto.getPublishedTime().getTime(), DateUtils.HOUR_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
         //holder.secondaryText.setText(DateUtils.formatDateTime(App.getContext(), acto.getPublishedTime().getTime(), 0));

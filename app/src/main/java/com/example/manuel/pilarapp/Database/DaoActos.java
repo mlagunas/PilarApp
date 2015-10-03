@@ -15,78 +15,81 @@ import java.util.List;
 /**
  * Created by Manuel on 30/09/2015.
  */
-public class DaoActos extends DaoBase {
+public class DaoActos extends DaoBase implements java.io.Serializable {
 
     private Context context;
     private final String INFO_TABLE = "CREATE TABLE info (" +
-                                        "id     INTEGER PRIMARY KEY, " +
-                                        "title  TEXT not NUll, " +
-                                        "description TEXT not NULL, " +
-                                        "programa TEXT not NULL, " +
-                                        "destacada BOOLEAN, " +
-                                        "web TEXT, " +
-                                        "diasParaTerminar INTEGER, " +
-                                        "tipoEntrada TEXT, " +
-                                        "precioEntrada TEXT, " +
-                                        "startDate TEXT, " +
-                                        "endDate TEXT," +
-                                        "lat DOUBLE," +
-                                        "lng DOUBLE " +
-                                        ");";
-    private int id;
-    private String title;
-    private String description;
-    private String programa;
-    private Boolean destacada;
-    private String web;
-    private int diasParaTerminar;
-    private String tipoEntrada;
-    private String precioEntrada;
-    private String image;
+            "id     INTEGER PRIMARY KEY, " +    //1
+            "title  TEXT not NUll, " +          //2
+            "description TEXT, " +              //3
+            "programa TEXT, " +                 //4
+            "destacada BOOLEAN, " +             //5
+            "web TEXT, " +                      //6
+            "diasParaTerminar INTEGER, " +      //7
+            "tipoEntrada TEXT, " +              //8
+            "precioEntrada TEXT, " +            //9
+            "startDate TEXT, " +                //10
+            "endDate TEXT," +                   //11
+            "horaInicio TEXT, " +               //12
+            "horaFinal TEXT, " +                //13
+            "tema TEXT, " +                     //14
+            "subTema TEXT, " +                  //15
+            "lat DOUBLE, " +                    //16
+            "lng DOUBLE, " +                    //17
+            "buses TEXT, " +                    //18
+            "address TEXT," +                   //19
+            "addressInfo TEXT " +               //20
+            ");";
 
     public DaoActos(Context pContext) {
         super(pContext);
-        super.open();
+
         this.context = pContext;
     }
 
-    public List<Acto> getActos(){
+    public List<Acto> getActos() {
+        super.open();
         ArrayList<Acto> actos = new ArrayList<Acto>();
         c = super.mDb.rawQuery("SELECT * FROM info;", null);
-        if (c.moveToFirst()) {
-            do {
-               actos.add(fillActo());
-            } while (c.moveToNext());
-        }
-        return actos;
-    }
-
-    public List<Acto> getActos(Date date){
-        ArrayList<Acto> actos = new ArrayList<Acto>();
-        c = super.mDb.rawQuery("SELECT * FROM info " +
-                                "WHERE startDate LIKE '%"+new SimpleDateFormat("yyyy-MM-dd").format(date)+"%';", null);
         if (c.moveToFirst()) {
             do {
                 actos.add(fillActo());
             } while (c.moveToNext());
         }
+        super.close();
         return actos;
     }
 
-    public Acto getActo(int i){
-        Log.d("TAG id",id + " ");
+    public List<Acto> getActos(Date date) {
+        super.open();
+        ArrayList<Acto> actos = new ArrayList<Acto>();
         c = super.mDb.rawQuery("SELECT * FROM info " +
-                                "WHERE id = "+id+";", null);
+                "WHERE startDate LIKE '%" + new SimpleDateFormat("yyyy-MM-dd").format(date) + "%';", null);
+        if (c.moveToFirst()) {
+            do {
+                actos.add(fillActo());
+            } while (c.moveToNext());
+        }
+        super.close();
+        return actos;
+    }
+
+    public Acto getActo(int i) {
+        super.open();
+        c = super.mDb.rawQuery("SELECT * FROM info " +
+                "WHERE id = " + i + ";", null);
         if (c.moveToFirst()) {
             do {
                 return fillActo();
             } while (c.moveToNext());
         }
+        super.close();
         return null;
     }
 
-    private Acto fillActo(){
+    private Acto fillActo() {
         Acto a = new Acto();
+        Log.d("TAG fill", c.getInt(0) + " ");
         a.setId((c.getInt(0)));
         a.setTitle(c.getString(1));
         a.setDescription(c.getString(2));
@@ -104,82 +107,96 @@ public class DaoActos extends DaoBase {
         a.setSubtema(c.getString(14));
         a.setLat(c.getDouble(15));
         a.setLng(c.getDouble(16));
+        a.setBuses(c.getString(17));
+        a.setAddress(c.getString(18));
+        a.setAddressInfo(c.getString(19));
         return a;
     }
 
-    public void fillDB(List<Acto> actos, Boolean db){
-     for(Acto a: actos){
-         String startd = null;
-         String endd = null;
-         int destacada = -1;
+    public void fillDB(List<Acto> actos, Boolean db) {
+        super.open();
+        for (Acto a : actos) {
+            String startd = null;
+            String endd = null;
+            int destacada = -1;
 
-         if (a.getStartDate()!= null)startd = new SimpleDateFormat("yyyy-MM-dd").format(a.getStartDate());
-         if (a.getStartDate()!= null)endd = new SimpleDateFormat("yyyy-MM-dd").format(a.getEndDate());
+            if (a.getStartDate() != null)
+                startd = new SimpleDateFormat("yyyy-MM-dd").format(a.getStartDate());
+            if (a.getStartDate() != null)
+                endd = new SimpleDateFormat("yyyy-MM-dd").format(a.getEndDate());
 
-         if(a.getDestacada())destacada = 1;
-         else destacada = 0;
+            if (a.getDestacada()) destacada = 1;
+            else destacada = 0;
 
-         String consulta = "INSERT INTO info " +
-                 "(" +
-                 "id, " +
-                 "title, " +
-                 "description, " +
-                 "programa, " +
-                 "destacada, " +
-                 "web, " +
-                 "diasParaTerminar, " +
-                 "tipoEntrada, " +
-                 "precioEntrada, " +
-                 "startDate, " +
-                 "endDate, " +
-                 "horaInicio, " +
-                 "horaFinal, " +
-                 "tema, " +
-                 "subtema, " +
-                 "lat, " +
-                 "lng" +
-                 ") " +
-                 "VALUES (" +
-                 a.getId() +", '" +
-                 formatSQL(a.getTitle()) +"',' " +
-                 formatSQL(a.getDescription()) +"','" +
-                 a.getPrograma() +"', " +
-                 destacada +", '" +
-                 formatSQL(a.getWeb()) +"' ," +
-                 a.getDiasParaTerminar() +" ,'" +
-                 formatSQL(a.getTipoEntrada()) +"','" +
-                 formatSQL(a.getPrecioEntrada()) +"', '" +
-                 formatSQL(startd) +"', '" +
-                 formatSQL(endd) +"', '" +
-                 formatSQL(a.getHoraInicio(db)) +"', '" +
-                 formatSQL(a.getHoraFinal(db))+"', '" +
-                 formatSQL(a.getTema(db))+"', '" +
-                 formatSQL(a.getSubtema(db))+"', "+
-                 a.getLat(db) + ", " +
-                 a.getLng(db) + " " +
-                 ");";
-         Log.d("TAG consulta", consulta);
-         mDb.execSQL(consulta);
-     }
+            String consulta = "INSERT INTO info " +
+                    "(" +
+                    "id, " +
+                    "title, " +
+                    "description, " +
+                    "programa, " +
+                    "destacada, " +
+                    "web, " +
+                    "diasParaTerminar, " +
+                    "tipoEntrada, " +
+                    "precioEntrada, " +
+                    "startDate, " +
+                    "endDate, " +
+                    "horaInicio, " +
+                    "horaFinal, " +
+                    "tema, " +
+                    "subtema, " +
+                    "lat, " +
+                    "lng, " +
+                    "buses," +
+                    "address, " +
+                    "addressInfo" +
+                    ") " +
+                    "VALUES (" +
+                    a.getId() + ", '" +
+                    formatSQL(a.getTitle()) + "',' " +
+                    formatSQL(a.getDescription()) + "','" +
+                    a.getPrograma() + "', " +
+                    destacada + ", '" +
+                    formatSQL(a.getWeb()) + "' ," +
+                    a.getDiasParaTerminar() + " ,'" +
+                    formatSQL(a.getTipoEntrada()) + "','" +
+                    formatSQL(a.getPrecioEntrada()) + "', '" +
+                    formatSQL(startd) + "', '" +
+                    formatSQL(endd) + "', '" +
+                    formatSQL(a.getHoraInicio(db)) + "', '" +
+                    formatSQL(a.getHoraFinal(db)) + "', '" +
+                    formatSQL(a.getTema(db)) + "', '" +
+                    formatSQL(a.getSubtema(db)) + "', " +
+                    a.getLat(db) + ", " +
+                    a.getLng(db) + ", '" +
+                    a.getBuses() + "', '" +
+                    a.getAddress() + "', '" +
+                    a.getAddressInfo() + "'" +
+                    ");";
+            Log.d("TAG consulta", consulta);
+            mDb.execSQL(consulta);
+        }
+        super.close();
     }
 
-    private String formatSQL(String s){
+    private String formatSQL(String s) {
         String aux = "";
-        if(s != null){
-            for(int i = 0; i<s.length(); i++){
-                if(s.charAt(i)==42){
+        if (s != null) {
+            for (int i = 0; i < s.length(); i++) {
+                if (s.charAt(i) == 42) {
                     aux += "\\";
                     aux += s.charAt(i);
-                }
-                else{
-                    aux+=s.charAt(i);
+                } else {
+                    aux += s.charAt(i);
                 }
             }
         }
         return aux;
     }
 
-    public void truncateDB(){
+    public void truncateDB() {
+        super.open();
         mDb.execSQL("delete from info");
+        super.close();
     }
 }
