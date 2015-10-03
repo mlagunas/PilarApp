@@ -20,6 +20,8 @@ import com.example.manuel.pilarapp.Database.DaoActos;
 import com.example.manuel.pilarapp.Objects.Acto;
 import com.example.manuel.pilarapp.R;
 
+import org.jsoup.Jsoup;
+
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 
@@ -81,7 +83,7 @@ public class DetallesActivity extends AppCompatActivity {
                     }
 
                     SimpleDateFormat sdf = new SimpleDateFormat("cccc d", new Locale("es", "ES"));
-                    String dateString = sdf.format(acto.getStartDate()) + "   ";
+                    String dateString = sdf.format(acto.getStartDate()) + " | ";
                     if ((acto.getHoraInicio() != null && acto.getHoraInicio().trim() != "")
                             && (acto.getHoraFinal() != null && acto.getHoraFinal().trim() != "")) {
                         dateString += acto.getHoraInicio() + "-" + acto.getHoraFinal();
@@ -92,7 +94,7 @@ public class DetallesActivity extends AppCompatActivity {
                     dateView.setText(dateString);
 
                     if (acto.getPrecioEntrada() != null && !acto.getPrecioEntrada().isEmpty()) {
-                        precioView.setText(acto.getPrecioEntrada());
+                        precioView.setText(Jsoup.parse(acto.getPrecioEntrada()).text());
                     } else {
                         precioView.setText("Sin datos");
                     }
