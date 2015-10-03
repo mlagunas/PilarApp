@@ -17,7 +17,7 @@ import java.util.List;
  */
 public class DaoActos extends DaoBase implements java.io.Serializable {
 
-    private Context context;
+    private transient Context context;
     private final String INFO_TABLE = "CREATE TABLE info (" +
             "id     INTEGER PRIMARY KEY, " +    //1
             "title  TEXT not NUll, " +          //2
@@ -43,7 +43,6 @@ public class DaoActos extends DaoBase implements java.io.Serializable {
 
     public DaoActos(Context pContext) {
         super(pContext);
-
         this.context = pContext;
     }
 
@@ -60,11 +59,75 @@ public class DaoActos extends DaoBase implements java.io.Serializable {
         return actos;
     }
 
+    public void insertActo(Acto a) {
+        String startd = null;
+        String endd = null;
+        int destacada = -1;
+
+        if (a.getStartDate() != null)
+            startd = new SimpleDateFormat("yyyy-MM-dd").format(a.getStartDate());
+        if (a.getStartDate() != null)
+            endd = new SimpleDateFormat("yyyy-MM-dd").format(a.getEndDate());
+
+        if (a.getDestacada()) destacada = 1;
+        else destacada = 0;
+
+        String consulta = "INSERT INTO info " +
+                "(" +
+                "id, " +
+                "title, " +
+                "description, " +
+                "programa, " +
+                "destacada, " +
+                "web, " +
+                "diasParaTerminar, " +
+                "tipoEntrada, " +
+                "precioEntrada, " +
+                "startDate, " +
+                "endDate, " +
+                "horaInicio, " +
+                "horaFinal, " +
+                "tema, " +
+                "subtema, " +
+                "lat, " +
+                "lng, " +
+                "buses," +
+                "address, " +
+                "addressInfo" +
+                ") " +
+                "VALUES (" +
+                a.getId() + ", '" +
+                formatSQL(a.getTitle()) + "',' " +
+                formatSQL(a.getDescription()) + "','" +
+                a.getPrograma() + "', " +
+                destacada + ", '" +
+                formatSQL(a.getWeb()) + "' ," +
+                a.getDiasParaTerminar() + " ,'" +
+                formatSQL(a.getTipoEntrada()) + "','" +
+                formatSQL(a.getPrecioEntrada()) + "', '" +
+                formatSQL(startd) + "', '" +
+                formatSQL(endd) + "', '" +
+                formatSQL(a.getHoraInicio()) + "', '" +
+                formatSQL(a.getHoraFinal()) + "', '" +
+                formatSQL(a.getTema()) + "', '" +
+                formatSQL(a.getSubtema()) + "', " +
+                a.getLat() + ", " +
+                a.getLng() + ", '" +
+                a.getBuses() + "', '" +
+                a.getAddress() + "', '" +
+                a.getAddressInfo() + "'" +
+                ");";
+        Log.d("TAG consulta", consulta);
+        mDb.execSQL(consulta);
+    }
+
     public List<Acto> getActos(Date date) {
         super.open();
         ArrayList<Acto> actos = new ArrayList<Acto>();
+        String fecha = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        Log.d("TAG fecha",fecha);
         c = super.mDb.rawQuery("SELECT * FROM info " +
-                "WHERE startDate LIKE '%" + new SimpleDateFormat("yyyy-MM-dd").format(date) + "%';", null);
+                "WHERE endDate LIKE '%" + fecha + "%';", null);
         if (c.moveToFirst()) {
             do {
                 actos.add(fillActo());
@@ -78,18 +141,13 @@ public class DaoActos extends DaoBase implements java.io.Serializable {
         super.open();
         c = super.mDb.rawQuery("SELECT * FROM info " +
                 "WHERE id = " + i + ";", null);
-        if (c.moveToFirst()) {
-            do {
-                return fillActo();
-            } while (c.moveToNext());
-        }
+        if (c.moveToFirst()) return fillActo();
         super.close();
         return null;
     }
 
     private Acto fillActo() {
         Acto a = new Acto();
-        Log.d("TAG fill", c.getInt(0) + " ");
         a.setId((c.getInt(0)));
         a.setTitle(c.getString(1));
         a.setDescription(c.getString(2));
@@ -110,71 +168,14 @@ public class DaoActos extends DaoBase implements java.io.Serializable {
         a.setBuses(c.getString(17));
         a.setAddress(c.getString(18));
         a.setAddressInfo(c.getString(19));
+        Log.d("TAG ACTO", a.getAddress() + a.getTitle());
         return a;
     }
 
     public void fillDB(List<Acto> actos, Boolean db) {
         super.open();
         for (Acto a : actos) {
-            String startd = null;
-            String endd = null;
-            int destacada = -1;
-
-            if (a.getStartDate() != null)
-                startd = new SimpleDateFormat("yyyy-MM-dd").format(a.getStartDate());
-            if (a.getStartDate() != null)
-                endd = new SimpleDateFormat("yyyy-MM-dd").format(a.getEndDate());
-
-            if (a.getDestacada()) destacada = 1;
-            else destacada = 0;
-
-            String consulta = "INSERT INTO info " +
-                    "(" +
-                    "id, " +
-                    "title, " +
-                    "description, " +
-                    "programa, " +
-                    "destacada, " +
-                    "web, " +
-                    "diasParaTerminar, " +
-                    "tipoEntrada, " +
-                    "precioEntrada, " +
-                    "startDate, " +
-                    "endDate, " +
-                    "horaInicio, " +
-                    "horaFinal, " +
-                    "tema, " +
-                    "subtema, " +
-                    "lat, " +
-                    "lng, " +
-                    "buses," +
-                    "address, " +
-                    "addressInfo" +
-                    ") " +
-                    "VALUES (" +
-                    a.getId() + ", '" +
-                    formatSQL(a.getTitle()) + "',' " +
-                    formatSQL(a.getDescription()) + "','" +
-                    a.getPrograma() + "', " +
-                    destacada + ", '" +
-                    formatSQL(a.getWeb()) + "' ," +
-                    a.getDiasParaTerminar() + " ,'" +
-                    formatSQL(a.getTipoEntrada()) + "','" +
-                    formatSQL(a.getPrecioEntrada()) + "', '" +
-                    formatSQL(startd) + "', '" +
-                    formatSQL(endd) + "', '" +
-                    formatSQL(a.getHoraInicio(db)) + "', '" +
-                    formatSQL(a.getHoraFinal(db)) + "', '" +
-                    formatSQL(a.getTema(db)) + "', '" +
-                    formatSQL(a.getSubtema(db)) + "', " +
-                    a.getLat(db) + ", " +
-                    a.getLng(db) + ", '" +
-                    a.getBuses() + "', '" +
-                    a.getAddress() + "', '" +
-                    a.getAddressInfo() + "'" +
-                    ");";
-            Log.d("TAG consulta", consulta);
-            mDb.execSQL(consulta);
+            insertActo(a);
         }
         super.close();
     }

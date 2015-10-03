@@ -4,7 +4,7 @@ package com.example.manuel.pilarapp.Objects;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class SubtemasAJ {
+public class SubtemasAJ{
 
     @SerializedName("id")
     @Expose

@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity
             while (it.hasNext()) {
                 Acto a = (Acto) it.next();
                 float[] results = new float[]{};
-                Location.distanceBetween(0, 0, a.getLng(false), a.getLat(false), results);
+                Location.distanceBetween(0, 0, a.getLng(), a.getLat(), results);
                 if (results[0] > km * 1000) {
                     it.remove();
                 }
@@ -223,7 +223,7 @@ public class MainActivity extends AppCompatActivity
             map.clear();
             for (Acto a : list) {
                 map.addMarker(new MarkerOptions()
-                        .position(new LatLng(a.getLng(false), a.getLat(false))).title(a.getTitle()).snippet(a.getId().toString()));
+                        .position(new LatLng(a.getLng(), a.getLat())).title(a.getTitle()).snippet(a.getId().toString()));
             }
         }
     }

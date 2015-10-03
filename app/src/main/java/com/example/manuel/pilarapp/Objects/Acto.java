@@ -2,12 +2,12 @@
 package com.example.manuel.pilarapp.Objects;
 
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -119,9 +119,9 @@ public class Acto {
     private String addressInfo;
     private String address;
     private String buses;
+
     /**
      * No args constructor for use in serialization
-     * 
      */
     public Acto() {
         this.lat = -1;
@@ -130,13 +130,12 @@ public class Acto {
         this.subtema = "";
         this.horaFinal = "";
         this.horaInicio = "";
-        this.buses ="";
-        this.address="";
-        this.addressInfo="";
+        this.buses = "";
+        this.address = "";
+        this.addressInfo = "";
     }
 
     /**
-     * 
      * @param poblacion
      * @param formatoActividad
      * @param descripcion2
@@ -212,522 +211,407 @@ public class Acto {
     }
 
     /**
-     * 
-     * @return
-     *     The id
+     * @return The id
      */
     public Integer getId() {
         return id;
     }
 
     /**
-     * 
-     * @param id
-     *     The id
+     * @param id The id
      */
     public void setId(Integer id) {
         this.id = id;
     }
 
     /**
-     * 
-     * @return
-     *     The subEvent
+     * @return The subEvent
      */
     public List<SubEvent> getSubEvent() {
         return subEvent;
     }
 
     /**
-     * 
-     * @param subEvent
-     *     The subEvent
+     * @param subEvent The subEvent
      */
     public void setSubEvent(List<SubEvent> subEvent) {
         this.subEvent = subEvent;
     }
 
     /**
-     * 
-     * @return
-     *     The title
+     * @return The title
      */
     public String getTitle() {
         return title;
     }
 
     /**
-     * 
-     * @param title
-     *     The title
+     * @param title The title
      */
     public void setTitle(String title) {
         this.title = title;
     }
 
     /**
-     * 
-     * @return
-     *     The description
+     * @return The description
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * 
-     * @param description
-     *     The description
+     * @param description The description
      */
     public void setDescription(String description) {
         this.description = description;
     }
 
     /**
-     * 
-     * @return
-     *     The programa
+     * @return The programa
      */
     public String getPrograma() {
         return programa;
     }
 
     /**
-     * 
-     * @param programa
-     *     The programa
+     * @param programa The programa
      */
     public void setPrograma(String programa) {
         this.programa = programa;
     }
 
     /**
-     * 
-     * @return
-     *     The citaDestacada
+     * @return The citaDestacada
      */
     public String getCitaDestacada() {
         return citaDestacada;
     }
 
     /**
-     * 
-     * @param citaDestacada
-     *     The citaDestacada
+     * @param citaDestacada The citaDestacada
      */
     public void setCitaDestacada(String citaDestacada) {
         this.citaDestacada = citaDestacada;
     }
 
     /**
-     * 
-     * @return
-     *     The destacada
+     * @return The destacada
      */
     public Boolean getDestacada() {
         return destacada;
     }
 
     /**
-     * 
-     * @param destacada
-     *     The destacada
+     * @param destacada The destacada
      */
     public void setDestacada(Boolean destacada) {
         this.destacada = destacada;
     }
 
     /**
-     * 
-     * @return
-     *     The orden
+     * @return The orden
      */
     public Integer getOrden() {
         return orden;
     }
 
     /**
-     * 
-     * @param orden
-     *     The orden
+     * @param orden The orden
      */
     public void setOrden(Integer orden) {
         this.orden = orden;
     }
 
     /**
-     * 
-     * @return
-     *     The web
+     * @return The web
      */
     public String getWeb() {
         return web;
     }
 
     /**
-     * 
-     * @param web
-     *     The web
+     * @param web The web
      */
     public void setWeb(String web) {
         this.web = web;
     }
 
     /**
-     * 
-     * @return
-     *     The twitter
+     * @return The twitter
      */
     public String getTwitter() {
         return twitter;
     }
 
     /**
-     * 
-     * @param twitter
-     *     The twitter
+     * @param twitter The twitter
      */
     public void setTwitter(String twitter) {
         this.twitter = twitter;
     }
 
     /**
-     * 
-     * @return
-     *     The facebook
+     * @return The facebook
      */
     public String getFacebook() {
         return facebook;
     }
 
     /**
-     * 
-     * @param facebook
-     *     The facebook
+     * @param facebook The facebook
      */
     public void setFacebook(String facebook) {
         this.facebook = facebook;
     }
 
     /**
-     * 
-     * @return
-     *     The poblacion
+     * @return The poblacion
      */
     public List<Poblacion> getPoblacion() {
         return poblacion;
     }
 
     /**
-     * 
-     * @param poblacion
-     *     The poblacion
+     * @param poblacion The poblacion
      */
     public void setPoblacion(List<Poblacion> poblacion) {
         this.poblacion = poblacion;
     }
 
     /**
-     * 
-     * @return
-     *     The festividadLocal
+     * @return The festividadLocal
      */
     public String getFestividadLocal() {
         return festividadLocal;
     }
 
     /**
-     * 
-     * @param festividadLocal
-     *     The festividadLocal
+     * @param festividadLocal The festividadLocal
      */
     public void setFestividadLocal(String festividadLocal) {
         this.festividadLocal = festividadLocal;
     }
 
     /**
-     * 
-     * @return
-     *     The barrerasArquit
+     * @return The barrerasArquit
      */
     public String getBarrerasArquit() {
         return barrerasArquit;
     }
 
     /**
-     * 
-     * @param barrerasArquit
-     *     The barrerasArquit
+     * @param barrerasArquit The barrerasArquit
      */
     public void setBarrerasArquit(String barrerasArquit) {
         this.barrerasArquit = barrerasArquit;
     }
 
     /**
-     * 
-     * @return
-     *     The prepDiscapacidad
+     * @return The prepDiscapacidad
      */
     public String getPrepDiscapacidad() {
         return prepDiscapacidad;
     }
 
     /**
-     * 
-     * @param prepDiscapacidad
-     *     The prepDiscapacidad
+     * @param prepDiscapacidad The prepDiscapacidad
      */
     public void setPrepDiscapacidad(String prepDiscapacidad) {
         this.prepDiscapacidad = prepDiscapacidad;
     }
 
     /**
-     * 
-     * @return
-     *     The tipoEntrada
+     * @return The tipoEntrada
      */
     public String getTipoEntrada() {
         return tipoEntrada;
     }
 
     /**
-     * 
-     * @param tipoEntrada
-     *     The tipoEntrada
+     * @param tipoEntrada The tipoEntrada
      */
     public void setTipoEntrada(String tipoEntrada) {
         this.tipoEntrada = tipoEntrada;
     }
 
     /**
-     * 
-     * @return
-     *     The precioEntrada
+     * @return The precioEntrada
      */
     public String getPrecioEntrada() {
         return precioEntrada;
     }
 
     /**
-     * 
-     * @param precioEntrada
-     *     The precioEntrada
+     * @param precioEntrada The precioEntrada
      */
     public void setPrecioEntrada(String precioEntrada) {
         this.precioEntrada = precioEntrada;
     }
 
     /**
-     * 
-     * @return
-     *     The comentariosEntrada
+     * @return The comentariosEntrada
      */
     public String getComentariosEntrada() {
         return comentariosEntrada;
     }
 
     /**
-     * 
-     * @param comentariosEntrada
-     *     The comentariosEntrada
+     * @param comentariosEntrada The comentariosEntrada
      */
     public void setComentariosEntrada(String comentariosEntrada) {
         this.comentariosEntrada = comentariosEntrada;
     }
 
     /**
-     * 
-     * @return
-     *     The subtemas
+     * @return The subtemas
      */
     public List<Subtema> getSubtemas() {
         return subtemas;
     }
 
     /**
-     * 
-     * @param subtemas
-     *     The subtemas
+     * @param subtemas The subtemas
      */
     public void setSubtemas(List<Subtema> subtemas) {
         this.subtemas = subtemas;
     }
 
     /**
-     * 
-     * @return
-     *     The subtemasAJ
+     * @return The subtemasAJ
      */
     public List<SubtemasAJ> getSubtemasAJ() {
         return subtemasAJ;
     }
 
     /**
-     * 
-     * @param subtemasAJ
-     *     The subtemasAJ
+     * @param subtemasAJ The subtemasAJ
      */
     public void setSubtemasAJ(List<SubtemasAJ> subtemasAJ) {
         this.subtemasAJ = subtemasAJ;
     }
 
     /**
-     * 
-     * @return
-     *     The temas
+     * @return The temas
      */
     public List<Tema> getTemas() {
         return temas;
     }
 
     /**
-     * 
-     * @param temas
-     *     The temas
+     * @param temas The temas
      */
     public void setTemas(List<Tema> temas) {
         this.temas = temas;
     }
 
     /**
-     * 
-     * @return
-     *     The permanente
+     * @return The permanente
      */
     public String getPermanente() {
         return permanente;
     }
 
     /**
-     * 
-     * @param permanente
-     *     The permanente
+     * @param permanente The permanente
      */
     public void setPermanente(String permanente) {
         this.permanente = permanente;
     }
 
     /**
-     * 
-     * @return
-     *     The image
+     * @return The image
      */
     public String getImage() {
         return image;
     }
 
     /**
-     * 
-     * @param image
-     *     The image
+     * @param image The image
      */
     public void setImage(String image) {
         this.image = image;
     }
 
     /**
-     * 
-     * @return
-     *     The descripcion2
+     * @return The descripcion2
      */
     public String getDescripcion2() {
         return descripcion2;
     }
 
     /**
-     * 
-     * @param descripcion2
-     *     The descripcion2
+     * @param descripcion2 The descripcion2
      */
     public void setDescripcion2(String descripcion2) {
         this.descripcion2 = descripcion2;
     }
 
     /**
-     * 
-     * @return
-     *     The price
+     * @return The price
      */
     public List<Price> getPrice() {
         return price;
     }
 
     /**
-     * 
-     * @param price
-     *     The price
+     * @param price The price
      */
     public void setPrice(List<Price> price) {
         this.price = price;
     }
 
     /**
-     * 
-     * @return
-     *     The anexo
+     * @return The anexo
      */
     public List<Anexo> getAnexo() {
         return anexo;
     }
 
     /**
-     * 
-     * @param anexo
-     *     The anexo
+     * @param anexo The anexo
      */
     public void setAnexo(List<Anexo> anexo) {
         this.anexo = anexo;
     }
 
     /**
-     *
      * @return geometry
-     *     The coordinates
+     * The coordinates
      */
     public Geometry getGeometry() {
         return geometry;
     }
 
     /**
-     *
-     * @param geometry
-     *     The coordinates
+     * @param geometry The coordinates
      */
     public void setGeometry(Geometry geometry) {
         this.geometry = geometry;
     }
 
     /**
-     * 
-     * @return
-     *     The diasParaTerminar
+     * @return The diasParaTerminar
      */
     public Integer getDiasParaTerminar() {
         return diasParaTerminar;
     }
 
     /**
-     * 
-     * @param diasParaTerminar
-     *     The diasParaTerminar
+     * @param diasParaTerminar The diasParaTerminar
      */
     public void setDiasParaTerminar(Integer diasParaTerminar) {
         this.diasParaTerminar = diasParaTerminar;
     }
 
     /**
-     * 
-     * @return
-     *     The formatoActividad
+     * @return The formatoActividad
      */
     public String getFormatoActividad() {
         return formatoActividad;
     }
 
     /**
-     * 
-     * @param formatoActividad
-     *     The formatoActividad
+     * @param formatoActividad The formatoActividad
      */
     public void setFormatoActividad(String formatoActividad) {
         this.formatoActividad = formatoActividad;
@@ -741,7 +625,7 @@ public class Acto {
         this.startDate = startDate;
     }
 
-    public void setStartDate(String date){
+    public void setStartDate(String date) {
         this.startDate = parseDate(date);
     }
 
@@ -753,63 +637,54 @@ public class Acto {
         this.endDate = endDate;
     }
 
-    public void setEndDate(String date){
+    public void setEndDate(String date) {
         this.endDate = parseDate(date);
     }
 
-    public double getLng(Boolean db) {
-        if (db)
+    public double getLng() {
+
+        if (geometry != null) {
+            lng = geometry.getCoordinates().get(1);
             return lng;
-        else {
-            if (geometry != null) {
-                lng = geometry.getCoordinates().get(1);
-                return lng;
-            } else return lng;
-        }
+        } else return lng;
+
     }
 
     public void setLng(double lng) {
         this.lng = lng;
     }
 
-    public double getLat(Boolean db){
-        if (db)
+    public double getLat() {
+        if (geometry != null) {
+            lat = geometry.getCoordinates().get(0);
             return lat;
-        else {
-            if (geometry != null) {
-                lat = geometry.getCoordinates().get(0);
-                return lat;
-            } else return lat;
-        }
+        } else return lat;
     }
 
     public void setLat(double lat) {
         this.lat = lat;
     }
 
-    private Date parseDate(String date){
+    private Date parseDate(String date) {
         Date parsed = new Date();
         try {
             SimpleDateFormat format =
                     new SimpleDateFormat("yyyy-mm-dd"); //EEE MMM dd HH:mm:ss zzz yyyy
             parsed = format.parse(date);
-        }
-        catch(ParseException pe) {
+        } catch (ParseException pe) {
             throw new IllegalArgumentException();
         }
         return parsed;
     }
 
-    public String getTema(Boolean db) {
-        if (db){
-            return tema;
-        }
-        else{
-            if (temas.size() > 0) {
-                tema = temas.get(0).getTitle();
+    public String getTema() {
+        if (temas != null && temas.size() > 0) {
+            if (temas.get(0).getTitle() != null &&
+                    (temas.get(0).getTitle()).equals(""))
                 return tema;
-            }else return tema;
-        }
+            else return temas.get(0).getTitle();
+        } else return tema;
+
 
     }
 
@@ -817,48 +692,48 @@ public class Acto {
         this.tema = tema;
     }
 
-    public String getSubtema(Boolean db) {
-        if (db){
-            return subtema;
-        }
-        else{
-            if (subtemas.size() > 0) {
-                subtema = subtemas.get(0).getTitle();
+    public String getSubtema() {
+        if (subtemas != null && subtemas.size() > 0) {
+            if (subtemas.get(0).getTitle() != null &&
+                    (subtemas.get(0).getTitle()).equals(""))
                 return subtema;
-            }else return subtema;
-        }
+            else
+                return subtemas.get(0).getTitle();
+        } else return subtema;
+
     }
 
     public void setSubtema(String subtema) {
         this.subtema = subtema;
     }
 
-    public String getHoraInicio(Boolean db) {
-        if (db){
-            return horaInicio;
-        }
-        else{
-            if (subEvent.size()>0) {
-                horaInicio =  subEvent.get(0).getHoraInicio();
+    public String getHoraInicio() {
+
+        if (subEvent != null && subEvent.size() > 0) {
+            if (subEvent.get(0).getHoraInicio() != null &&
+                    (subEvent.get(0).getHoraInicio()).equals(""))
                 return horaInicio;
-            }else return horaInicio;
-        }
+            else
+                return subEvent.get(0).getHoraInicio();
+        } else return horaInicio;
+
     }
 
     public void setHoraInicio(String horaInicio) {
         this.horaInicio = horaInicio;
     }
 
-    public String getHoraFinal(Boolean db) {
-        if (db){
-            return horaFinal;
-        }
-        else{
-            if (subEvent.size() > 0) {
-                horaFinal =  subEvent.get(0).getHoraFinal();
+    public String getHoraFinal() {
+
+
+        if (subEvent != null && subEvent.size() > 0) {
+            if (subEvent.get(0).getHoraFinal() != null &&
+                    (subEvent.get(0).getHoraFinal()).equals(""))
                 return horaFinal;
-            }else return horaFinal;
-        }
+            else
+                return subEvent.get(0).getHoraFinal();
+        } else return horaFinal;
+
     }
 
     public void setHoraFinal(String horaFinal) {
@@ -866,12 +741,14 @@ public class Acto {
     }
 
     public String getAddressInfo() {
-        if (subEvent.size() > 0 &&
-                subEvent.get(0).getLugar() != null){
-            addressInfo = subEvent.get(0).getLugar().getAutobuses();
-            return addressInfo;
-        }
-        else return addressInfo;
+        if (subEvent != null && subEvent.size() > 0 &&
+                subEvent.get(0).getLugar() != null) {
+            if (subEvent.get(0).getLugar().getTitle() != null &&
+                    (subEvent.get(0).getLugar().getTitle()).equals(""))
+                return addressInfo;
+            else
+                return subEvent.get(0).getLugar().getTitle();
+        } else return addressInfo;
     }
 
     public void setAddressInfo(String addressInfo) {
@@ -879,12 +756,18 @@ public class Acto {
     }
 
     public String getAddress() {
-        if (subEvent.size() > 0 &&
-                subEvent.get(0).getLugar() != null){
-            address = subEvent.get(0).getLugar().getDireccion();
-            return address;
-        }
-        else return address;
+        if (subEvent != null && subEvent.size() > 0 &&
+                subEvent.get(0).getLugar() != null) {
+            if (subEvent.get(0).getLugar().getDireccion() != null &&
+                    (subEvent.get(0).getLugar().getDireccion() + ", " + subEvent.get(0).getLugar().getCp()).equals(""))
+                return address;
+            else
+            if (subEvent.get(0).getLugar().getCp()!="")
+                return subEvent.get(0).getLugar().getDireccion() + ", "
+                        + subEvent.get(0).getLugar().getCp();
+            else
+                return subEvent.get(0).getLugar().getDireccion();
+        } else return address;
     }
 
     public void setAddress(String address) {
@@ -892,12 +775,13 @@ public class Acto {
     }
 
     public String getBuses() {
-        if (subEvent.size() > 0 &&
-                subEvent.get(0).getLugar() != null){
-            buses = subEvent.get(0).getLugar().getAutobuses();
-            return buses;
-        }
-        else return buses;
+        if (subEvent != null && subEvent.size() > 0 &&
+                subEvent.get(0).getLugar() != null) {
+            if (subEvent.get(0).getLugar().getAutobuses() != null &&
+                    (subEvent.get(0).getLugar().getAutobuses()).equals(""))
+                return buses;
+            else return subEvent.get(0).getLugar().getAutobuses();
+        } else return buses;
     }
 
     public void setBuses(String buses) {

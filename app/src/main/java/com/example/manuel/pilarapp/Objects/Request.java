@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Manuel on 19/09/2015.
  */
-public class Request {
+public class Request implements java.io.Serializable{
 
     private Integer totalCount;
     private Integer start;

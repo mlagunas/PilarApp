@@ -18,13 +18,10 @@ import android.view.MenuItem;
 
 import com.example.manuel.pilarapp.ApiManager;
 import com.example.manuel.pilarapp.Database.DaoActos;
-import com.example.manuel.pilarapp.Database.DatabaseManager;
 import com.example.manuel.pilarapp.Fragments.ProgramaFragment;
+import com.example.manuel.pilarapp.Objects.Acto;
 import com.example.manuel.pilarapp.Objects.Request;
 import com.example.manuel.pilarapp.R;
-import com.path.android.jobqueue.JobManager;
-import com.path.android.jobqueue.config.Configuration;
-import com.path.android.jobqueue.log.CustomLogger;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -45,7 +42,6 @@ public class ProgramaActivity extends AppCompatActivity implements java.io.Seria
     private DaoActos DA;
     private ConnectivityManager cm;
     private NetworkInfo activeNetwork;
-    JobManager jobManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,45 +57,12 @@ public class ProgramaActivity extends AppCompatActivity implements java.io.Seria
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(viewPager);
 
-        configureJobManager();
         this.DA = new DaoActos(this);
         cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
         activeNetwork = cm.getActiveNetworkInfo();
-
         checkDB();
     }
 
-    private void configureJobManager() {
-        Configuration configuration = new Configuration.Builder(this)
-                .customLogger(new CustomLogger() {
-                    private static final String TAG = "JOBS";
-                    @Override
-                    public boolean isDebugEnabled() {
-                        return true;
-                    }
-
-                    @Override
-                    public void d(String text, Object... args) {
-                        Log.d(TAG, String.format(text, args));
-                    }
-
-                    @Override
-                    public void e(Throwable t, String text, Object... args) {
-                        Log.e(TAG, String.format(text, args), t);
-                    }
-
-                    @Override
-                    public void e(String text, Object... args) {
-                        Log.e(TAG, String.format(text, args));
-                    }
-                })
-                .minConsumerCount(0)
-                .maxConsumerCount(3)//up to 3 consumers at a time
-                .loadFactor(3)//3 jobs per consumer
-                .consumerKeepAlive(120)//wait 2 minute
-                .build();
-        this.jobManager = new JobManager(this, configuration);
-    }
 
     private void setupViewPager(ViewPager viewPager) {
         SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -154,8 +117,20 @@ public class ProgramaActivity extends AppCompatActivity implements java.io.Seria
                         //!= "/*VALOR DE PREFERENCES*/") {
                         ApiManager.getApiService().getRequest(new Callback<Request>() {
                             @Override
-                            public void success(Request request, Response response) {
-                                jobManager.addJobInBackground(new DatabaseManager(DA,request.getResult()));
+                            public void success(final Request request, Response response) {
+                                new Thread(){
+                                    public void run() {
+                                        try {
+                                            DA.truncateDB();
+                                            Log.d("TAG db","Comienzo db");
+                                            DA.fillDB(request.getResult(), false);
+                                            Log.d("TAG db", "fin db");
+                                        } catch(Exception v) {
+                                            System.out.println(v);
+                                        }
+                                    }
+                                }.start();
+
                             }
                             @Override
                             public void failure(RetrofitError error) {

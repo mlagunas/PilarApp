@@ -4,7 +4,7 @@ package com.example.manuel.pilarapp.Objects;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Price {
+public class Price{
 
     @SerializedName("fareGroup")
     @Expose

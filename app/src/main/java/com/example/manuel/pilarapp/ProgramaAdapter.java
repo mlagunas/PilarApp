@@ -30,16 +30,16 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
         mDataset = new SortedList<>(Acto.class, new SortedListAdapterCallback<Acto>(this) {
             @Override
             public int compare(Acto o1, Acto o2) {
-                if ((o1.getHoraInicio(false) == null || o1.getHoraInicio(false).isEmpty()) && (o2.getHoraInicio(false) == null || o2.getHoraInicio(false).isEmpty())) {
+                if ((o1.getHoraInicio() == null || o1.getHoraInicio().isEmpty()) && (o2.getHoraInicio() == null || o2.getHoraInicio().isEmpty())) {
                     return 0;
                 }
-                if (o1.getHoraInicio(false) == null || o1.getHoraInicio(false).isEmpty()) {
+                if (o1.getHoraInicio() == null || o1.getHoraInicio().isEmpty()) {
                     return 1;
                 }
-                if (o2.getHoraInicio(false) == null || o2.getHoraInicio(false).isEmpty()) {
+                if (o2.getHoraInicio() == null || o2.getHoraInicio().isEmpty()) {
                     return -1;
                 }
-                return o1.getHoraInicio(false).compareTo(o2.getHoraInicio(false));
+                return o1.getHoraInicio().compareTo(o2.getHoraInicio());
             }
 
             @Override
@@ -85,38 +85,22 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
 
         // Replace contents of the view
         holder.primaryText.setText(acto.getTitle());
-        if ((acto.getHoraInicio(false) != null && acto.getHoraInicio(false).trim() != "")
-                && (acto.getHoraFinal(false) != null && acto.getHoraFinal(false).trim() != "")) {
-            holder.secondaryText.setText("Horario: " + acto.getHoraInicio(true) + "-" + acto.getHoraFinal(true));
-        } else if (acto.getHoraInicio(false) != null && acto.getHoraInicio(false).trim() != "") {
-            holder.secondaryText.setText("Hora de inicio: " + acto.getHoraInicio(true));
+        if ((acto.getHoraInicio() != null && !acto.getHoraInicio().equals(""))
+                && (acto.getHoraFinal() != null && !acto.getHoraFinal().equals(""))) {
+            holder.secondaryText.setText("Horario: " + acto.getHoraInicio() + "-" + acto.getHoraFinal());
+        } else if (acto.getHoraInicio() != null && !acto.getHoraInicio().equals("")) {
+            holder.secondaryText.setText("Hora de inicio: " + acto.getHoraInicio());
         } else {
             holder.secondaryText.setText("Acto sin hora especificada");
         }
 
-        if (acto.getSubEvent().size() > 0 &&
-                acto.getSubEvent().get(0).getLugar() != null) {
-            if (acto.getSubEvent().get(0).getLugar().getDireccion() != null &&
-                    acto.getSubEvent().get(0).getLugar().getDireccion() != "" &&
-                    acto.getSubEvent().get(0).getLugar().getTitle() != null &&
-                    acto.getSubEvent().get(0).getLugar().getTitle() != "")
-                holder.thirdText.setText("Dirección: " + acto.getSubEvent().get(0).getLugar().getDireccion() + ", "
-                        + acto.getSubEvent().get(0).getLugar().getTitle());
-            else if (acto.getSubEvent().get(0).getLugar().getDireccion() != null &&
-                    acto.getSubEvent().get(0).getLugar().getDireccion() != "")
-                holder.thirdText.setText("Dirección: " + acto.getSubEvent().get(0).getLugar().getDireccion());
-            else
-                holder.thirdText.setText("No existe una dirección espeficiada");
-        }
+        if (acto.getAddress() != null &&acto.getAddress() != "" &&
+                        acto.getAddressInfo() != null &&acto.getAddressInfo() != "")
+            holder.thirdText.setText("Dirección: " + acto.getAddress() + ", " + acto.getAddressInfo());
+        else if (acto.getAddress() != null &&acto.getAddress() != "")
+            holder.thirdText.setText("Dirección: " + acto.getAddress());
         else
             holder.thirdText.setText("No existe una dirección espeficiada");
-
-        //holder.secondaryText.setText(DateUtils.getRelativeDateTimeString(App.getContext(), acto.getPublishedTime().getTime(), DateUtils.HOUR_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0));
-        //holder.secondaryText.setText(DateUtils.formatDateTime(App.getContext(), acto.getPublishedTime().getTime(), 0));
-        //holder.secondaryText.setText(acto.getPublishedTime());
-//        if (holder.support != null) {
-//            holder.support.setText(acto.getPrograma());
-//        }
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -124,36 +108,6 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
     public int getItemCount() {
         return mDataset != null ? mDataset.size() : 0;
     }
-
-    /*private String getAddress(double latitude,double longitude){
-        Geocoder geocoder;
-        List<Address> addresses;
-        geocoder = new Geocoder(context, Locale.getDefault());
-
-        try {
-            addresses = geocoder.getFromLocation(longitude, latitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-
-            if(addresses.size()>0) {
-                String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-                String city = addresses.get(0).getLocality();
-                String state = addresses.get(0).getAdminArea();
-                String country = addresses.get(0).getCountryName();
-                String postalCode = addresses.get(0).getPostalCode();
-                String knownName = addresses.get(0).getFeatureName(); // Only if available else return NULL
-
-                Log.d("TAG",address+" - "+country+" - "+postalCode);
-                return address;
-            }
-            else
-            {
-                return "Direccion no especificada";
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-            return "Direccion no especificada";
-        }
-    }*/
 
     public Acto getItem(int position) {
         if (mDataset == null || mDataset.size() == 0) {

@@ -76,7 +76,7 @@ public class DetallesActivity extends AppCompatActivity {
                     if (acto.getDescription() != null) {
                         contentView.setText(Html.fromHtml(acto.getDescription()));
                     }
-                    setupHeaderImage(acto.getLat(false), acto.getLng(false));
+                    setupHeaderImage(acto.getLat(), acto.getLng());
                     setupFab(acto.getTitle());
                 }
                 @Override
@@ -92,7 +92,7 @@ public class DetallesActivity extends AppCompatActivity {
                 if (mActo.getDescription() != null) {
                     contentView.setText(Html.fromHtml(mActo.getDescription()));
                 }
-                setupHeaderImage(mActo.getLat(false), mActo.getLng(false));
+                setupHeaderImage(mActo.getLat(), mActo.getLng());
             }
         }
     }
