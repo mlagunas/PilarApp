@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.manuel.pilarapp.R;
-import com.mikepenz.materialdrawer.DrawerBuilder;
 
 public class ShowLocationActivity extends Activity implements LocationListener {
     private TextView latituteField;
@@ -27,39 +26,38 @@ public class ShowLocationActivity extends Activity implements LocationListener {
         setContentView(R.layout.show_location);
         latituteField = (TextView) findViewById(R.id.TextView02);
         longitudeField = (TextView) findViewById(R.id.TextView04);
-        new DrawerBuilder().withActivity(this).build();
         // Get the location manager
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         // Define the criteria how to select the locatioin provider -> use
         // default
         Criteria criteria = new Criteria();
         provider = locationManager.getBestProvider(criteria, false);
-        Location location = locationManager.getLastKnownLocation(provider);
+        //Location location = locationManager.getLastKnownLocation(provider);
 
         // Initialize the location fields
-        if (location != null) {
-            System.out.println("Provider " + provider + " has been selected.");
-            onLocationChanged(location);
-        } else {
-            latituteField.setText("Location not available");
-            longitudeField.setText("Location not available");
-        }
+//        if (location != null) {
+//            System.out.println("Provider " + provider + " has been selected.");
+//            onLocationChanged(location);
+//        } else {
+//            latituteField.setText("Location not available");
+//            longitudeField.setText("Location not available");
+//        }
     }
 
-    /* Request updates at startup */
-    @Override
-    protected void onResume() {
-        super.onResume();
-        locationManager.requestLocationUpdates(provider, 400, 1, this);
-    }
-
-    /* Remove the locationlistener updates when Activity is paused */
-    @Override
-    protected void onPause() {
-        super.onPause();
-        locationManager.removeUpdates(this);
-    }
-
+//    /* Request updates at startup */
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        locationManager.requestLocationUpdates(provider, 400, 1, this);
+//    }
+//
+//    /* Remove the locationlistener updates when Activity is paused */
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        locationManager.removeUpdates(this);
+//    }
+//
     @Override
     public void onLocationChanged(Location location) {
         int lat = (int) (location.getLatitude());

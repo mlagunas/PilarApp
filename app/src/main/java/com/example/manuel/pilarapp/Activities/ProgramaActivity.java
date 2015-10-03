@@ -63,7 +63,7 @@ public class ProgramaActivity extends AppCompatActivity implements java.io.Seria
 
         configureJobManager();
         this.DA = new DaoActos(this);
-        cm = (ConnectivityManager)this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         activeNetwork = cm.getActiveNetworkInfo();
 
         checkDB();
@@ -73,6 +73,7 @@ public class ProgramaActivity extends AppCompatActivity implements java.io.Seria
         Configuration configuration = new Configuration.Builder(this)
                 .customLogger(new CustomLogger() {
                     private static final String TAG = "JOBS";
+
                     @Override
                     public boolean isDebugEnabled() {
                         return true;
@@ -126,25 +127,22 @@ public class ProgramaActivity extends AppCompatActivity implements java.io.Seria
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
-        if (id == R.id.action_settings) {
-            return true;
-        } else if (id == R.id.action_ver_mapa){
+        if (id == R.id.action_ver_mapa) {
             startMapActivity();
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void checkDB(){
+    private void checkDB() {
         //Check if DB update needed
-        if(activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
+        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
             Log.d("TAG", "Checking connection");
             ApiManager.getApiService().getHeaders(new Callback<Request>() {
                 @Override
                 public void success(Request request, Response response) {
                     //Update de la BD en caso de que haya sido modificada
-                    Log.d("TAG","Updating DB if needed");
+                    Log.d("TAG", "Updating DB if needed");
                     List<Header> headerList = response.getHeaders();
                     for (Header header : headerList) {
 
@@ -155,8 +153,9 @@ public class ProgramaActivity extends AppCompatActivity implements java.io.Seria
                         ApiManager.getApiService().getRequest(new Callback<Request>() {
                             @Override
                             public void success(Request request, Response response) {
-                                jobManager.addJobInBackground(new DatabaseManager(DA,request.getResult()));
+                                jobManager.addJobInBackground(new DatabaseManager(DA, request.getResult()));
                             }
+
                             @Override
                             public void failure(RetrofitError error) {
 
@@ -167,6 +166,7 @@ public class ProgramaActivity extends AppCompatActivity implements java.io.Seria
                         break;
                     }
                 }
+
                 @Override
                 public void failure(RetrofitError error) {
                     Log.d("TAG", "Request fallida");
