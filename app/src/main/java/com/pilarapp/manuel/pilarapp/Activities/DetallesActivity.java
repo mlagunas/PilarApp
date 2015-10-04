@@ -10,7 +10,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,9 +37,9 @@ public class DetallesActivity extends AppCompatActivity {
     private ImageView headerView;
     private TextView dateView;
     private TextView titleView;
-    private TextView subtitleView;
     private TextView contentView;
     private TextView precioView;
+    private ImageView eventImage;
     private DaoActos DA;
     private FloatingActionButton fab;
 
@@ -61,9 +60,10 @@ public class DetallesActivity extends AppCompatActivity {
         headerView = (ImageView) findViewById(R.id.header);
         dateView = (TextView) findViewById(R.id.date);
         titleView = (TextView) findViewById(R.id.title);
-        //subtitleView = (TextView) findViewById(R.id.subtitle);
         contentView = (TextView) findViewById(R.id.content);
         precioView = (TextView) findViewById(R.id.precio);
+        eventImage = (ImageView) findViewById(R.id.eventImage);
+
         fab = (FloatingActionButton) findViewById(R.id.action_share);
 
         int id = getIntent().getIntExtra("id", 0);
@@ -76,70 +76,53 @@ public class DetallesActivity extends AppCompatActivity {
                 @Override
                 public void success(Acto acto, Response response) {
                     mActo = acto;
-                    titleView.setText(acto.getTitle());
-                    if (acto.getDescription() != null) {
-                        contentView.setText(Html.fromHtml(acto.getDescription()));
-                    } else {
-                        contentView.setText("Sin descripción");
-                    }
+                    setupUI(acto);
 
-                    SimpleDateFormat sdf = new SimpleDateFormat("cccc d", new Locale("es", "ES"));
-                    String dateString = sdf.format(acto.getStartDate()) + " | ";
-                    if ((acto.getHoraInicio() != null && acto.getHoraInicio().trim() != "")
-                            && (acto.getHoraFinal() != null && acto.getHoraFinal().trim() != "")) {
-                        dateString += acto.getHoraInicio() + "-" + acto.getHoraFinal();
-                    } else if (acto.getHoraInicio() != null && acto.getHoraInicio().trim() != "") {
-                        dateString += acto.getHoraInicio();
-                    }
-                    setupHeaderImage(acto.getLat(), acto.getLng());
-                    dateView.setText(dateString);
-
-                    if (acto.getPrecioEntrada() != null && !acto.getPrecioEntrada().isEmpty()) {
-                        precioView.setText(Jsoup.parse(acto.getPrecioEntrada()).text());
-                    } else {
-                        precioView.setText("Precio no establecido");
-                    }
-                    setupFab(acto.getTitle());
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
-
                 }
             });
         } else {
-            Log.d("TAG","in DB");
             Acto acto = DA.getActo(id);
-
             mActo = acto;
-            titleView.setText(acto.getTitle());
-            if (acto.getDescription() != null && acto.getDescription()!="")
-            {
-                contentView.setText(Html.fromHtml(acto.getDescription()));
-            } else {
-                contentView.setText("Sin descripción");
-            }
+            setupUI(acto);
 
-            SimpleDateFormat sdf = new SimpleDateFormat("cccc d", new Locale("es", "ES"));
-            String dateString = sdf.format(acto.getStartDate()) + " | ";
-
-            if ((acto.getHoraInicio() != null && acto.getHoraInicio().trim() != "")
-                    && (acto.getHoraFinal() != null && acto.getHoraFinal().trim() != "")) {
-                dateString += acto.getHoraInicio() + "-" + acto.getHoraFinal();
-            } else if (acto.getHoraInicio() != null && acto.getHoraInicio().trim() != "") {
-                dateString += acto.getHoraInicio();
-            }
-            setupHeaderImage(acto.getLat(), acto.getLng());
-            dateView.setText(dateString);
-
-            if (acto.getPrecioEntrada() != null && !acto.getPrecioEntrada().isEmpty()) {
-                precioView.setText(Jsoup.parse(acto.getPrecioEntrada()).text());
-            } else {
-                precioView.setText("Precio no establecido");
-            }
-            setupFab(acto.getTitle());
-            ;
         }
+    }
+
+    private void setupUI(Acto acto) {
+        titleView.setText(acto.getTitle());
+
+        if (acto.getDescription() != null) {
+            contentView.setText(Html.fromHtml(acto.getDescription()));
+        } else {
+            contentView.setText("Sin descripción");
+        }
+
+        setupDateText(acto, dateView);
+        setupHeaderImage(acto.getLat(), acto.getLng());
+
+        if (acto.getPrecioEntrada() != null && !acto.getPrecioEntrada().isEmpty()) {
+            precioView.setText(Jsoup.parse(acto.getPrecioEntrada()).text());
+        } else {
+            precioView.setText("Sin datos");
+        }
+        setupFab(acto.getTitle());
+        Glide.with(this).load("http:" + acto.getImagen()).into(eventImage);
+    }
+
+    private void setupDateText(Acto acto, TextView dateView) {
+        SimpleDateFormat sdf = new SimpleDateFormat("cccc d", new Locale("es", "ES"));
+        String dateString = sdf.format(acto.getStartDate()) + " | ";
+        if ((acto.getHoraInicio() != null && !acto.getHoraInicio().isEmpty())
+                && (acto.getHoraFinal() != null && !acto.getHoraFinal().isEmpty())) {
+            dateString += acto.getHoraInicio() + "-" + acto.getHoraFinal();
+        } else if (acto.getHoraInicio() != null && !acto.getHoraInicio().isEmpty()) {
+            dateString += acto.getHoraInicio();
+        }
+        dateView.setText(dateString);
     }
 
     private void setupHeaderImage(final double lat, final double lng) {

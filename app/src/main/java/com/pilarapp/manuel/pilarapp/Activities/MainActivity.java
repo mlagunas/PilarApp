@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
     private int currentDistanceFilter = -1;
     private int currentDayFilter = -1;
 
-    private MapFragment mapFragment;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,11 +60,11 @@ public class MainActivity extends AppCompatActivity
 
         currentDayFilter = getIntent().getIntExtra("day", -1);
 
-        mapFragment = (MapFragment) getFragmentManager()
+        MapFragment mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -82,88 +82,6 @@ public class MainActivity extends AppCompatActivity
             onLocationChanged(location);
         }
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                onBackPressed();
-                return true;
-            case R.id.day_9:
-                currentDayFilter = 9;
-                applyFilters();
-                return true;
-            case R.id.day_10:
-                currentDayFilter = 10;
-                applyFilters();
-                return true;
-            case R.id.day_11:
-                currentDayFilter = 11;
-                applyFilters();
-                return true;
-            case R.id.day_12:
-                currentDayFilter = 12;
-                applyFilters();
-                return true;
-            case R.id.day_13:
-                currentDayFilter = 13;
-                applyFilters();
-                return true;
-            case R.id.day_14:
-                currentDayFilter = 14;
-                applyFilters();
-                return true;
-            case R.id.day_15:
-                currentDayFilter = 15;
-                applyFilters();
-                return true;
-            case R.id.day_16:
-                currentDayFilter = 16;
-                applyFilters();
-                return true;
-            case R.id.day_17:
-                currentDayFilter = 17;
-                applyFilters();
-                return true;
-            case R.id.day_18:
-                currentDayFilter = 18;
-                applyFilters();
-                return true;
-            case R.id.day_all:
-                currentDayFilter = -1;
-                applyFilters();
-                return true;
-            case R.id.dist_1:
-                currentDistanceFilter = 1;
-                applyFilters();
-                return true;
-            case R.id.dist_3:
-                currentDistanceFilter = 3;
-                applyFilters();
-                return true;
-            case R.id.dist_5:
-                currentDistanceFilter = 5;
-                applyFilters();
-                return true;
-            case R.id.dist_10:
-                currentDistanceFilter = 10;
-                applyFilters();
-                return true;
-            case R.id.dist_all:
-                currentDistanceFilter = -1;
-                applyFilters();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
 
     @Override
     public void onMapReady(GoogleMap map) {
@@ -255,7 +173,12 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void showSnackbar(int currentDistanceFilter, int currentDayFilter) {
-        Snackbar.make(mapFragment.getView(), "Distancia: " + currentDistanceFilter + " | Dia: " + currentDayFilter, Snackbar.LENGTH_INDEFINITE).show();
+        //TODO - Mejorar el texto
+        if (toolbar != null) {
+            String distanceString = currentDistanceFilter == -1 ? "Todos" : "A menos de " + currentDistanceFilter + " km";
+            String dayString = currentDayFilter == -1 ? "Todos los días" : "Día " + currentDayFilter;
+            Snackbar.make(toolbar, dayString + "  |  " + distanceString, Snackbar.LENGTH_LONG).show();
+        }
     }
 
     @Override
@@ -276,5 +199,86 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onProviderDisabled(String s) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+            case R.id.day_9:
+                currentDayFilter = 9;
+                applyFilters();
+                return true;
+            case R.id.day_10:
+                currentDayFilter = 10;
+                applyFilters();
+                return true;
+            case R.id.day_11:
+                currentDayFilter = 11;
+                applyFilters();
+                return true;
+            case R.id.day_12:
+                currentDayFilter = 12;
+                applyFilters();
+                return true;
+            case R.id.day_13:
+                currentDayFilter = 13;
+                applyFilters();
+                return true;
+            case R.id.day_14:
+                currentDayFilter = 14;
+                applyFilters();
+                return true;
+            case R.id.day_15:
+                currentDayFilter = 15;
+                applyFilters();
+                return true;
+            case R.id.day_16:
+                currentDayFilter = 16;
+                applyFilters();
+                return true;
+            case R.id.day_17:
+                currentDayFilter = 17;
+                applyFilters();
+                return true;
+            case R.id.day_18:
+                currentDayFilter = 18;
+                applyFilters();
+                return true;
+            case R.id.day_all:
+                currentDayFilter = -1;
+                applyFilters();
+                return true;
+            case R.id.dist_1:
+                currentDistanceFilter = 1;
+                applyFilters();
+                return true;
+            case R.id.dist_3:
+                currentDistanceFilter = 3;
+                applyFilters();
+                return true;
+            case R.id.dist_5:
+                currentDistanceFilter = 5;
+                applyFilters();
+                return true;
+            case R.id.dist_10:
+                currentDistanceFilter = 10;
+                applyFilters();
+                return true;
+            case R.id.dist_all:
+                currentDistanceFilter = -1;
+                applyFilters();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }
