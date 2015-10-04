@@ -689,18 +689,18 @@ public class Acto {
     }
 
     public String getTema() {
-        String result = "";
+        if (temas != null && temas.size() > 0) {
+            if (temas.get(0).getTitle() != null &&
+                    (temas.get(0).getTitle()).equals(""))
+                return tema;
+            else
+                return temas.get(0).getTitle();
+        } else return tema;
 
-        for (int i = 0; i<temas.size();i++) {
-            if (i != 0)
-                result += "-";
-
-            if (temas.get(i).getTitle() != null &&
-                    (temas.get(i).getTitle()).equals(""))
-                result += tema;
-            else result += temas.get(i).getTitle();
-        }
-        return result;
+       /* if ( temas != null && temas.size()>0 && temas.get(0).getTitle()!= null
+                && !temas.get(0).getTitle().equals(""))
+            return temas.get(0).getTitle();
+        else return tema;*/
     }
 
     public void setTema(String tema) {
@@ -774,11 +774,14 @@ public class Acto {
         if (subEvent != null && subEvent.size() > 0 &&
                 subEvent.get(0).getLugar() != null) {
             if (subEvent.get(0).getLugar().getDireccion() != null &&
+
                     (subEvent.get(0).getLugar().getDireccion() + ", " + subEvent.get(0).getLugar().getCp()).equals(""))
                 return address;
             else
                 return subEvent.get(0).getLugar().getDireccion();
-        } else return address;
+
+        } else
+            return address;
     }
 
     public void setAddress(String address) {
@@ -801,7 +804,7 @@ public class Acto {
     }
 
     public String getImagen() {
-        if(anexo  != null && anexo.size()>0 && anexo.get(0)!=null && anexo.get(0).getImagen()!="")
+        if (anexo != null && anexo.size() > 0 && anexo.get(0) != null && anexo.get(0).getImagen() != "")
             return anexo.get(0).getImagen();
         else
             return imagen;

@@ -46,10 +46,6 @@ public class DaoActos extends DaoBase {
 
     }
 
-    public int getnActos() {
-        return super.getnActos();
-    }
-
     public List<Acto> getActos() {
         super.open();
         ArrayList<Acto> actos = new ArrayList<Acto>();

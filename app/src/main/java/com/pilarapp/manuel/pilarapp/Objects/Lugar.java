@@ -2,6 +2,8 @@ package com.pilarapp.manuel.pilarapp.Objects;
 
 
 
+import android.util.Log;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -128,6 +130,7 @@ public class Lugar {
      * The direccion
      */
     public String getDireccion() {
+        Log.d("TAG", direccion);
         return direccion;
     }
 

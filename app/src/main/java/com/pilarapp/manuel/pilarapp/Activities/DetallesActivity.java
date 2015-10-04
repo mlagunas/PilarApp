@@ -97,7 +97,7 @@ public class DetallesActivity extends AppCompatActivity {
                     if (acto.getPrecioEntrada() != null && !acto.getPrecioEntrada().isEmpty()) {
                         precioView.setText(Jsoup.parse(acto.getPrecioEntrada()).text());
                     } else {
-                        precioView.setText("Sin datos");
+                        precioView.setText("Precio no establecido");
                     }
                     setupFab(acto.getTitle());
                 }
@@ -110,8 +110,7 @@ public class DetallesActivity extends AppCompatActivity {
         } else {
             Log.d("TAG","in DB");
             Acto acto = DA.getActo(id);
-            Log.d("TAG imagen+tema",acto.getImagen()+acto.getTema());
-            //Log.d("TAG temas",acto.getTema());
+
             mActo = acto;
             titleView.setText(acto.getTitle());
             if (acto.getDescription() != null && acto.getDescription()!="")
