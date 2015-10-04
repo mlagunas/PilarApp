@@ -130,7 +130,6 @@ public class Lugar {
      * The direccion
      */
     public String getDireccion() {
-        Log.d("TAG", direccion);
         return direccion;
     }
 

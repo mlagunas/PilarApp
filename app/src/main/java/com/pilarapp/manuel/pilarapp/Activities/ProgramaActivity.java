@@ -1,5 +1,7 @@
 package com.pilarapp.manuel.pilarapp.Activities;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +19,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.pilarapp.manuel.pilarapp.ApiManager;
 import com.pilarapp.manuel.pilarapp.Database.DaoActos;
@@ -31,11 +35,12 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import dmax.dialog.SpotsDialog;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Header;
 import retrofit.client.Response;
-import retrofit.http.Headers;
+
 
 public class ProgramaActivity extends AppCompatActivity {
 
@@ -45,7 +50,7 @@ public class ProgramaActivity extends AppCompatActivity {
     private DaoActos DA;
     private ConnectivityManager cm;
     private NetworkInfo activeNetwork;
-
+    private SpotsDialog sp;
     private ViewPager mViewPager;
     private SectionsPagerAdapter mAdapter;
 
@@ -67,8 +72,14 @@ public class ProgramaActivity extends AppCompatActivity {
         final SharedPreferences mPrefs = getSharedPreferences("Last-modified", 0);
         final SharedPreferences.Editor editor = mPrefs.edit();
 
+
         if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
+            sp = new SpotsDialog(this,R.style.Custom);
+            sp.setCancelable(false);
+            sp.show();
             ApiManager.getApiService().getHeaders(new Callback<Header>() {
+
+
                 @Override
                 public void success(Header headers, Response response) {
                     //Update de la BD en caso de que haya sido modificada  06c31b7c8b567090d821274cc660cf127
@@ -77,16 +88,16 @@ public class ProgramaActivity extends AppCompatActivity {
                         if (header.getName() != null
                                 && header.getName().equals("ETag")) {
                             final String newDate = header.getValue();
-
-                            if (!newDate.equals(mPrefs.getString("Last-modified", ""))) {
+                            if (!newDate.equals("aa")) {
                                 editor.putString("Last-modified", newDate).commit();
                                 updateDB();
-                                break;
                             } else {
                                 setSupportActionBar(toolbar);
                                 setupViewPager(mViewPager);
                                 tabLayout.setupWithViewPager(mViewPager);
                             }
+
+                            break;
                         }
                     }
                 }
@@ -121,7 +132,7 @@ public class ProgramaActivity extends AppCompatActivity {
                     });
                 }
             });
-        }
+        };
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -138,7 +149,7 @@ public class ProgramaActivity extends AppCompatActivity {
         if (mes == 9 && (dia >= 9 && dia <= 18)) {
             mViewPager.setCurrentItem(dia - 9);
         }
-
+        sp.hide();
         viewPager.setAdapter(mAdapter);
     }
 

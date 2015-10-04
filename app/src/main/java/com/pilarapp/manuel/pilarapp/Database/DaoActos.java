@@ -66,6 +66,20 @@ public class DaoActos extends DaoBase {
         super.deleltenActos();
     }
 
+    public List<Acto> getDestacados(){
+        super.open();
+        ArrayList<Acto> actos = new ArrayList<Acto>();
+        c = super.mDb.rawQuery("SELECT * FROM info WHERE destacado = 1;", null);
+        if (c.moveToFirst()) {
+            do {
+                actos.add(fillActo());
+            }
+            while (c.moveToNext());
+        }
+        super.close();
+        return actos;
+    }
+
     public void insertActo(Acto a) {
         String startd = null;
         String endd = null;
