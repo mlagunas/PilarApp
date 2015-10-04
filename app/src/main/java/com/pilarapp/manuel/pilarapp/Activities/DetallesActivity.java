@@ -40,6 +40,7 @@ public class DetallesActivity extends AppCompatActivity {
     private TextView titleView;
     private TextView contentView;
     private TextView precioView;
+    private TextView temaView;
     private ImageView eventImage;
     private DaoActos DA;
     private FloatingActionButton fab;
@@ -63,6 +64,7 @@ public class DetallesActivity extends AppCompatActivity {
         titleView = (TextView) findViewById(R.id.title);
         contentView = (TextView) findViewById(R.id.content);
         precioView = (TextView) findViewById(R.id.precio);
+        temaView = (TextView) findViewById(R.id.tema);
         eventImage = (ImageView) findViewById(R.id.eventImage);
 
         fab = (FloatingActionButton) findViewById(R.id.action_share);
@@ -110,6 +112,7 @@ public class DetallesActivity extends AppCompatActivity {
         } else {
             precioView.setText("Precio no establecido");
         }
+        temaView.setText(acto.getTema());
         setupFab(acto.getTitle());
         Glide.with(this).load("http:" + acto.getImagen()).into(eventImage);
     }
