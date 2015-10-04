@@ -1,0 +1,399 @@
+TASK com.pilarapp.manuel.pilarapp id=1880
+  ACTIVITY com.pilarapp.manuel.pilarapp/.Activities.ProgramaActivity 2dcbb52c pid=11069
+    Local FragmentActivity 300ecdd7 State:
+      mCreated=truemResumed=true mStopped=false mReallyStopped=false
+      mLoadersStarted=true
+    Active Fragments in 44f56c4:
+      #0: ProgramaFragment{21cfd9ad #0 id=0x7f0c0075 android:switcher:2131492981:0}
+        mFragmentId=#7f0c0075 mContainerId=#7f0c0075 mTag=android:switcher:2131492981:0
+        mState=1 mIndex=0 mWho=android:fragment:0 mBackStackNesting=0
+        mAdded=false mRemoving=false mResumed=false mFromLayout=false mInLayout=false
+        mHidden=false mDetached=true mMenuVisible=false mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=false
+        mFragmentManager=FragmentManager{44f56c4 in HostCallbacks{2a094e2}}
+        mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+        mArguments=Bundle[{dia_de_las_fiestas=1444392000000}]
+        mSavedViewState={2131492984=android.support.v7.widget.RecyclerView$SavedState@14887073}
+        Child FragmentManager{3c4d1b30 in ProgramaFragment{21cfd9ad}}:
+          FragmentManager misc state:
+            mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+            mContainer=android.support.v4.app.Fragment$1@223d63a9
+            mParent=ProgramaFragment{21cfd9ad #0 id=0x7f0c0075 android:switcher:2131492981:0}
+            mCurState=1 mStateSaved=true mDestroyed=false
+      #1: ProgramaFragment{6371d2e #1 id=0x7f0c0075 android:switcher:2131492981:1}
+        mFragmentId=#7f0c0075 mContainerId=#7f0c0075 mTag=android:switcher:2131492981:1
+        mState=1 mIndex=1 mWho=android:fragment:1 mBackStackNesting=0
+        mAdded=false mRemoving=false mResumed=false mFromLayout=false mInLayout=false
+        mHidden=false mDetached=true mMenuVisible=false mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=false
+        mFragmentManager=FragmentManager{44f56c4 in HostCallbacks{2a094e2}}
+        mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+        mArguments=Bundle[{dia_de_las_fiestas=1444478400000}]
+        mSavedViewState={2131492984=android.support.v7.widget.RecyclerView$SavedState@2fefa0cf}
+        Child FragmentManager{1b20ba5c in ProgramaFragment{6371d2e}}:
+          FragmentManager misc state:
+            mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+            mContainer=android.support.v4.app.Fragment$1@4df9165
+            mParent=ProgramaFragment{6371d2e #1 id=0x7f0c0075 android:switcher:2131492981:1}
+            mCurState=1 mStateSaved=true mDestroyed=false
+      #2: ProgramaFragment{a9bde3a #2 id=0x7f0c0075 android:switcher:2131492981:2}
+        mFragmentId=#7f0c0075 mContainerId=#7f0c0075 mTag=android:switcher:2131492981:2
+        mState=1 mIndex=2 mWho=android:fragment:2 mBackStackNesting=0
+        mAdded=false mRemoving=false mResumed=false mFromLayout=false mInLayout=false
+        mHidden=false mDetached=true mMenuVisible=false mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=false
+        mFragmentManager=FragmentManager{44f56c4 in HostCallbacks{2a094e2}}
+        mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+        mArguments=Bundle[{dia_de_las_fiestas=1444564800000}]
+        mSavedViewState={2131492984=android.support.v7.widget.RecyclerView$SavedState@1cef7aeb}
+        Child FragmentManager{62d2048 in ProgramaFragment{a9bde3a}}:
+          FragmentManager misc state:
+            mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+            mContainer=android.support.v4.app.Fragment$1@20bcdee1
+            mParent=ProgramaFragment{a9bde3a #2 id=0x7f0c0075 android:switcher:2131492981:2}
+            mCurState=1 mStateSaved=true mDestroyed=false
+      #3: ProgramaFragment{3f59a406 #3 id=0x7f0c0075 android:switcher:2131492981:3}
+        mFragmentId=#7f0c0075 mContainerId=#7f0c0075 mTag=android:switcher:2131492981:3
+        mState=1 mIndex=3 mWho=android:fragment:3 mBackStackNesting=0
+        mAdded=false mRemoving=false mResumed=false mFromLayout=false mInLayout=false
+        mHidden=false mDetached=true mMenuVisible=false mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=false
+        mFragmentManager=FragmentManager{44f56c4 in HostCallbacks{2a094e2}}
+        mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+        mArguments=Bundle[{dia_de_las_fiestas=1444651200000}]
+        mSavedViewState={2131492984=android.support.v7.widget.RecyclerView$SavedState@2bc8dac7}
+        Child FragmentManager{1417f8f4 in ProgramaFragment{3f59a406}}:
+          FragmentManager misc state:
+            mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+            mContainer=android.support.v4.app.Fragment$1@1cc7881d
+            mParent=ProgramaFragment{3f59a406 #3 id=0x7f0c0075 android:switcher:2131492981:3}
+            mCurState=1 mStateSaved=true mDestroyed=false
+      #4: ProgramaFragment{2fdbfa92 #4 id=0x7f0c0075 android:switcher:2131492981:4}
+        mFragmentId=#7f0c0075 mContainerId=#7f0c0075 mTag=android:switcher:2131492981:4
+        mState=5 mIndex=4 mWho=android:fragment:4 mBackStackNesting=0
+        mAdded=true mRemoving=false mResumed=true mFromLayout=false mInLayout=false
+        mHidden=false mDetached=false mMenuVisible=false mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=false
+        mFragmentManager=FragmentManager{44f56c4 in HostCallbacks{2a094e2}}
+        mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+        mArguments=Bundle[{dia_de_las_fiestas=1444737600000}]
+        mContainer=android.support.v4.view.ViewPager{5ee5c63 VFED.... ........ 0,208-768,1246 #7f0c0075 app:id/viewpager}
+        mView=android.support.v7.widget.RecyclerView{3e35b060 VFED.... ........ 3072,0-3840,1038 #7f0c0078 app:id/recyclerview}
+        mInnerView=android.support.v7.widget.RecyclerView{3e35b060 VFED.... ........ 3072,0-3840,1038 #7f0c0078 app:id/recyclerview}
+        Child FragmentManager{22d98919 in ProgramaFragment{2fdbfa92}}:
+          FragmentManager misc state:
+            mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+            mContainer=android.support.v4.app.Fragment$1@bb2dde
+            mParent=ProgramaFragment{2fdbfa92 #4 id=0x7f0c0075 android:switcher:2131492981:4}
+            mCurState=5 mStateSaved=false mDestroyed=false
+      #5: ProgramaFragment{2f605bbf #5 id=0x7f0c0075 android:switcher:2131492981:5}
+        mFragmentId=#7f0c0075 mContainerId=#7f0c0075 mTag=android:switcher:2131492981:5
+        mState=5 mIndex=5 mWho=android:fragment:5 mBackStackNesting=0
+        mAdded=true mRemoving=false mResumed=true mFromLayout=false mInLayout=false
+        mHidden=false mDetached=false mMenuVisible=false mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=false
+        mFragmentManager=FragmentManager{44f56c4 in HostCallbacks{2a094e2}}
+        mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+        mArguments=Bundle[{dia_de_las_fiestas=1444824000000}]
+        mContainer=android.support.v4.view.ViewPager{5ee5c63 VFED.... ........ 0,208-768,1246 #7f0c0075 app:id/viewpager}
+        mView=android.support.v7.widget.RecyclerView{3cb5728c VFED.... ........ 3840,0-4608,1038 #7f0c0078 app:id/recyclerview}
+        mInnerView=android.support.v7.widget.RecyclerView{3cb5728c VFED.... ........ 3840,0-4608,1038 #7f0c0078 app:id/recyclerview}
+        Child FragmentManager{6709dd5 in ProgramaFragment{2f605bbf}}:
+          FragmentManager misc state:
+            mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+            mContainer=android.support.v4.app.Fragment$1@35c849ea
+            mParent=ProgramaFragment{2f605bbf #5 id=0x7f0c0075 android:switcher:2131492981:5}
+            mCurState=5 mStateSaved=false mDestroyed=false
+      #6: ProgramaFragment{1c8f4db #6 id=0x7f0c0075 android:switcher:2131492981:6}
+        mFragmentId=#7f0c0075 mContainerId=#7f0c0075 mTag=android:switcher:2131492981:6
+        mState=5 mIndex=6 mWho=android:fragment:6 mBackStackNesting=0
+        mAdded=true mRemoving=false mResumed=true mFromLayout=false mInLayout=false
+        mHidden=false mDetached=false mMenuVisible=true mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=true
+        mFragmentManager=FragmentManager{44f56c4 in HostCallbacks{2a094e2}}
+        mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+        mArguments=Bundle[{dia_de_las_fiestas=1444910400000}]
+        mContainer=android.support.v4.view.ViewPager{5ee5c63 VFED.... ........ 0,208-768,1246 #7f0c0075 app:id/viewpager}
+        mView=android.support.v7.widget.RecyclerView{398d2b78 VFED.... ........ 4608,0-5376,1038 #7f0c0078 app:id/recyclerview}
+        mInnerView=android.support.v7.widget.RecyclerView{398d2b78 VFED.... ........ 4608,0-5376,1038 #7f0c0078 app:id/recyclerview}
+        Child FragmentManager{1b2a4251 in ProgramaFragment{1c8f4db}}:
+          FragmentManager misc state:
+            mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+            mContainer=android.support.v4.app.Fragment$1@cd91ab6
+            mParent=ProgramaFragment{1c8f4db #6 id=0x7f0c0075 android:switcher:2131492981:6}
+            mCurState=5 mStateSaved=false mDestroyed=false
+      #7: ProgramaFragment{3d5803b7 #7 id=0x7f0c0075 android:switcher:2131492981:7}
+        mFragmentId=#7f0c0075 mContainerId=#7f0c0075 mTag=android:switcher:2131492981:7
+        mState=5 mIndex=7 mWho=android:fragment:7 mBackStackNesting=0
+        mAdded=true mRemoving=false mResumed=true mFromLayout=false mInLayout=false
+        mHidden=false mDetached=false mMenuVisible=false mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=false
+        mFragmentManager=FragmentManager{44f56c4 in HostCallbacks{2a094e2}}
+        mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+        mArguments=Bundle[{dia_de_las_fiestas=1444996800000}]
+        mContainer=android.support.v4.view.ViewPager{5ee5c63 VFED.... ........ 0,208-768,1246 #7f0c0075 app:id/viewpager}
+        mView=android.support.v7.widget.RecyclerView{6258724 VFED.... ......ID 5376,0-6144,1038 #7f0c0078 app:id/recyclerview}
+        mInnerView=android.support.v7.widget.RecyclerView{6258724 VFED.... ......ID 5376,0-6144,1038 #7f0c0078 app:id/recyclerview}
+        Child FragmentManager{36ffb28d in ProgramaFragment{3d5803b7}}:
+          FragmentManager misc state:
+            mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+            mContainer=android.support.v4.app.Fragment$1@39542c42
+            mParent=ProgramaFragment{3d5803b7 #7 id=0x7f0c0075 android:switcher:2131492981:7}
+            mCurState=5 mStateSaved=false mDestroyed=false
+      #8: ProgramaFragment{b5f2453 #8 id=0x7f0c0075 android:switcher:2131492981:8}
+        mFragmentId=#7f0c0075 mContainerId=#7f0c0075 mTag=android:switcher:2131492981:8
+        mState=5 mIndex=8 mWho=android:fragment:8 mBackStackNesting=0
+        mAdded=true mRemoving=false mResumed=true mFromLayout=false mInLayout=false
+        mHidden=false mDetached=false mMenuVisible=false mHasMenu=false
+        mRetainInstance=false mRetaining=false mUserVisibleHint=false
+        mFragmentManager=FragmentManager{44f56c4 in HostCallbacks{2a094e2}}
+        mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+        mArguments=Bundle[{dia_de_las_fiestas=1445083200000}]
+        mContainer=android.support.v4.view.ViewPager{5ee5c63 VFED.... ........ 0,208-768,1246 #7f0c0075 app:id/viewpager}
+        mView=android.support.v7.widget.RecyclerView{3fc5f190 VFED.... ......ID 6144,0-6912,1038 #7f0c0078 app:id/recyclerview}
+        mInnerView=android.support.v7.widget.RecyclerView{3fc5f190 VFED.... ......ID 6144,0-6912,1038 #7f0c0078 app:id/recyclerview}
+        Child FragmentManager{1c41ea89 in ProgramaFragment{b5f2453}}:
+          FragmentManager misc state:
+            mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+            mContainer=android.support.v4.app.Fragment$1@c7cca8e
+            mParent=ProgramaFragment{b5f2453 #8 id=0x7f0c0075 android:switcher:2131492981:8}
+            mCurState=5 mStateSaved=false mDestroyed=false
+    Added Fragments:
+      #0: ProgramaFragment{2fdbfa92 #4 id=0x7f0c0075 android:switcher:2131492981:4}
+      #1: ProgramaFragment{2f605bbf #5 id=0x7f0c0075 android:switcher:2131492981:5}
+      #2: ProgramaFragment{1c8f4db #6 id=0x7f0c0075 android:switcher:2131492981:6}
+      #3: ProgramaFragment{3d5803b7 #7 id=0x7f0c0075 android:switcher:2131492981:7}
+      #4: ProgramaFragment{b5f2453 #8 id=0x7f0c0075 android:switcher:2131492981:8}
+    FragmentManager misc state:
+      mHost=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+      mContainer=android.support.v4.app.FragmentActivity$HostCallbacks@2a094e2
+      mCurState=5 mStateSaved=false mDestroyed=false
+    View Hierarchy:
+      com.android.internal.policy.impl.PhoneWindow$DecorView{eadb2af V.E..... ... 0,0-768,1280}
+        android.widget.LinearLayout{ec096bc V.E..... ... 0,0-768,1184}
+          android.view.ViewStub{755a645 G.E..... ... 0,0-0,0 #1020373}
+          android.widget.FrameLayout{167f019a V.E..... ... 0,50-768,1184}
+            android.support.v7.internal.widget.FitWindowsLinearLayout{1daccacb V.E..... ... 0,0-768,1134 #7f0c0056 app:id/action_bar_root}
+              android.support.v7.internal.widget.ViewStubCompat{2c5e62a8 G.E..... ... 0,0-0,0 #7f0c0057 app:id/action_mode_bar_stub}
+              android.support.v7.internal.widget.ContentFrameLayout{1c2f61c1 V.E..... ... 0,0-768,1134 #1020002 android:id/content}
+                android.support.design.widget.CoordinatorLayout{c3b9d66 V.E..... ... 0,0-768,1134 #7f0c006a app:id/main_content}
+                  android.support.design.widget.AppBarLayout{23b48a7 V.E..... ... 0,0-768,208 #7f0c006b app:id/appbar}
+                    android.support.v7.widget.Toolbar{1b8b0154 V.E..... ... 0,0-768,112 #7f0c006e app:id/toolbar}
+                      android.widget.TextView{2f8f58fd V.ED.... ... 32,29-259,83}
+                      android.support.v7.widget.ActionMenuView{3dd429f2 V.E..... ... 619,0-768,112}
+                        android.support.v7.internal.view.menu.ActionMenuItemView{1b49c843 VFED..CL ... 0,8-149,104 #7f0c009a app:id/action_ver_mapa}
+                    android.support.design.widget.TabLayout{40dec0 VFED.... ... 0,112-768,208 #7f0c0074 app:id/tabs}
+                      android.support.design.widget.TabLayout$SlidingTabStrip{27fd87f9 V.ED.... ... 0,0-2002,96}
+                        android.support.design.widget.TabLayout$TabView{29f6f33e VFE...C. ... 0,0-183,96}
+                          android.widget.ImageView{3c36a59f G.ED.... ... 0,0-0,0}
+                          android.support.v7.widget.AppCompatTextView{1b526ec V.ED.... ... 24,29-159,67}
+                        android.support.design.widget.TabLayout$TabView{3285aab5 VFE...C. ... 183,0-380,96}
+                          android.widget.ImageView{39eb054a G.ED.... ... 0,0-0,0}
+                          android.support.v7.widget.AppCompatTextView{25e9fcbb V.ED.... ... 24,29-173,67}
+                        android.support.design.widget.TabLayout$TabView{2343c5d8 VFE...C. ... 380,0-595,96}
+                          android.widget.ImageView{7333d31 G.ED.... ... 0,0-0,0}
+                          android.support.v7.widget.AppCompatTextView{325c2c16 V.ED.... ... 24,29-191,67}
+                        android.support.design.widget.TabLayout$TabView{35b1a997 VFE...C. ... 595,0-768,96}
+                          android.widget.ImageView{1b6784 G.ED.... ... 0,0-0,0}
+                          android.support.v7.widget.AppCompatTextView{394d7b6d V.ED.... ... 24,29-149,67}
+                        android.support.design.widget.TabLayout$TabView{24e6f3a2 VFE...C. ... 768,0-965,96}
+                          android.widget.ImageView{25dd4833 G.ED.... ... 0,0-0,0}
+                          android.support.v7.widget.AppCompatTextView{15a977f0 V.ED.... ... 24,29-173,67}
+                        android.support.design.widget.TabLayout$TabView{f536169 VFE...C. ... 965,0-1203,96}
+                          android.widget.ImageView{2e64a7ee G.ED.... ... 0,0-0,0}
+                          android.support.v7.widget.AppCompatTextView{3c1a348f V.ED.... ... 24,29-214,67}
+                        android.support.design.widget.TabLayout$TabView{8c6231c VFE...C. .S. 1203,0-1391,96}
+                          android.widget.ImageView{1eb7ab25 G.ED.... .S. 0,0-0,0}
+                          android.support.v7.widget.AppCompatTextView{df754fa V.ED.... .S. 24,29-164,67}
+                        android.support.design.widget.TabLayout$TabView{18f8aab VFE...C. ... 1391,0-1590,96}
+                          android.widget.ImageView{11a05508 G.ED.... ... 0,0-0,0}
+                          android.support.v7.widget.AppCompatTextView{275cd4a1 V.ED.... ... 24,29-175,67}
+                        android.support.design.widget.TabLayout$TabView{20d5c6c6 VFE...C. ... 1590,0-1787,96}
+                          android.widget.ImageView{20ba2687 G.ED.... ... 0,0-0,0}
+                          android.support.v7.widget.AppCompatTextView{3a69b9b4 V.ED.... ... 24,29-173,67}
+                        android.support.design.widget.TabLayout$TabView{2ad119dd VFE...C. ... 1787,0-2002,96}
+                          android.widget.ImageView{ed78952 G.ED.... ... 0,0-0,0}
+                          android.support.v7.widget.AppCompatTextView{508a423 V.ED.... ... 24,29-191,67}
+                  android.support.v4.view.ViewPager{5ee5c63 VFED.... ... 0,208-768,1246 #7f0c0075 app:id/viewpager}
+                    android.support.v7.widget.RecyclerView{3e35b060 VFED.... ... 3072,0-3840,1038 #7f0c0078 app:id/recyclerview}
+                      android.widget.FrameLayout{1650eec2 VFED..C. ... 0,16-768,167 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{1cc2bd20 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{3b4a76d9 V.ED.... ... 0,0-130,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{33c0e89e V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{18375f7f V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{1356b536 VFED..C. ... 0,167-768,318 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{9e68b4c V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{3e62a795 V.ED.... ... 0,0-249,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{114ef0aa V.ED.... ... 0,43-194,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{396c749b V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{1e0bb6d1 VFED..C. ... 0,318-768,469 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{9971038 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{1f932811 V.ED.... ... 0,0-492,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{16036d76 V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{a13bf77 V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{3bc3ef0d VFED..C. ... 0,469-768,620 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{1bc8f7e4 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{2e71344d V.ED.... ... 0,0-492,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{4b0eb02 V.ED.... ... 0,43-194,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{2c7adc13 V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{4e5cc37 VFED..C. ... 0,620-768,771 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{290fae50 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{24a9c849 V.ED.... ... 0,0-553,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{8c6b54e V.ED.... ... 0,43-194,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{102d266f V.ED.... ... 0,81-552,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{39ae5a4 VFED..C. ... 0,771-768,922 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{dc95f7c V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{fbda005 V.ED.... ... 0,0-345,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{35cd85a V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{280fba8b V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{1540f4d3 VFED..C. ... 0,922-768,1073 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{2c0af768 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{1a7d3781 V.ED.... ... 0,0-627,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{1d002026 V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{263d7467 V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                    android.support.v7.widget.RecyclerView{3cb5728c VFED.... ... 3840,0-4608,1038 #7f0c0078 app:id/recyclerview}
+                      android.widget.FrameLayout{1fecfdbe VFED..C. ... 0,16-768,167 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{304c2214 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{3244cabd V.ED.... ... 0,0-130,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{283e18b2 V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{19a2f003 V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{af0756c VFED..C. ... 0,167-768,318 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{34d34b80 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{3f855b9 V.ED.... ... 0,0-249,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{20f10dfe V.ED.... ... 0,43-194,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{95a895f V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{24332c79 VFED..C. ... 0,318-768,469 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{2fe19fac V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{cbf9475 V.ED.... ... 0,0-492,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{144c0c0a V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{29c85c7b V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{16c68c72 VFED..C. ... 0,469-768,620 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{189f0a98 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{3a8202f1 V.ED.... ... 0,0-492,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{3da6ded6 V.ED.... ... 0,43-194,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{7764557 V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{c2c1e1f VFED..C. ... 0,620-768,771 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{2ec63844 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{1822dd2d V.ED.... ... 0,0-553,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{240a1262 V.ED.... ... 0,43-194,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{3afdff3 V.ED.... ... 0,81-552,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{1fec4540 VFED..C. ... 0,771-768,922 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{111094b0 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{17d1f29 V.ED.... ... 0,0-345,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{47af2ae V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{3ede884f V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{380b8c3 VFED..C. ... 0,922-768,1073 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{e624bdc V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{1b1f84e5 V.ED.... ... 0,0-627,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{15078bba V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{ca55a6b V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                    android.support.v7.widget.RecyclerView{398d2b78 VFED.... ... 4608,0-5376,1038 #7f0c0078 app:id/recyclerview}
+                      android.widget.FrameLayout{2835277a VFED..C. ... 0,16-768,167 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{1db649c8 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{9c88a61 V.ED.... ... 0,0-130,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{2c92a986 V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{dbd3247 V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{2428a921 VFED..C. ... 0,167-768,318 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{28ca3a74 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{25a26b9d V.ED.... ... 0,0-249,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{1b5fd812 V.ED.... ... 0,43-194,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{b90abe3 V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{10b2119c VFED..C. ... 0,318-768,469 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{158a89e0 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{253f2499 V.ED.... ... 0,0-492,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{5f635e V.ED.... ... 0,43-194,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{3198233f V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{a9ecd0f VFED..C. ... 0,469-768,620 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{3a3e640c V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{3c547155 V.ED.... ... 0,0-553,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{273a576a V.ED.... ... 0,43-194,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{75b45b V.ED.... ... 0,81-552,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{13052b2b VFED..C. ... 0,620-768,771 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{2873b4f8 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{2a37cdd1 V.ED.... ... 0,0-345,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{3b1e8036 V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{16d13b37 V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{17d737a5 VFED..C. ... 0,771-768,922 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{3aab28a4 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{341a760d V.ED.... ... 0,0-464,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{1a4a69c2 V.ED.... ... 0,43-194,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{2bf453d3 V.ED.... ... 0,81-672,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{3a9cab88 VFED..C. ... 0,922-768,1073 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{10c42b10 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{7056609 V.ED.... ... 0,0-627,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{1659600e V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{18265a2f V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                    android.support.v7.widget.RecyclerView{6258724 VFED.... ... 5376,0-6144,1038 #7f0c0078 app:id/recyclerview}
+                      android.widget.FrameLayout{3d00d664 VFED..C. ... 0,16-768,167 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{2728e83c V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{3d9559c5 V.ED.... ... 0,0-130,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{2d4f6f1a V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{6c86a4b V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{d742d82 VFED..C. ... 0,167-768,318 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{34ba4c28 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{576cd41 V.ED.... ... 0,0-249,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{76562e6 V.ED.... ... 0,43-194,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{2e316027 V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{79606b8 VFED..C. ... 0,318-768,469 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{3b7c02d4 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{20a1fc7d V.ED.... ... 0,0-492,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{594c772 V.ED.... ... 0,43-194,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{2949d7c3 V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{20df87f6 VFED..C. ... 0,469-768,620 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{38007840 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{3e56e379 V.ED.... ... 0,0-553,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{2ce3e8be V.ED.... ... 0,43-194,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{ee82d1f V.ED.... ... 0,81-552,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{1b3d1c91 VFED..C. ... 0,620-768,771 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{1b94d86c V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{27d93e35 V.ED.... ... 0,0-345,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{3a71d2ca V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{22ec7c3b V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{3005f0cd VFED..C. ... 0,771-768,922 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{3d2d0f58 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{3cec88b1 V.ED.... ... 0,0-464,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{2c425196 V.ED.... ... 0,43-194,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{3d1ca117 V.ED.... ... 0,81-672,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{38de07f7 VFED..C. ... 0,922-768,1073 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{2d0fc904 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{3c0ffeed V.ED.... ... 0,0-627,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{ac9f122 V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{1c037b3 V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                    android.support.v7.widget.RecyclerView{3fc5f190 VFED.... ... 6144,0-6912,1038 #7f0c0078 app:id/recyclerview}
+                      android.widget.FrameLayout{a7e6083 VFED..C. ... 0,16-768,167 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{17427170 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{127a9ce9 V.ED.... ... 0,0-130,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{3f39fd6e V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{7fc9c0f V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{ac1a73d VFED..C. ... 0,167-768,318 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{20b5349c V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{2fd71ea5 V.ED.... ... 0,0-704,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{28c827a V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{9f0ea2b V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{135987e VFED..C. ... 0,318-768,469 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{2b2efe88 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{19c00021 V.ED.... ... 0,0-249,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{31504c46 V.ED.... ... 0,43-194,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{3a91fe07 V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{a67a39 VFED..C. ... 0,469-768,620 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{2bf97b34 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{3afb7d5d V.ED.... ... 0,0-553,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{1034e6d2 V.ED.... ... 0,43-194,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{1d4673a3 V.ED.... ... 0,81-552,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{2b96fb32 VFED..C. ... 0,620-768,771 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{14d16a0 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{2a779259 V.ED.... ... 0,0-345,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{d569e1e V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{3b42a6ff V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{21893200 VFED..C. ... 0,771-768,922 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{327cfccc V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{2605fb15 V.ED.... ... 0,0-464,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{a4a7e2a V.ED.... ... 0,43-194,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{12a4b41b V.ED.... ... 0,81-672,119 #7f0c0089 app:id/textThird}
+                      android.widget.FrameLayout{7bc81df VFED..C. ... 0,922-768,1073 #7f0c0086 app:id/root}
+                        android.widget.LinearLayout{6e319b8 V.E..... ... 32,16-736,135}
+                          android.support.v7.widget.AppCompatTextView{3cd83391 V.ED.... ... 0,0-627,43 #7f0c0087 app:id/textPrimary}
+                          android.support.v7.widget.AppCompatTextView{3aea52f6 V.ED.... ... 0,43-115,81 #7f0c0088 app:id/textSecondary}
+                          android.support.v7.widget.AppCompatTextView{1b5076f7 V.ED.... ... 0,81-704,119 #7f0c0089 app:id/textThird}
+        android.view.View{1f8c1964 V.ED.... ... 0,0-768,50 #102002f android:id/statusBarBackground}
+        android.view.View{25bb77cd V.ED.... ... 0,1184-768,1280 #1020030 android:id/navigationBarBackground}
