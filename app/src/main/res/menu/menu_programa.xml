@@ -5,6 +5,7 @@
 
     <item
         android:id="@+id/action_ver_mapa"
+        android:icon="@mipmap/ic_map"
         android:orderInCategory="1"
         android:title="Ver mapa"
         app:showAsAction="always|withText"/>
