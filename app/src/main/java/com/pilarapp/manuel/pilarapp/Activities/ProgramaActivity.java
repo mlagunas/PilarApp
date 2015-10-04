@@ -17,7 +17,6 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.pilarapp.manuel.pilarapp.ApiManager;
 import com.pilarapp.manuel.pilarapp.Database.DaoActos;
@@ -27,6 +26,7 @@ import com.pilarapp.manuel.pilarapp.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -45,7 +45,9 @@ public class ProgramaActivity extends AppCompatActivity {
     private DaoActos DA;
     private ConnectivityManager cm;
     private NetworkInfo activeNetwork;
-    private View view;
+
+    private ViewPager mViewPager;
+    private SectionsPagerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +55,9 @@ public class ProgramaActivity extends AppCompatActivity {
         setContentView(R.layout.activity_programa);
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+
         final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        view = this.findViewById(android.R.id.content);
         this.DA = new DaoActos(this);
 
         //Check if DB update needed
@@ -80,13 +82,10 @@ public class ProgramaActivity extends AppCompatActivity {
                                 editor.putString("Last-modified", newDate).commit();
                                 updateDB();
                                 break;
-                            }
-                            else
-                            {
+                            } else {
                                 setSupportActionBar(toolbar);
-                                ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-                                setupViewPager(viewPager);
-                                tabLayout.setupWithViewPager(viewPager);
+                                setupViewPager(mViewPager);
+                                tabLayout.setupWithViewPager(mViewPager);
                             }
                         }
                     }
@@ -94,17 +93,17 @@ public class ProgramaActivity extends AppCompatActivity {
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Log.d("TAG", "error");
-                    Snackbar.make(view, "Error de conexión", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(mViewPager, "Error de conexión", Snackbar.LENGTH_LONG).show();
+
                 }
 
-                private void updateDB(){
+                private void updateDB() {
                     ApiManager.getApiService().getRequest(new Callback<Request>() {
                         @Override
                         public void success(final Request request, Response response) {
                             List<Header> headerList = response.getHeaders();
                             for (Header header : headerList) {
-                                Log.d("TAG",header.getName() + header.getValue());
+                                Log.d("TAG", header.getName() + header.getValue());
                             }
                             DA.truncateDB();
                             DA.fillDB(request.getResult(), false);
@@ -117,23 +116,30 @@ public class ProgramaActivity extends AppCompatActivity {
 
                         @Override
                         public void failure(RetrofitError error) {
-                            Snackbar.make(view, "Error de conexión", Snackbar.LENGTH_LONG).show();
+                            Snackbar.make(mViewPager, "Error de conexión", Snackbar.LENGTH_LONG).show();
                         }
                     });
                 }
             });
-        } else {
-            Snackbar.make(view, "Necesitas conexión la primera vez que enciendes la aplicación", Snackbar.LENGTH_LONG).show();
         }
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         for (long l = COMIENZO_PILAR; l <= FINAL_PILAR; l += DIA_EN_MS) {
-            adapter.addFragment(ProgramaFragment.newInstance(l), getTabTitle(l));
+            mAdapter.addFragment(ProgramaFragment.newInstance(l), getTabTitle(l));
         }
         viewPager.setOffscreenPageLimit(2);
-        viewPager.setAdapter(adapter);
+
+        Calendar cal = Calendar.getInstance();
+        int mes = cal.get(Calendar.MONTH);
+        int dia = cal.get(Calendar.DAY_OF_MONTH);
+
+        if (mes == 9 && (dia >= 9 && dia <= 18)) {
+            mViewPager.setCurrentItem(dia - 9);
+        }
+
+        viewPager.setAdapter(mAdapter);
     }
 
     private String getTabTitle(long l) {
@@ -151,22 +157,25 @@ public class ProgramaActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-        activeNetwork = cm.getActiveNetworkInfo();
+        int id = item.getItemId();
+        if (id == R.id.action_ver_mapa) {
 
-        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
-            int id = item.getItemId();
-            if (id == R.id.action_ver_mapa) {
-                startMapActivity();
+            cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+            activeNetwork = cm.getActiveNetworkInfo();
+
+            if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
+                startMapActivity(mViewPager.getCurrentItem() + 9);
+            } else {
+                Snackbar.make(mViewPager, "Error de conexión", Snackbar.LENGTH_LONG).show();
             }
-        } else {
-            Snackbar.make(view, "Error de conexión", Snackbar.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void startMapActivity() {
+
+    private void startMapActivity(int day) {
         Intent i = new Intent(this, MainActivity.class);
+        i.putExtra("day", day);
         startActivity(i);
     }
 

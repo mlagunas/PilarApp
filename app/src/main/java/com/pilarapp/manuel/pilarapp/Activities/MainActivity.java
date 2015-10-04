@@ -10,16 +10,12 @@ import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.pilarapp.manuel.pilarapp.ApiManager;
-import com.pilarapp.manuel.pilarapp.Database.DaoActos;
-import com.pilarapp.manuel.pilarapp.Objects.Acto;
-import com.pilarapp.manuel.pilarapp.Objects.Request;
-import com.pilarapp.manuel.pilarapp.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
@@ -28,6 +24,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.pilarapp.manuel.pilarapp.ApiManager;
+import com.pilarapp.manuel.pilarapp.Database.DaoActos;
+import com.pilarapp.manuel.pilarapp.Objects.Acto;
+import com.pilarapp.manuel.pilarapp.Objects.Request;
+import com.pilarapp.manuel.pilarapp.R;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -50,12 +51,16 @@ public class MainActivity extends AppCompatActivity
     private int currentDistanceFilter = -1;
     private int currentDayFilter = -1;
 
+    private MapFragment mapFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MapFragment mapFragment = (MapFragment) getFragmentManager()
+        currentDayFilter = getIntent().getIntExtra("day", -1);
+
+        mapFragment = (MapFragment) getFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -92,6 +97,10 @@ public class MainActivity extends AppCompatActivity
                 return true;
             case R.id.day_9:
                 currentDayFilter = 9;
+                applyFilters();
+                return true;
+            case R.id.day_10:
+                currentDayFilter = 10;
                 applyFilters();
                 return true;
             case R.id.day_11:
@@ -159,6 +168,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
+        map.setMyLocationEnabled(true);
         double longitude = -1;
         double latitude = -1;
         final DaoActos DA = new DaoActos(this);
@@ -205,14 +215,15 @@ public class MainActivity extends AppCompatActivity
         filterByDistance(mFiltered, currentDistanceFilter);
         filterByDay(mFiltered, currentDayFilter);
         fillMapWithMarkers(mFiltered, mMap);
+        showSnackbar(currentDistanceFilter, currentDayFilter);
     }
 
     public void filterByDistance(List<Acto> list, int km) {
         if (km > 0 && mLocation != null) {
             Iterator it = list.iterator();
+            float[] results = new float[]{99999, 99999, 99999};
             while (it.hasNext()) {
                 Acto a = (Acto) it.next();
-                float[] results = new float[]{99999,99999,99999};
                 Location.distanceBetween(mLocation.getLatitude(), mLocation.getLongitude(), a.getLng(), a.getLat(), results);
                 if (results[0] > km * 1000) {
                     it.remove();
@@ -241,6 +252,10 @@ public class MainActivity extends AppCompatActivity
                         .position(new LatLng(a.getLng(), a.getLat())).title(a.getTitle()).snippet(a.getId().toString()));
             }
         }
+    }
+
+    private void showSnackbar(int currentDistanceFilter, int currentDayFilter) {
+        Snackbar.make(mapFragment.getView(), "Distancia: " + currentDistanceFilter + " | Dia: " + currentDayFilter, Snackbar.LENGTH_INDEFINITE).show();
     }
 
     @Override

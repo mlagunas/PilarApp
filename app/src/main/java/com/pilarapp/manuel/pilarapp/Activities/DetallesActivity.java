@@ -147,12 +147,14 @@ public class DetallesActivity extends AppCompatActivity {
         if (lat == -1 && lng == -1) {
             Glide.with(this)
                     .load("https://maps.googleapis.com/maps/api/staticmap?center=41.6548748,-0.8806778&zoom=14&size=720x400&markers=color:red%7Clabel:S%7C" + lng + "," + lat)
+                    .placeholder(R.drawable.chachirulo)
                     .into(headerView);
             return;
         }
 
         Glide.with(this)
                 .load("https://maps.googleapis.com/maps/api/staticmap?center=" + lng + "," + lat + "&zoom=17&size=720x400&markers=color:red%7Clabel:S%7C" + lng + "," + lat)
+                .placeholder(R.drawable.chachirulo)
                 .into(headerView);
 
         headerView.setOnClickListener(new View.OnClickListener() {
