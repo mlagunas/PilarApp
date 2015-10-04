@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.util.SortedList;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.util.SortedListAdapterCallback;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,12 +89,15 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
             holder.secondaryText.setText(acto.getHoraInicio() + "-" + acto.getHoraFinal());
         } else if (acto.getHoraInicio() != null && !acto.getHoraInicio().equals("")) {
             holder.secondaryText.setText(acto.getHoraInicio());
-        } else {
+        } else if (acto.getHorario()!=null && !acto.getHorario().isEmpty()) {
+            holder.secondaryText.setText("Acto con horario irregular");
+        }
+        else{
             holder.secondaryText.setText("Acto sin hora especificada");
         }
-
-        if (acto.getAddress()!= null && !acto.getAddress().isEmpty()
-                )
+        Log.d("TAG direccion",acto.getAddress()+"direccion");
+        if (acto.getAddress()!= null && !acto.getAddress().isEmpty() &&
+                !acto.getAddress().trim().equals("null"))
             holder.thirdText.setText(acto.getAddress());
         else
             holder.thirdText.setText("No existe una dirección especificiada");
