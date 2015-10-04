@@ -168,6 +168,7 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onMapReady(GoogleMap map) {
         mMap = map;
+        map.setMyLocationEnabled(true);
         double longitude = -1;
         double latitude = -1;
         final DaoActos DA = new DaoActos(this);
