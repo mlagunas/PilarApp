@@ -151,6 +151,14 @@ public class DaoActos extends DaoBase {
         return actos;
     }
 
+    public Boolean hasItems(){
+        super.open();
+        c = super.mDb.rawQuery("SELECT * FROM info;", null);
+        Boolean result = c.moveToFirst();
+        super.close();
+        return result;
+    }
+
     public void fillDB(List<Acto> actos, Boolean db) {
         super.open();
         for (Acto a : actos) {

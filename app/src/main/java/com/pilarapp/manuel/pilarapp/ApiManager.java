@@ -3,9 +3,13 @@ package com.pilarapp.manuel.pilarapp;
 import com.pilarapp.manuel.pilarapp.Objects.Acto;
 import com.pilarapp.manuel.pilarapp.Objects.Request;
 
+import java.util.List;
+
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.http.GET;
+import retrofit.http.HEAD;
+import retrofit.http.Header;
 import retrofit.http.Headers;
 import retrofit.http.Path;
 import retrofit.http.Query;
@@ -28,15 +32,18 @@ public class ApiManager {
         return API_SERVICE;
     }
 
-    public interface APIActos{
+    public interface APIActos {
 
-        @Headers("Accept: application/json")
+        String ultima = "";
+
+        @Headers({"Accept: application/json"
+        })
         @GET("/recurso/cultura-ocio/evento-zaragoza?rf=html&results_only=false&srsname=wgs84&rows=1000&q=programa%3D%3Dfiestas%20del%20pilar")
         public void getRequest(Callback<Request> callback);
 
         @Headers("Accept: application/json")
-        @GET("/recurso/cultura-ocio/evento-zaragoza?rf=html&results_only=false&srsname=utm30n&rows=1")
-        public void getHeaders(Callback<Request> callback);
+        @HEAD("/recurso/cultura-ocio/evento-zaragoza?rf=html&results_only=false&srsname=wgs84&rows=1000&q=programa%3D%3Dfiestas%20del%20pilar")
+        public void getHeaders(Callback<retrofit.client.Header> callback);
 
         @Headers("Accept: application/json")
         @GET("/recurso/cultura-ocio/evento-zaragoza?rf=html&results_only=false&srsname=wgs84&rows=1000")

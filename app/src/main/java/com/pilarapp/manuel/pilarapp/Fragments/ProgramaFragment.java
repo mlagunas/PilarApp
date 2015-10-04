@@ -91,7 +91,7 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
     }
 
     private void requestProgram() {
-        if(DA.getActos().size()== 0) {
+        if(!DA.hasItems()) {
             ApiManager.getApiService().getRequest(getRequestQuery(mDia), new Callback<Request>() {
 
                 @Override

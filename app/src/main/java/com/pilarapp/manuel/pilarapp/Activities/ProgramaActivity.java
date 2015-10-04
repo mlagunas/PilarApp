@@ -2,6 +2,7 @@ package com.pilarapp.manuel.pilarapp.Activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -33,6 +35,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Header;
 import retrofit.client.Response;
+import retrofit.http.Headers;
 
 public class ProgramaActivity extends AppCompatActivity {
 
@@ -59,45 +62,67 @@ public class ProgramaActivity extends AppCompatActivity {
         cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         activeNetwork = cm.getActiveNetworkInfo();
 
+        final SharedPreferences mPrefs = getSharedPreferences("Last-modified", 0);
+        final SharedPreferences.Editor editor = mPrefs.edit();
+
         if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
-            ApiManager.getApiService().getHeaders(new Callback<Request>() {
+            ApiManager.getApiService().getHeaders(new Callback<Header>() {
                 @Override
-                public void success(Request request, Response response) {
-                    //Update de la BD en caso de que haya sido modificada
+                public void success(Header headers, Response response) {
+                    //Update de la BD en caso de que haya sido modificada  06c31b7c8b567090d821274cc660cf127
                     List<Header> headerList = response.getHeaders();
                     for (Header header : headerList) {
-                        //if (header.toString().contains("Last-Modified:")) {
-                        //if (header.toString().substring(14, header.toString().length())
-                        //!= "/*VALOR DE PREFERENCES*/") {
-                        ApiManager.getApiService().getRequest(new Callback<Request>() {
-                            @Override
-                            public void success(final Request request, Response response) {
-                                DA.truncateDB();
-                                DA.fillDB(request.getResult(), false);
+                        if (header.getName() != null
+                                && header.getName().equals("ETag")) {
+                            final String newDate = header.getValue();
+
+                            if (!newDate.equals(mPrefs.getString("Last-modified", ""))) {
+                                editor.putString("Last-modified", newDate).commit();
+                                updateDB();
+                                break;
+                            }
+                            else
+                            {
                                 setSupportActionBar(toolbar);
                                 ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
                                 setupViewPager(viewPager);
                                 tabLayout.setupWithViewPager(viewPager);
                             }
-
-                            @Override
-                            public void failure(RetrofitError error) {
-
-                            }
-                        });
-                        // }
-                        //}
-                        break;
+                        }
                     }
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
+                    Log.d("TAG", "error");
                     Snackbar.make(view, "Error de conexión", Snackbar.LENGTH_LONG).show();
                 }
+
+                private void updateDB(){
+                    ApiManager.getApiService().getRequest(new Callback<Request>() {
+                        @Override
+                        public void success(final Request request, Response response) {
+                            List<Header> headerList = response.getHeaders();
+                            for (Header header : headerList) {
+                                Log.d("TAG",header.getName() + header.getValue());
+                            }
+                            DA.truncateDB();
+                            DA.fillDB(request.getResult(), false);
+
+                            setSupportActionBar(toolbar);
+                            ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+                            setupViewPager(viewPager);
+                            tabLayout.setupWithViewPager(viewPager);
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+                            Snackbar.make(view, "Error de conexión", Snackbar.LENGTH_LONG).show();
+                        }
+                    });
+                }
             });
-        }
-        else{
+        } else {
             Snackbar.make(view, "Necesitas conexión la primera vez que enciendes la aplicación", Snackbar.LENGTH_LONG).show();
         }
     }
@@ -138,10 +163,6 @@ public class ProgramaActivity extends AppCompatActivity {
             Snackbar.make(view, "Error de conexión", Snackbar.LENGTH_LONG).show();
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    private void checkDB() {
-
     }
 
     private void startMapActivity() {

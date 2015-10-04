@@ -71,7 +71,7 @@ public class DetallesActivity extends AppCompatActivity {
     }
 
     private void requestActo(int id) {
-        if (DA.getActos().size()==0) {
+        if (!DA.hasItems()) {
             ApiManager.getApiService().getActo(id, new Callback<Acto>() {
                 @Override
                 public void success(Acto acto, Response response) {
