@@ -20,8 +20,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.pilarapp.manuel.pilarapp.ApiManager;
@@ -122,10 +122,16 @@ public class MainActivity extends AppCompatActivity
         });
 
         //Place the Map View nearby Zaragoza
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom((new LatLngBounds(
-                new LatLng(41.62827478, -0.97400665),
-                new LatLng(41.6698344, -0.83255768))).getCenter()
-                , 12));
+
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(41.6572362, -0.878638), 12));
+        CameraPosition cameraPosition = new CameraPosition.Builder().
+                target(new LatLng(41.6572362, -0.878638)).
+                zoom(12).
+                tilt(45).
+                build();
+
+        map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
+
     }
 
     public void applyFilters() {
