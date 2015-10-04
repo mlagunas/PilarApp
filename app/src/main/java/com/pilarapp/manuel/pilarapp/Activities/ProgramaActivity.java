@@ -24,6 +24,7 @@ import com.pilarapp.manuel.pilarapp.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -70,6 +71,15 @@ public class ProgramaActivity extends AppCompatActivity {
             mAdapter.addFragment(ProgramaFragment.newInstance(l), getTabTitle(l));
         }
         viewPager.setOffscreenPageLimit(2);
+
+        Calendar cal = Calendar.getInstance();
+        int mes = cal.get(Calendar.MONTH);
+        int dia = cal.get(Calendar.DAY_OF_MONTH);
+
+        if (mes == 9 && (dia >= 9 && dia <= 18)) {
+            mViewPager.setCurrentItem(dia - 9);
+        }
+
         viewPager.setAdapter(mAdapter);
     }
 
