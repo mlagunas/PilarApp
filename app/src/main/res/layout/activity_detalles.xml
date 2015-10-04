@@ -18,7 +18,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:contentScrim="?attr/colorPrimary"
+            app:contentScrim="@drawable/chachirulo"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
@@ -28,6 +28,7 @@
                 android:fitsSystemWindows="true"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:scaleType="centerCrop"
+                android:src="@drawable/chachirulo"
                 app:layout_collapseMode="parallax"/>
 
             <android.support.v7.widget.Toolbar
