@@ -1,6 +1,7 @@
 package com.pilarapp.manuel.pilarapp.Database;
 
 import android.content.Context;
+import android.util.Log;
 
 
 import com.pilarapp.manuel.pilarapp.Objects.Acto;
@@ -14,8 +15,6 @@ import java.util.List;
  * Created by Manuel on 30/09/2015.
  */
 public class DaoActos extends DaoBase {
-
-    public int nActos = 0;
 
     private transient Context context;
     private final String INFO_TABLE = "CREATE TABLE info (" +
@@ -44,6 +43,11 @@ public class DaoActos extends DaoBase {
     public DaoActos(Context pContext) {
         super(pContext);
         this.context = pContext;
+
+    }
+
+    public int getnActos() {
+        return super.getnActos();
     }
 
     public List<Acto> getActos() {
@@ -57,6 +61,13 @@ public class DaoActos extends DaoBase {
         }
         super.close();
         return actos;
+    }
+
+    public void truncateDB() {
+        super.open();
+        mDb.execSQL("delete from info");
+        super.close();
+        super.deleltenActos();
     }
 
     public void insertActo(Acto a) {
@@ -93,7 +104,8 @@ public class DaoActos extends DaoBase {
                 "lng, " +
                 "buses," +
                 "address, " +
-                "addressInfo" +
+                "addressInfo," +
+                "imagen" +
                 ") " +
                 "VALUES (" +
                 a.getId() + ", '" +
@@ -115,10 +127,10 @@ public class DaoActos extends DaoBase {
                 a.getLng() + ", '" +
                 a.getBuses() + "', '" +
                 a.getAddress() + "', '" +
-                a.getAddressInfo() + "'" +
-                ");";
+                a.getAddressInfo() + "', '" +
+                a.getImagen() + "'"+
+        ");";
         mDb.execSQL(consulta);
-        nActos ++;
     }
 
     public List<Acto> getActos(Date date) {
@@ -126,8 +138,8 @@ public class DaoActos extends DaoBase {
         ArrayList<Acto> actos = new ArrayList<Acto>();
         String fecha = new SimpleDateFormat("yyyy-MM-dd").format(date);
         c = super.mDb.rawQuery("SELECT * FROM info " +
-                "WHERE '"+fecha+"' >= startDate " +
-                "AND '"+fecha+"' <= endDate  "
+                "WHERE '" + fecha + "' >= startDate " +
+                "AND '" + fecha + "' <= endDate  "
                 , null);
         if (c.moveToFirst()) {
             do {
@@ -139,6 +151,13 @@ public class DaoActos extends DaoBase {
         return actos;
     }
 
+    public void fillDB(List<Acto> actos, Boolean db) {
+        super.open();
+        for (Acto a : actos) {
+            insertActo(a);
+        }
+        super.close();
+    }
 
     public Acto getActo(int i) {
         super.open();
@@ -171,16 +190,10 @@ public class DaoActos extends DaoBase {
         a.setBuses(c.getString(17));
         a.setAddress(c.getString(18));
         a.setAddressInfo(c.getString(19));
+        a.setImagen(c.getString(20));
         return a;
     }
 
-    public void fillDB(List<Acto> actos, Boolean db) {
-        super.open();
-        for (Acto a : actos) {
-            insertActo(a);
-        }
-        super.close();
-    }
 
     private String formatSQL(String s) {
         String aux = "";
@@ -197,10 +210,5 @@ public class DaoActos extends DaoBase {
         return aux;
     }
 
-    public void truncateDB() {
-        super.open();
-        mDb.execSQL("delete from info");
-        super.close();
-        nActos = 0;
-    }
+
 }

@@ -7,14 +7,14 @@ import android.database.sqlite.SQLiteDatabase;
 /**
  * Created by Manuel on 30/09/2015.
  */
-public abstract class DaoBase{
+public abstract class DaoBase {
 
     // First base version
     // Update this attribute if version change
     protected final static int VERSION = 1;
 
     // database name
-    protected final static String NAME = "infor.db";
+    protected final static String NAME = "info.db";
 
     protected SQLiteDatabase mDb = null;
     protected DatabaseHandler mHandler = null;
@@ -51,6 +51,17 @@ public abstract class DaoBase{
      */
     public SQLiteDatabase getDb() {
         return mDb;
+    }
+    protected int getnActos() {
+        return mHandler.getnActos();
+    }
+
+    protected void updatenActos() {
+        mHandler.updatenActos();
+    }
+
+    protected void deleltenActos() {
+       mHandler.deleltenActos();
     }
 }
 

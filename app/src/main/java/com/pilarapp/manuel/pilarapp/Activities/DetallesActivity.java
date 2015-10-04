@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -70,7 +71,7 @@ public class DetallesActivity extends AppCompatActivity {
     }
 
     private void requestActo(int id) {
-        if (DA.nActos==0) {
+        if (DA.getActos().size()==0) {
             ApiManager.getApiService().getActo(id, new Callback<Acto>() {
                 @Override
                 public void success(Acto acto, Response response) {
@@ -107,7 +108,10 @@ public class DetallesActivity extends AppCompatActivity {
                 }
             });
         } else {
+            Log.d("TAG","in DB");
             Acto acto = DA.getActo(id);
+            Log.d("TAG imagen+tema",acto.getImagen()+acto.getTema());
+            //Log.d("TAG temas",acto.getTema());
             mActo = acto;
             titleView.setText(acto.getTitle());
             if (acto.getDescription() != null && acto.getDescription()!="")
@@ -135,6 +139,7 @@ public class DetallesActivity extends AppCompatActivity {
                 precioView.setText("Precio no establecido");
             }
             setupFab(acto.getTitle());
+            ;
         }
     }
 

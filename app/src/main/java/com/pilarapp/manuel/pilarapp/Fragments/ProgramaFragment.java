@@ -10,6 +10,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +91,7 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
     }
 
     private void requestProgram() {
-        if(DA.nActos == 0) {
+        if(DA.getActos().size()== 0) {
             ApiManager.getApiService().getRequest(getRequestQuery(mDia), new Callback<Request>() {
 
                 @Override
@@ -105,14 +106,14 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
             });
         }
         else {
+            Log.d("TAG","in DB");
             mAdapter.setData(DA.getActos(new Date(mDia)));
         }
     }
 
     private String getRequestQuery(long l) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return "programa==fiestas del pilar;endDate=ge="+sdf.format(new Date(l))+";startDate=le="+sdf.format(new Date(l))+
-                ";startDate=ge=2015-10-09;endDate=le=2015-10-18";
+        return "programa==fiestas del pilar;endDate=ge="+sdf.format(new Date(l))+";startDate=le="+sdf.format(new Date(l));
         //return "programa==fiestas del pilar;startDate=="+sdf.format(new Date(l))+"T00:00:00Z";
     }
 

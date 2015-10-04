@@ -58,6 +58,7 @@ public class ProgramaActivity extends AppCompatActivity {
         //Check if DB update needed
         cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         activeNetwork = cm.getActiveNetworkInfo();
+
         if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
             ApiManager.getApiService().getHeaders(new Callback<Request>() {
                 @Override
@@ -73,20 +74,10 @@ public class ProgramaActivity extends AppCompatActivity {
                             public void success(final Request request, Response response) {
                                 DA.truncateDB();
                                 DA.fillDB(request.getResult(), false);
-
                                 setSupportActionBar(toolbar);
                                 ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
                                 setupViewPager(viewPager);
                                 tabLayout.setupWithViewPager(viewPager);
-                                new Thread() {
-                                    public void run() {
-                                        try {
-
-                                        } catch (Exception v) {
-                                            System.out.println(v);
-                                        }
-                                    }
-                                }.start();
                             }
 
                             @Override
@@ -105,6 +96,9 @@ public class ProgramaActivity extends AppCompatActivity {
                     Snackbar.make(view, "Error de conexión", Snackbar.LENGTH_LONG).show();
                 }
             });
+        }
+        else{
+            Snackbar.make(view, "Necesitas conexión la primera vez que enciendes la aplicación", Snackbar.LENGTH_LONG).show();
         }
     }
 

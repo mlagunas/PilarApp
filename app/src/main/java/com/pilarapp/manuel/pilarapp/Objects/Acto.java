@@ -2,6 +2,8 @@
 package com.pilarapp.manuel.pilarapp.Objects;
 
 
+import android.util.Log;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -120,6 +122,8 @@ public class Acto {
     private String address;
     private String buses;
 
+    private String imagen;
+
     /**
      * No args constructor for use in serialization
      */
@@ -133,6 +137,7 @@ public class Acto {
         this.buses = "";
         this.address = "";
         this.addressInfo = "";
+        this.image = "";
     }
 
     /**
@@ -208,6 +213,10 @@ public class Acto {
         this.subtema = "";
         this.horaFinal = "";
         this.horaInicio = "";
+        this.buses = "";
+        this.address = "";
+        this.addressInfo = "";
+        this.image = "";
     }
 
     /**
@@ -671,21 +680,27 @@ public class Acto {
             SimpleDateFormat format =
                     new SimpleDateFormat("yyyy-mm-dd"); //EEE MMM dd HH:mm:ss zzz yyyy
             parsed = format.parse(date);
+
         } catch (ParseException pe) {
-            throw new IllegalArgumentException();
+            return null;
+            //throw new IllegalArgumentException();
         }
         return parsed;
     }
 
     public String getTema() {
-        if (temas != null && temas.size() > 0) {
-            if (temas.get(0).getTitle() != null &&
-                    (temas.get(0).getTitle()).equals(""))
-                return tema;
-            else return temas.get(0).getTitle();
-        } else return tema;
+        String result = "";
 
+        for (int i = 0; i<temas.size();i++) {
+            if (i != 0)
+                result += "-";
 
+            if (temas.get(i).getTitle() != null &&
+                    (temas.get(i).getTitle()).equals(""))
+                result += tema;
+            else result += temas.get(i).getTitle();
+        }
+        return result;
     }
 
     public void setTema(String tema) {
@@ -762,10 +777,6 @@ public class Acto {
                     (subEvent.get(0).getLugar().getDireccion() + ", " + subEvent.get(0).getLugar().getCp()).equals(""))
                 return address;
             else
-            if (subEvent.get(0).getLugar().getCp()!="")
-                return subEvent.get(0).getLugar().getDireccion() + ", "
-                        + subEvent.get(0).getLugar().getCp();
-            else
                 return subEvent.get(0).getLugar().getDireccion();
         } else return address;
     }
@@ -787,5 +798,16 @@ public class Acto {
     public void setBuses(String buses) {
 
         this.buses = buses;
+    }
+
+    public String getImagen() {
+        if(anexo  != null && anexo.size()>0 && anexo.get(0)!=null && anexo.get(0).getImagen()!="")
+            return anexo.get(0).getImagen();
+        else
+            return imagen;
+    }
+
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 }

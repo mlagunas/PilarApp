@@ -10,6 +10,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  */
 public class DatabaseHandler extends SQLiteOpenHelper{
 
+    private int nActos;
     private final String INFO_TABLE =
             "CREATE TABLE info (" +
                     "id     INTEGER PRIMARY KEY, " +    //1
@@ -30,8 +31,9 @@ public class DatabaseHandler extends SQLiteOpenHelper{
                     "lat DOUBLE, " +                    //16
                     "lng DOUBLE, " +                    //17
                     "buses TEXT, " +                    //18
-                    "address TEXT," +                   //19
-                    "addressInfo TEXT " +               //20
+                    "address TEXT, " +                   //19
+                    "addressInfo TEXT, " +               //20
+                    "imagen TEXT " +                    //21
                     ");";
 
 
@@ -43,6 +45,19 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(INFO_TABLE);
+        nActos=0;
+    }
+
+    public int getnActos() {
+        return nActos;
+    }
+
+    public void updatenActos() {
+        nActos++;
+    }
+
+    public void deleltenActos() {
+        nActos = 0;
     }
 
     @Override
