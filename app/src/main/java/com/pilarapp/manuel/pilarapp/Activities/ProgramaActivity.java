@@ -82,7 +82,7 @@ public class ProgramaActivity extends AppCompatActivity {
 
                 @Override
                 public void success(Header headers, Response response) {
-                    //Update de la BD en caso de que haya sido modificada  06c31b7c8b567090d821274cc660cf127
+                    //Update de la BD en caso de que haya sido modificada  06c31b7c8b567090d821274cc660cf127 mPrefs.getString("Last-modified","")
                     List<Header> headerList = response.getHeaders();
                     for (Header header : headerList) {
                         if (header.getName() != null

@@ -92,7 +92,7 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
             holder.secondaryText.setText("Acto sin hora especificada");
         }
 
-        if (acto.getAddress() != null && !acto.getAddress().equals("")
+        if (acto.getAddress()!= null && !acto.getAddress().isEmpty()
                 )
             holder.thirdText.setText(acto.getAddress());
         else

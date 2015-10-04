@@ -91,6 +91,8 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
     }
 
     private void requestProgram() {
+        Log.d("TAG num",DA.getDestacados().size()+"num");
+
         if(!DA.hasItems()) {
             ApiManager.getApiService().getRequest(getRequestQuery(mDia), new Callback<Request>() {
 

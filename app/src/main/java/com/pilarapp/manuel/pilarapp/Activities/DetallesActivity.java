@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -94,11 +95,11 @@ public class DetallesActivity extends AppCompatActivity {
 
     private void setupUI(Acto acto) {
         titleView.setText(acto.getTitle());
-
+        Log.d("TAG", acto.getHorario());
         if (acto.getDescription() != null) {
             contentView.setText(Html.fromHtml(acto.getDescription()));
         } else {
-            contentView.setText("Sin descripción");
+            contentView.setText("Descripcion no establecida");
         }
 
         setupDateText(acto, dateView);
@@ -107,7 +108,7 @@ public class DetallesActivity extends AppCompatActivity {
         if (acto.getPrecioEntrada() != null && !acto.getPrecioEntrada().isEmpty()) {
             precioView.setText(Jsoup.parse(acto.getPrecioEntrada()).text());
         } else {
-            precioView.setText("Sin datos");
+            precioView.setText("Precio no establecido");
         }
         setupFab(acto.getTitle());
         Glide.with(this).load("http:" + acto.getImagen()).into(eventImage);

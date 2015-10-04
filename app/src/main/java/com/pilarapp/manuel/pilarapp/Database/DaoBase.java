@@ -14,7 +14,7 @@ public abstract class DaoBase {
     protected final static int VERSION = 1;
 
     // database name
-    protected final static String NAME = "info.db";
+    protected final static String NAME = "if.db";
 
     protected SQLiteDatabase mDb = null;
     protected DatabaseHandler mHandler = null;
@@ -51,17 +51,6 @@ public abstract class DaoBase {
      */
     public SQLiteDatabase getDb() {
         return mDb;
-    }
-    protected int getnActos() {
-        return mHandler.getnActos();
-    }
-
-    protected void updatenActos() {
-        mHandler.updatenActos();
-    }
-
-    protected void deleltenActos() {
-       mHandler.deleltenActos();
     }
 }
 

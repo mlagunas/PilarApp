@@ -37,7 +37,8 @@ public class DaoActos extends DaoBase {
             "lng DOUBLE, " +                    //17
             "buses TEXT, " +                    //18
             "address TEXT," +                   //19
-            "addressInfo TEXT " +               //20
+            "addressInfo TEXT," +
+            "horario TEXT " +               //20
             ");";
 
     public DaoActos(Context pContext) {
@@ -63,13 +64,12 @@ public class DaoActos extends DaoBase {
         super.open();
         mDb.execSQL("delete from info");
         super.close();
-        super.deleltenActos();
     }
 
     public List<Acto> getDestacados(){
         super.open();
         ArrayList<Acto> actos = new ArrayList<Acto>();
-        c = super.mDb.rawQuery("SELECT * FROM info WHERE destacado = 1;", null);
+        c = super.mDb.rawQuery("SELECT * FROM info WHERE destacada = 1;", null);
         if (c.moveToFirst()) {
             do {
                 actos.add(fillActo());
@@ -90,6 +90,7 @@ public class DaoActos extends DaoBase {
         if (a.getStartDate() != null)
             endd = new SimpleDateFormat("yyyy-MM-dd").format(a.getEndDate());
 
+        Log.d("TAG",a.getDestacada().toString()+"  destacada");
         if (a.getDestacada()) destacada = 1;
         else destacada = 0;
 
@@ -115,7 +116,8 @@ public class DaoActos extends DaoBase {
                 "buses," +
                 "address, " +
                 "addressInfo," +
-                "imagen" +
+                "imagen," +
+                "horario" +
                 ") " +
                 "VALUES (" +
                 a.getId() + ", '" +
@@ -138,7 +140,8 @@ public class DaoActos extends DaoBase {
                 a.getBuses() + "', '" +
                 a.getAddress() + "', '" +
                 a.getAddressInfo() + "', '" +
-                a.getImagen() + "'"+
+                a.getImagen() + "', '"+
+                a.getHorario()+"'"+
         ");";
         mDb.execSQL(consulta);
     }
@@ -209,6 +212,7 @@ public class DaoActos extends DaoBase {
         a.setAddress(c.getString(18));
         a.setAddressInfo(c.getString(19));
         a.setImagen(c.getString(20));
+        a.setHorario(c.getString(21));
         return a;
     }
 

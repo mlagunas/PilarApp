@@ -124,6 +124,8 @@ public class Acto {
 
     private String imagen;
 
+    private String horario;
+
     /**
      * No args constructor for use in serialization
      */
@@ -138,6 +140,7 @@ public class Acto {
         this.address = "";
         this.addressInfo = "";
         this.image = "";
+        this.horario = "";
     }
 
     /**
@@ -217,6 +220,7 @@ public class Acto {
         this.address = "";
         this.addressInfo = "";
         this.image = "";
+        this.horario = "";
     }
 
     /**
@@ -812,5 +816,18 @@ public class Acto {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public String getHorario() {
+        if (subEvent != null && subEvent.size() > 0
+                && subEvent.get(0).getHorario() != null
+                && !subEvent.get(0).getHorario().isEmpty())
+            return subEvent.get(0).getHorario();
+        else
+            return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
     }
 }
