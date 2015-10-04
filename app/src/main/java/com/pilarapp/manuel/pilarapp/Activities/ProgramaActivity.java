@@ -15,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.pilarapp.manuel.pilarapp.ApiManager;
 import com.pilarapp.manuel.pilarapp.Database.DaoActos;
@@ -42,7 +41,9 @@ public class ProgramaActivity extends AppCompatActivity {
     private DaoActos DA;
     private ConnectivityManager cm;
     private NetworkInfo activeNetwork;
-    private View view;
+
+    private ViewPager mViewPager;
+    private SectionsPagerAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,25 +53,24 @@ public class ProgramaActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
+        setupViewPager(mViewPager);
 
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
+        tabLayout.setupWithViewPager(mViewPager);
 
-        view = this.findViewById(android.R.id.content);
         this.DA = new DaoActos(this);
 
         checkDB();
     }
 
     private void setupViewPager(ViewPager viewPager) {
-        SectionsPagerAdapter adapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
         for (long l = COMIENZO_PILAR; l <= FINAL_PILAR; l += DIA_EN_MS) {
-            adapter.addFragment(ProgramaFragment.newInstance(l), getTabTitle(l));
+            mAdapter.addFragment(ProgramaFragment.newInstance(l), getTabTitle(l));
         }
         viewPager.setOffscreenPageLimit(2);
-        viewPager.setAdapter(adapter);
+        viewPager.setAdapter(mAdapter);
     }
 
     private String getTabTitle(long l) {
@@ -88,17 +88,19 @@ public class ProgramaActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-        activeNetwork = cm.getActiveNetworkInfo();
+        int id = item.getItemId();
+        if (id == R.id.action_ver_mapa) {
 
-        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
-            int id = item.getItemId();
-            if (id == R.id.action_ver_mapa) {
-                startMapActivity();
+            cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+            activeNetwork = cm.getActiveNetworkInfo();
+
+            if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
+                startMapActivity(mViewPager.getCurrentItem() + 9);
+            } else {
+                Snackbar.make(mViewPager, "Error de conexión", Snackbar.LENGTH_LONG).show();
             }
-        } else {
-            Snackbar.make(view, "Error de conexión", Snackbar.LENGTH_LONG).show();
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -145,14 +147,15 @@ public class ProgramaActivity extends AppCompatActivity {
 
                 @Override
                 public void failure(RetrofitError error) {
-                    Snackbar.make(view, "Error de conexión", Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(mViewPager, "Error de conexión", Snackbar.LENGTH_LONG).show();
                 }
             });
         }
     }
 
-    private void startMapActivity() {
+    private void startMapActivity(int day) {
         Intent i = new Intent(this, MainActivity.class);
+        i.putExtra("day", day);
         startActivity(i);
     }
 
