@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity
     private void showSnackbar(int currentDistanceFilter, int currentDayFilter) {
         //TODO - Mejorar el texto
         if (toolbar != null) {
-            String distanceString = currentDistanceFilter == -1 ? "Todos" : "A menos de " + currentDistanceFilter + " km";
+            String distanceString = currentDistanceFilter == -1 ? "Todas distancias" : "A menos de " + currentDistanceFilter + " km";
             String dayString = currentDayFilter == -1 ? "Todos los días" : "Día " + currentDayFilter;
             Snackbar.make(toolbar, dayString + "  |  " + distanceString, Snackbar.LENGTH_LONG).show();
         }

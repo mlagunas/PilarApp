@@ -88,7 +88,7 @@ public class ProgramaActivity extends AppCompatActivity {
                         if (header.getName() != null
                                 && header.getName().equals("ETag")) {
                             final String newDate = header.getValue();
-                            if (!newDate.equals("aa")) {
+                            if (!newDate.equals(mPrefs.getString("Last-modified",""))) {
                                 editor.putString("Last-modified", newDate).commit();
                                 updateDB();
                             } else {
@@ -96,7 +96,6 @@ public class ProgramaActivity extends AppCompatActivity {
                                 setupViewPager(mViewPager);
                                 tabLayout.setupWithViewPager(mViewPager);
                             }
-
                             break;
                         }
                     }
@@ -105,7 +104,6 @@ public class ProgramaActivity extends AppCompatActivity {
                 @Override
                 public void failure(RetrofitError error) {
                     Snackbar.make(mViewPager, "Error de conexión", Snackbar.LENGTH_LONG).show();
-
                 }
 
                 private void updateDB() {
@@ -123,6 +121,7 @@ public class ProgramaActivity extends AppCompatActivity {
                             ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
                             setupViewPager(viewPager);
                             tabLayout.setupWithViewPager(viewPager);
+                            stopDialog();
                         }
 
                         @Override
@@ -133,6 +132,11 @@ public class ProgramaActivity extends AppCompatActivity {
                 }
             });
         };
+    }
+
+    private void stopDialog(){
+        sp.hide();
+        sp.dismiss();
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -149,7 +153,7 @@ public class ProgramaActivity extends AppCompatActivity {
         if (mes == 9 && (dia >= 9 && dia <= 18)) {
             mViewPager.setCurrentItem(dia - 9);
         }
-        sp.hide();
+
         viewPager.setAdapter(mAdapter);
     }
 
