@@ -96,6 +96,7 @@ public class ProgramaActivity extends AppCompatActivity {
                                 setupViewPager(mViewPager);
                                 tabLayout.setupWithViewPager(mViewPager);
                             }
+                            stopDialog();
                             break;
                         }
                     }
@@ -121,7 +122,7 @@ public class ProgramaActivity extends AppCompatActivity {
                             ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
                             setupViewPager(viewPager);
                             tabLayout.setupWithViewPager(viewPager);
-                            stopDialog();
+
                         }
 
                         @Override
