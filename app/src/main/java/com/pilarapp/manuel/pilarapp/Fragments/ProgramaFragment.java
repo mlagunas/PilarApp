@@ -90,7 +90,7 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
     }
 
     private void requestProgram() {
-        if(activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
+        if(DA.nActos == 0) {
             ApiManager.getApiService().getRequest(getRequestQuery(mDia), new Callback<Request>() {
 
                 @Override

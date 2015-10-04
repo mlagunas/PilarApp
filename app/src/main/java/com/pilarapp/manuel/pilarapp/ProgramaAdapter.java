@@ -85,18 +85,18 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
         holder.primaryText.setText(acto.getTitle());
         if ((acto.getHoraInicio() != null && !acto.getHoraInicio().equals(""))
                 && (acto.getHoraFinal() != null && !acto.getHoraFinal().equals(""))) {
-            holder.secondaryText.setText("Horario: " + acto.getHoraInicio() + "-" + acto.getHoraFinal());
+            holder.secondaryText.setText(acto.getHoraInicio() + "-" + acto.getHoraFinal());
         } else if (acto.getHoraInicio() != null && !acto.getHoraInicio().equals("")) {
-            holder.secondaryText.setText("Hora de inicio: " + acto.getHoraInicio());
+            holder.secondaryText.setText(acto.getHoraInicio());
         } else {
             holder.secondaryText.setText("Acto sin hora especificada");
         }
 
         if (acto.getAddress() != null && acto.getAddress() != "" &&
                 acto.getAddressInfo() != null && acto.getAddressInfo() != "")
-            holder.thirdText.setText("Dirección: " + acto.getAddress() + ", " + acto.getAddressInfo());
+            holder.thirdText.setText(acto.getAddress() + ", " + acto.getAddressInfo());
         else if (acto.getAddress() != null && acto.getAddress() != "")
-            holder.thirdText.setText("Dirección: " + acto.getAddress());
+            holder.thirdText.setText(acto.getAddress());
         else
             holder.thirdText.setText("No existe una dirección espeficiada");
     }

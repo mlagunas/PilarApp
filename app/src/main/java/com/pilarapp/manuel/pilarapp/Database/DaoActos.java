@@ -15,6 +15,8 @@ import java.util.List;
  */
 public class DaoActos extends DaoBase {
 
+    public int nActos = 0;
+
     private transient Context context;
     private final String INFO_TABLE = "CREATE TABLE info (" +
             "id     INTEGER PRIMARY KEY, " +    //1
@@ -116,6 +118,7 @@ public class DaoActos extends DaoBase {
                 a.getAddressInfo() + "'" +
                 ");";
         mDb.execSQL(consulta);
+        nActos ++;
     }
 
     public List<Acto> getActos(Date date) {
@@ -123,9 +126,7 @@ public class DaoActos extends DaoBase {
         ArrayList<Acto> actos = new ArrayList<Acto>();
         String fecha = new SimpleDateFormat("yyyy-MM-dd").format(date);
         c = super.mDb.rawQuery("SELECT * FROM info " +
-                "WHERE endDate   <= '2015-10-18' " +
-                "AND startDate   >= '2015-10-09' " +
-                "AND '"+fecha+"' >= startDate " +
+                "WHERE '"+fecha+"' >= startDate " +
                 "AND '"+fecha+"' <= endDate  "
                 , null);
         if (c.moveToFirst()) {
@@ -200,5 +201,6 @@ public class DaoActos extends DaoBase {
         super.open();
         mDb.execSQL("delete from info");
         super.close();
+        nActos = 0;
     }
 }

@@ -70,7 +70,7 @@ public class DetallesActivity extends AppCompatActivity {
     }
 
     private void requestActo(int id) {
-        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
+        if (DA.nActos==0) {
             ApiManager.getApiService().getActo(id, new Callback<Acto>() {
                 @Override
                 public void success(Acto acto, Response response) {
@@ -110,7 +110,8 @@ public class DetallesActivity extends AppCompatActivity {
             Acto acto = DA.getActo(id);
             mActo = acto;
             titleView.setText(acto.getTitle());
-            if (acto.getDescription() != null) {
+            if (acto.getDescription() != null && acto.getDescription()!="")
+            {
                 contentView.setText(Html.fromHtml(acto.getDescription()));
             } else {
                 contentView.setText("Sin descripción");

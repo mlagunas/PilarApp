@@ -49,19 +49,63 @@ public class ProgramaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_programa);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        setupViewPager(viewPager);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         view = this.findViewById(android.R.id.content);
         this.DA = new DaoActos(this);
 
-        checkDB();
+        //Check if DB update needed
+        cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
+            ApiManager.getApiService().getHeaders(new Callback<Request>() {
+                @Override
+                public void success(Request request, Response response) {
+                    //Update de la BD en caso de que haya sido modificada
+                    List<Header> headerList = response.getHeaders();
+                    for (Header header : headerList) {
+                        //if (header.toString().contains("Last-Modified:")) {
+                        //if (header.toString().substring(14, header.toString().length())
+                        //!= "/*VALOR DE PREFERENCES*/") {
+                        ApiManager.getApiService().getRequest(new Callback<Request>() {
+                            @Override
+                            public void success(final Request request, Response response) {
+                                DA.truncateDB();
+                                DA.fillDB(request.getResult(), false);
+
+                                setSupportActionBar(toolbar);
+                                ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+                                setupViewPager(viewPager);
+                                tabLayout.setupWithViewPager(viewPager);
+                                new Thread() {
+                                    public void run() {
+                                        try {
+
+                                        } catch (Exception v) {
+                                            System.out.println(v);
+                                        }
+                                    }
+                                }.start();
+                            }
+
+                            @Override
+                            public void failure(RetrofitError error) {
+
+                            }
+                        });
+                        // }
+                        //}
+                        break;
+                    }
+                }
+
+                @Override
+                public void failure(RetrofitError error) {
+                    Snackbar.make(view, "Error de conexión", Snackbar.LENGTH_LONG).show();
+                }
+            });
+        }
     }
 
     private void setupViewPager(ViewPager viewPager) {
@@ -103,52 +147,7 @@ public class ProgramaActivity extends AppCompatActivity {
     }
 
     private void checkDB() {
-        //Check if DB update needed
-        cm = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-        activeNetwork = cm.getActiveNetworkInfo();
 
-        if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
-            ApiManager.getApiService().getHeaders(new Callback<Request>() {
-                @Override
-                public void success(Request request, Response response) {
-                    //Update de la BD en caso de que haya sido modificada
-                    List<Header> headerList = response.getHeaders();
-                    for (Header header : headerList) {
-                        //if (header.toString().contains("Last-Modified:")) {
-                        //if (header.toString().substring(14, header.toString().length())
-                        //!= "/*VALOR DE PREFERENCES*/") {
-                        ApiManager.getApiService().getRequest(new Callback<Request>() {
-                            @Override
-                            public void success(final Request request, Response response) {
-                                new Thread() {
-                                    public void run() {
-                                        try {
-                                            DA.truncateDB();
-                                            DA.fillDB(request.getResult(), false);
-                                        } catch (Exception v) {
-                                            System.out.println(v);
-                                        }
-                                    }
-                                }.start();
-                            }
-
-                            @Override
-                            public void failure(RetrofitError error) {
-
-                            }
-                        });
-                        // }
-                        //}
-                        break;
-                    }
-                }
-
-                @Override
-                public void failure(RetrofitError error) {
-                    Snackbar.make(view, "Error de conexión", Snackbar.LENGTH_LONG).show();
-                }
-            });
-        }
     }
 
     private void startMapActivity() {
