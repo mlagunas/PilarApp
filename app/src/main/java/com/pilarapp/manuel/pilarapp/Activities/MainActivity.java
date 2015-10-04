@@ -123,10 +123,10 @@ public class MainActivity extends AppCompatActivity
 
         //Place the Map View nearby Zaragoza
 
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(41.6572362, -0.878638), 12));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(41.6504757,-0.8880323), 13));
         CameraPosition cameraPosition = new CameraPosition.Builder().
-                target(new LatLng(41.6572362, -0.878638)).
-                zoom(12).
+                target(new LatLng(41.6504757,-0.8880323)).
+                zoom(13).
                 tilt(45).
                 build();
 
