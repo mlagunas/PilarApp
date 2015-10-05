@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity
     private int currentDayFilter = -1;
 
     private Toolbar toolbar;
+    final DaoActos DA = new DaoActos(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,7 +94,7 @@ public class MainActivity extends AppCompatActivity
         map.setMyLocationEnabled(true);
         double longitude = -1;
         double latitude = -1;
-        final DaoActos DA = new DaoActos(this);
+
         ConnectivityManager cm =
                 (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -142,8 +144,11 @@ public class MainActivity extends AppCompatActivity
 
     public void applyFilters() {
         mFiltered = new ArrayList<>(mActos);
+        if(currentDayFilter != -1){
+            mFiltered = DA.getActos(parseDate("2015-10-"+currentDayFilter));
+            Log.d("TAG",mFiltered.size()+"");
+        }
         filterByDistance(mFiltered, currentDistanceFilter);
-        filterByDay(mFiltered, currentDayFilter);
         fillMapWithMarkers(mFiltered, mMap);
         showSnackbar(currentDistanceFilter, currentDayFilter);
     }
@@ -165,17 +170,23 @@ public class MainActivity extends AppCompatActivity
     public void filterByDay(List<Acto> list, int day) {
         if (day > 0) {
             Date dia = parseDate("2015-10-" + day);
-
+            List<Acto> actoDate = DA.getActos(dia);
+            Log.d("TAG", actoDate.size() + " ");
             Iterator it = list.iterator();
+
             while (it.hasNext()) {
                 Acto a = (Acto) it.next();
-                if (a.getStartDate() == null) {
+                if(!actoDate.contains(a)){
+                    it.remove();
+                }
+
+                /*if (a.getStartDate() == null) {
                     if (a.getEndDate().getTime() % 2629743830L / 86400000L != day) {
                         it.remove();
                     }
                 } else if (!(dia.after(a.getStartDate()) && dia.before(a.getEndDate()))) {
                     it.remove();
-                }
+                }*/
             }
         }
     }

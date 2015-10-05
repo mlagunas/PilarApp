@@ -164,6 +164,24 @@ public class DaoActos extends DaoBase {
         return actos;
     }
 
+    public List<Acto> getFilterActos(Date date){
+        super.open();
+        ArrayList<Acto> actos = new ArrayList<Acto>();
+        String fecha = new SimpleDateFormat("yyyy-MM-dd").format(date);
+        c = super.mDb.rawQuery("SELECT * FROM info " +
+                "WHERE '" + fecha + "' < startDate " +
+                "OR '" + fecha + "' > endDate  "
+                , null);
+        if (c.moveToFirst()) {
+            do {
+                actos.add(fillActo());
+            }
+            while (c.moveToNext());
+        }
+        super.close();
+        return actos;
+    }
+
     public Boolean hasItems(){
         super.open();
         c = super.mDb.rawQuery("SELECT * FROM info;", null);
