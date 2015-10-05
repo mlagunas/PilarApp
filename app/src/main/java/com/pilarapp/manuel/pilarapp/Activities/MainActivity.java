@@ -30,7 +30,10 @@ import com.pilarapp.manuel.pilarapp.Objects.Acto;
 import com.pilarapp.manuel.pilarapp.Objects.Request;
 import com.pilarapp.manuel.pilarapp.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -109,6 +112,10 @@ public class MainActivity extends AppCompatActivity
                 }
             });
         }
+        else{
+            mActos = DA.getActos();
+            applyFilters();
+        }
 
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
 
@@ -122,7 +129,7 @@ public class MainActivity extends AppCompatActivity
 
         //Place the Map View nearby Zaragoza
 
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(41.6572362, -0.878638), 12));
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(41.6504757, -0.8880323), 13));
         CameraPosition cameraPosition = new CameraPosition.Builder().
                 target(new LatLng(41.6572362, -0.878638)).
                 zoom(14).
@@ -157,14 +164,34 @@ public class MainActivity extends AppCompatActivity
 
     public void filterByDay(List<Acto> list, int day) {
         if (day > 0) {
+            Date dia = parseDate("2015-10-" + day);
+
             Iterator it = list.iterator();
             while (it.hasNext()) {
                 Acto a = (Acto) it.next();
-                if ((a.getEndDate().getTime() % 2629743830L / 86400000L) != day) {
+                if (a.getStartDate() == null) {
+                    if (a.getEndDate().getTime() % 2629743830L / 86400000L != day) {
+                        it.remove();
+                    }
+                } else if (!(dia.after(a.getStartDate()) && dia.before(a.getEndDate()))) {
                     it.remove();
                 }
             }
         }
+    }
+
+    private Date parseDate(String date) {
+        Date parsed = new Date();
+        try {
+            SimpleDateFormat format =
+                    new SimpleDateFormat("yyyy-MM-dd"); //EEE MMM dd HH:mm:ss zzz yyyy
+            parsed = format.parse(date);
+
+        } catch (ParseException pe) {
+            return null;
+            //throw new IllegalArgumentException();
+        }
+        return parsed;
     }
 
     public void fillMapWithMarkers(List<Acto> list, GoogleMap map) {

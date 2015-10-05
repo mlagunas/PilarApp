@@ -681,14 +681,13 @@ public class Acto {
     private Date parseDate(String date) {
         Date parsed = new Date();
         try {
-            Log.d("TAG",date);
             SimpleDateFormat format =
                     new SimpleDateFormat("yyyy-MM-dd"); //EEE MMM dd HH:mm:ss zzz yyyy
             parsed = format.parse(date);
 
         } catch (ParseException pe) {
-            //return null;
-            throw new IllegalArgumentException();
+            return null;
+            //throw new IllegalArgumentException();
         }
         return parsed;
     }

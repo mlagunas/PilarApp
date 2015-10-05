@@ -72,9 +72,9 @@ public class ProgramaActivity extends AppCompatActivity {
         sp = new SpotsDialog(this,R.style.Custom);
         sp.setCancelable(false);
         sp.show();
-        Snackbar.make(mViewPager, "La primera ejecución le puede llevar más tiempo", Snackbar.LENGTH_LONG).show();
 
         if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
+
             ApiManager.getApiService().getHeaders(new Callback<Header>() {
                 @Override
                 public void success(Header headers, Response response) {
@@ -85,6 +85,7 @@ public class ProgramaActivity extends AppCompatActivity {
                                 && header.getName().equals("ETag")) {
                             final String newDate = header.getValue();
                             if (!newDate.equals(mPrefs.getString("Last-modified",""))) {
+                                Snackbar.make(mViewPager, "La primera ejecución le puede llevar más tiempo", Snackbar.LENGTH_LONG).show();
                                 editor.putString("Last-modified", newDate).commit();
                                 updateDB();
                             } else {

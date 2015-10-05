@@ -82,6 +82,28 @@
                 android:background="@color/divider"/>
 
             <TextView
+                android:id="@+id/horarioTitulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HORARIO"
+                android:textAllCaps="true"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/horario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="sans-serif-medium"
+                android:lineSpacingExtra="6dp"
+                android:textColor="@color/text_primary"
+                android:textSize="14sp"
+                android:visibility="gone"/>
+
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Precio"
@@ -89,6 +111,7 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="12sp"
                 android:textStyle="bold"/>
+
 
             <TextView
                 android:id="@+id/precio"
@@ -141,7 +164,8 @@
                 android:id="@+id/eventImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"/>
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="28dp"/>
 
         </LinearLayout>
     </android.support.v4.widget.NestedScrollView>
