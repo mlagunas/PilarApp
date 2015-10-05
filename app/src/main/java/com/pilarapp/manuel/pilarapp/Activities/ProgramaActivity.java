@@ -16,11 +16,8 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import com.pilarapp.manuel.pilarapp.ApiManager;
 import com.pilarapp.manuel.pilarapp.Database.DaoActos;
@@ -72,14 +69,13 @@ public class ProgramaActivity extends AppCompatActivity {
         final SharedPreferences mPrefs = getSharedPreferences("Last-modified", 0);
         final SharedPreferences.Editor editor = mPrefs.edit();
 
+        sp = new SpotsDialog(this,R.style.Custom);
+        sp.setCancelable(false);
+        sp.show();
+        Snackbar.make(mViewPager, "La primera ejecución le puede llevar más tiempo", Snackbar.LENGTH_LONG).show();
 
         if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
-            sp = new SpotsDialog(this,R.style.Custom);
-            sp.setCancelable(false);
-            sp.show();
             ApiManager.getApiService().getHeaders(new Callback<Header>() {
-
-
                 @Override
                 public void success(Header headers, Response response) {
                     //Update de la BD en caso de que haya sido modificada  06c31b7c8b567090d821274cc660cf127 mPrefs.getString("Last-modified","")
@@ -88,7 +84,7 @@ public class ProgramaActivity extends AppCompatActivity {
                         if (header.getName() != null
                                 && header.getName().equals("ETag")) {
                             final String newDate = header.getValue();
-                            if (!newDate.equals(mPrefs.getString("Last-modified",""))) {
+                            if (!newDate.equals("a")) {
                                 editor.putString("Last-modified", newDate).commit();
                                 updateDB();
                             } else {
@@ -112,9 +108,6 @@ public class ProgramaActivity extends AppCompatActivity {
                         @Override
                         public void success(final Request request, Response response) {
                             List<Header> headerList = response.getHeaders();
-                            for (Header header : headerList) {
-                                Log.d("TAG", header.getName() + header.getValue());
-                            }
                             DA.truncateDB();
                             DA.fillDB(request.getResult(), false);
 
@@ -122,7 +115,6 @@ public class ProgramaActivity extends AppCompatActivity {
                             ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
                             setupViewPager(viewPager);
                             tabLayout.setupWithViewPager(viewPager);
-
                         }
 
                         @Override
