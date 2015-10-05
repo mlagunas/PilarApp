@@ -13,7 +13,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -95,9 +95,6 @@ public class MainActivity extends AppCompatActivity
         double longitude = -1;
         double latitude = -1;
 
-        ConnectivityManager cm =
-                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         if (!DA.hasItems()) {
             ApiManager am = new ApiManager();
             am.getApiService().getRequest(new Callback<Request>() {
@@ -146,32 +143,29 @@ public class MainActivity extends AppCompatActivity
         mFiltered = new ArrayList<>(mActos);
         if(currentDayFilter != -1){
             mFiltered = DA.getActos(parseDate("2015-10-"+currentDayFilter));
-            Log.d("TAG",mFiltered.size()+"");
         }
-        filterByDistance(mFiltered, currentDistanceFilter);
-        fillMapWithMarkers(mFiltered, mMap);
+        fillMapWithMarkers(filterByDistance(mFiltered, currentDistanceFilter), mMap);
         showSnackbar(currentDistanceFilter, currentDayFilter);
     }
 
-    public void filterByDistance(List<Acto> list, int km) {
+    public List<Acto> filterByDistance(List<Acto> list, int km) {
         if (km > 0 && mLocation != null) {
             Iterator it = list.iterator();
-            float[] results = new float[]{99999, 99999, 99999};
+            float[] results = new float[1];
             while (it.hasNext()) {
                 Acto a = (Acto) it.next();
-                Location.distanceBetween(mLocation.getLatitude(), mLocation.getLongitude(), a.getLng(), a.getLat(), results);
-                if (results[0] > km * 1000) {
+                if (results[0] > (km * 1000)) {
                     it.remove();
                 }
             }
         }
+        return list;
     }
 
     public void filterByDay(List<Acto> list, int day) {
         if (day > 0) {
             Date dia = parseDate("2015-10-" + day);
             List<Acto> actoDate = DA.getActos(dia);
-            Log.d("TAG", actoDate.size() + " ");
             Iterator it = list.iterator();
 
             while (it.hasNext()) {

@@ -69,12 +69,10 @@ public class ProgramaActivity extends AppCompatActivity {
         final SharedPreferences mPrefs = getSharedPreferences("Last-modified", 0);
         final SharedPreferences.Editor editor = mPrefs.edit();
 
-        sp = new SpotsDialog(this,R.style.Custom);
-        sp.setCancelable(false);
-        sp.show();
-
         if (activeNetwork != null && activeNetwork.isConnectedOrConnecting()) {
-
+            sp = new SpotsDialog(this, R.style.Custom);
+            sp.setCancelable(false);
+            sp.show();
             ApiManager.getApiService().getHeaders(new Callback<Header>() {
                 @Override
                 public void success(Header headers, Response response) {
@@ -84,8 +82,8 @@ public class ProgramaActivity extends AppCompatActivity {
                         if (header.getName() != null
                                 && header.getName().equals("ETag")) {
                             final String newDate = header.getValue();
-                            if (!newDate.equals(mPrefs.getString("Last-modified",""))) {
-                                Snackbar.make(mViewPager, "La primera ejecución le puede llevar más tiempo", Snackbar.LENGTH_LONG).show();
+                            if (!newDate.equals(mPrefs.getString("Last-modified", ""))) {
+                                Snackbar.make(mViewPager, "Cargando Datos, La primera ejecución puede llevar más tiempo", Snackbar.LENGTH_LONG).show();
                                 editor.putString("Last-modified", newDate).commit();
                                 updateDB();
                             } else {
@@ -93,10 +91,10 @@ public class ProgramaActivity extends AppCompatActivity {
                                 setupViewPager(mViewPager);
                                 tabLayout.setupWithViewPager(mViewPager);
                             }
-                            stopDialog();
                             break;
                         }
                     }
+                    stopDialog();
                 }
 
                 @Override
@@ -125,10 +123,13 @@ public class ProgramaActivity extends AppCompatActivity {
                     });
                 }
             });
-        };
+        } else {
+            Snackbar.make(mViewPager, "Error de conexión", Snackbar.LENGTH_LONG).show();
+            finish();
+        }
     }
 
-    private void stopDialog(){
+    private void stopDialog() {
         sp.hide();
         sp.dismiss();
     }
