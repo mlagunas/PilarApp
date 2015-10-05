@@ -24,6 +24,7 @@ import com.pilarapp.manuel.pilarapp.R;
 import org.jsoup.Jsoup;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import retrofit.Callback;
@@ -44,6 +45,7 @@ public class DetallesActivity extends AppCompatActivity {
     private ImageView eventImage;
     private DaoActos DA;
     private FloatingActionButton fab;
+    private long date;
 
 
     @Override
@@ -69,6 +71,7 @@ public class DetallesActivity extends AppCompatActivity {
 
         fab = (FloatingActionButton) findViewById(R.id.action_share);
 
+        date = getIntent().getLongExtra("date", 0);
         int id = getIntent().getIntExtra("id", 0);
         requestActo(id);
     }
@@ -119,7 +122,7 @@ public class DetallesActivity extends AppCompatActivity {
 
     private void setupDateText(Acto acto, TextView dateView) {
         SimpleDateFormat sdf = new SimpleDateFormat("cccc d", new Locale("es", "ES"));
-        String dateString = sdf.format(acto.getStartDate()) + " | ";
+        String dateString = sdf.format(new Date(date)) + " | ";
         if ((acto.getHoraInicio() != null && !acto.getHoraInicio().isEmpty())
                 && (acto.getHoraFinal() != null && !acto.getHoraFinal().isEmpty())) {
             dateString += acto.getHoraInicio() + "-" + acto.getHoraFinal();

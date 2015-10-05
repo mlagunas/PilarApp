@@ -122,6 +122,7 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
     @Override
     public void onItemClick(View v, Acto acto) {
         Intent i = new Intent(getActivity(), DetallesActivity.class);
+        i.putExtra("date",mDia);
         i.putExtra("id", acto.getId());
         startActivity(i);
     }
