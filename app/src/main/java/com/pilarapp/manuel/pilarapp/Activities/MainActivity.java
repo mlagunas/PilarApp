@@ -3,10 +3,7 @@ package com.pilarapp.manuel.pilarapp.Activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -42,11 +39,9 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class MainActivity extends AppCompatActivity
-        implements OnMapReadyCallback, LocationListener {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private LocationManager mLocationManager;
     private Location mLocation;
 
     private List<Acto> mActos;
@@ -71,20 +66,6 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // Get the location manager
-        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        // Define the criteria how to select the locatioin provider -> use
-        // default
-        Criteria criteria = new Criteria();
-        String provider = mLocationManager.getBestProvider(criteria, false);
-        Location location = mLocationManager.getLastKnownLocation(provider);
-
-        // Initialize the location fields
-        if (location != null) {
-            System.out.println("Provider " + provider + " has been selected.");
-            onLocationChanged(location);
-        }
     }
 
     @Override
@@ -102,10 +83,10 @@ public class MainActivity extends AppCompatActivity
             am.getApiService().getRequest(new Callback<Request>() {
                 @Override
                 public void success(Request resultado, Response response) {
-
                     List<Acto> actos = resultado.getResult();
                     mActos = actos;
                     applyFilters();
+
                 }
 
                 @Override
@@ -151,11 +132,13 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void filterByDistance(List<Acto> list, int km) {
+        mLocation = mMap.getMyLocation();
         if (km > 0 && mLocation != null) {
             Iterator it = list.iterator();
             float[] results = new float[]{99999, 99999, 99999};
             while (it.hasNext()) {
                 Acto a = (Acto) it.next();
+                Location mLocation = mMap.getMyLocation();
                 Location.distanceBetween(mLocation.getLatitude(), mLocation.getLongitude(), a.getLng(), a.getLat(), results);
                 if (results[0] > km * 1000) {
                     it.remove();
@@ -217,26 +200,6 @@ public class MainActivity extends AppCompatActivity
             String dayString = currentDayFilter == -1 ? "Todos los días" : "Día " + currentDayFilter;
             Snackbar.make(toolbar, dayString + "  |  " + distanceString, Snackbar.LENGTH_LONG).show();
         }
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        mLocation = location;
-    }
-
-    @Override
-    public void onStatusChanged(String s, int i, Bundle bundle) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String s) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String s) {
-
     }
 
     @Override
