@@ -97,7 +97,7 @@ public class ProgramaAdapter extends RecyclerView.Adapter<ProgramaAdapter.ViewHo
                 !acto.getAddress().trim().equals("null"))
             holder.thirdText.setText(acto.getAddress());
         else
-            holder.thirdText.setText("No existe una dirección especificiada");
+            holder.thirdText.setText("No existe una dirección especificada");
     }
 
     // Return the size of your dataset (invoked by the layout manager)
