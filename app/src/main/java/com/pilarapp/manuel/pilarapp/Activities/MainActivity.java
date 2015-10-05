@@ -126,8 +126,8 @@ public class MainActivity extends AppCompatActivity
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(41.6572362, -0.878638), 12));
         CameraPosition cameraPosition = new CameraPosition.Builder().
                 target(new LatLng(41.6572362, -0.878638)).
-                zoom(12).
-                tilt(45).
+                zoom(14).
+                tilt(60).
                 build();
 
         map.animateCamera(CameraUpdateFactory.newCameraPosition(cameraPosition));
@@ -179,7 +179,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     private void showSnackbar(int currentDistanceFilter, int currentDayFilter) {
-        //TODO - Mejorar el texto
         if (toolbar != null) {
             String distanceString = currentDistanceFilter == -1 ? "Todas distancias" : "A menos de " + currentDistanceFilter + " km";
             String dayString = currentDayFilter == -1 ? "Todos los días" : "Día " + currentDayFilter;
@@ -276,7 +275,7 @@ public class MainActivity extends AppCompatActivity
                 applyFilters();
                 return true;
             case R.id.dist_10:
-                currentDistanceFilter = 10;
+                currentDistanceFilter = 2;
                 applyFilters();
                 return true;
             case R.id.dist_all:

@@ -14,14 +14,15 @@
                         android:id="@+id/dist_1"
                         android:title="A menos de 1 km"/>
                     <item
+                        android:id="@+id/dist_10"
+                        android:title="A menos de 2 km"/>
+                    <item
                         android:id="@+id/dist_3"
                         android:title="A menos de 3 km"/>
                     <item
                         android:id="@+id/dist_5"
                         android:title="A menos de 5 km"/>
-                    <item
-                        android:id="@+id/dist_10"
-                        android:title="A menos de 10 km"/>
+
                     <item
                         android:id="@+id/dist_all"
                         android:title="Todos"/>
