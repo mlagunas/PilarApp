@@ -681,13 +681,14 @@ public class Acto {
     private Date parseDate(String date) {
         Date parsed = new Date();
         try {
+            Log.d("TAG",date);
             SimpleDateFormat format =
-                    new SimpleDateFormat("yyyy-mm-dd"); //EEE MMM dd HH:mm:ss zzz yyyy
+                    new SimpleDateFormat("yyyy-MM-dd"); //EEE MMM dd HH:mm:ss zzz yyyy
             parsed = format.parse(date);
 
         } catch (ParseException pe) {
-            return null;
-            //throw new IllegalArgumentException();
+            //return null;
+            throw new IllegalArgumentException();
         }
         return parsed;
     }
@@ -700,11 +701,6 @@ public class Acto {
             else
                 return temas.get(0).getTitle();
         } else return tema;
-
-       /* if ( temas != null && temas.size()>0 && temas.get(0).getTitle()!= null
-                && !temas.get(0).getTitle().equals(""))
-            return temas.get(0).getTitle();
-        else return tema;*/
     }
 
     public void setTema(String tema) {

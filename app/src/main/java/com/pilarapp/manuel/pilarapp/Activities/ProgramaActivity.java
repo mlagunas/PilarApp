@@ -78,13 +78,13 @@ public class ProgramaActivity extends AppCompatActivity {
             ApiManager.getApiService().getHeaders(new Callback<Header>() {
                 @Override
                 public void success(Header headers, Response response) {
-                    //Update de la BD en caso de que haya sido modificada  06c31b7c8b567090d821274cc660cf127 mPrefs.getString("Last-modified","")
+                    //Update de la BD en caso de que haya sido modificada  06c31b7c8b567090d821274cc660cf127
                     List<Header> headerList = response.getHeaders();
                     for (Header header : headerList) {
                         if (header.getName() != null
                                 && header.getName().equals("ETag")) {
                             final String newDate = header.getValue();
-                            if (!newDate.equals("a")) {
+                            if (!newDate.equals(mPrefs.getString("Last-modified",""))) {
                                 editor.putString("Last-modified", newDate).commit();
                                 updateDB();
                             } else {

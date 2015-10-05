@@ -93,8 +93,7 @@ public class MainActivity extends AppCompatActivity
         ConnectivityManager cm =
                 (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        if (activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting()) {
+        if (!DA.hasItems()) {
             ApiManager am = new ApiManager();
             am.getApiService().getRequest(new Callback<Request>() {
                 @Override

@@ -112,6 +112,8 @@ public class DetallesActivity extends AppCompatActivity {
 
         if (acto.getPrecioEntrada() != null && !acto.getPrecioEntrada().isEmpty()) {
             precioView.setText(Jsoup.parse(acto.getPrecioEntrada()).text());
+        } else if (acto.getTipoEntrada() != null && !acto.getTipoEntrada().isEmpty()) {
+            precioView.setText(Jsoup.parse(acto.getTipoEntrada()).text());
         } else {
             precioView.setText("Precio no establecido");
         }
