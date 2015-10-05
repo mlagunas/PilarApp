@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -104,7 +103,6 @@ public class DetallesActivity extends AppCompatActivity {
 
     private void setupUI(Acto acto) {
         titleView.setText(acto.getTitle());
-        Log.d("TAG", acto.getHorario());
         if (acto.getDescription() != null) {
             contentView.setText(stringFromHtml(acto.getDescription()));
         } else {
@@ -200,6 +198,6 @@ public class DetallesActivity extends AppCompatActivity {
         document.select("br").append("\\n");
         document.select("p").prepend("\\n");
         String s = document.html().replaceAll("\\\\n", "\n");
-        return Jsoup.clean(s, "", Whitelist.none(), new Document.OutputSettings().prettyPrint(false)).trim().replaceAll("[ ]{2,}","").replaceAll("&nbsp;","");
+        return Jsoup.clean(s, "", Whitelist.none(), new Document.OutputSettings().prettyPrint(false)).trim().replaceAll("[ ]{2,}", "").replaceAll("&nbsp;", "");
     }
 }

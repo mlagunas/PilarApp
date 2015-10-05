@@ -3,17 +3,13 @@ package com.pilarapp.manuel.pilarapp.Activities;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -43,11 +39,9 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 
 
-public class MainActivity extends AppCompatActivity
-        implements OnMapReadyCallback, LocationListener {
+public class MainActivity extends AppCompatActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private LocationManager mLocationManager;
     private Location mLocation;
 
     private List<Acto> mActos;
@@ -72,20 +66,6 @@ public class MainActivity extends AppCompatActivity
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // Get the location manager
-        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        // Define the criteria how to select the locatioin provider -> use
-        // default
-        Criteria criteria = new Criteria();
-        String provider = mLocationManager.getBestProvider(criteria, false);
-        Location location = mLocationManager.getLastKnownLocation(provider);
-
-        // Initialize the location fields
-        if (location != null) {
-            System.out.println("Provider " + provider + " has been selected.");
-            onLocationChanged(location);
-        }
     }
 
     @Override
@@ -95,23 +75,25 @@ public class MainActivity extends AppCompatActivity
         double longitude = -1;
         double latitude = -1;
 
+        ConnectivityManager cm =
+                (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         if (!DA.hasItems()) {
             ApiManager am = new ApiManager();
             am.getApiService().getRequest(new Callback<Request>() {
                 @Override
                 public void success(Request resultado, Response response) {
-
                     List<Acto> actos = resultado.getResult();
                     mActos = actos;
                     applyFilters();
+
                 }
 
                 @Override
                 public void failure(RetrofitError error) {
                 }
             });
-        }
-        else{
+        } else {
             mActos = DA.getActos();
             applyFilters();
         }
@@ -141,25 +123,28 @@ public class MainActivity extends AppCompatActivity
 
     public void applyFilters() {
         mFiltered = new ArrayList<>(mActos);
-        if(currentDayFilter != -1){
-            mFiltered = DA.getActos(parseDate("2015-10-"+currentDayFilter));
+        if (currentDayFilter != -1) {
+            mFiltered = DA.getActos(parseDate("2015-10-" + currentDayFilter));
         }
-        fillMapWithMarkers(filterByDistance(mFiltered, currentDistanceFilter), mMap);
+        filterByDistance(mFiltered, currentDistanceFilter);
+        fillMapWithMarkers(mFiltered, mMap);
         showSnackbar(currentDistanceFilter, currentDayFilter);
     }
 
-    public List<Acto> filterByDistance(List<Acto> list, int km) {
+    public void filterByDistance(List<Acto> list, int km) {
+        mLocation = mMap.getMyLocation();
         if (km > 0 && mLocation != null) {
             Iterator it = list.iterator();
-            float[] results = new float[1];
+            float[] results = new float[]{99999, 99999, 99999};
             while (it.hasNext()) {
                 Acto a = (Acto) it.next();
-                if (results[0] > (km * 1000)) {
+                Location mLocation = mMap.getMyLocation();
+                Location.distanceBetween(mLocation.getLatitude(), mLocation.getLongitude(), a.getLng(), a.getLat(), results);
+                if (results[0] > km * 1000) {
                     it.remove();
                 }
             }
         }
-        return list;
     }
 
     public void filterByDay(List<Acto> list, int day) {
@@ -170,7 +155,7 @@ public class MainActivity extends AppCompatActivity
 
             while (it.hasNext()) {
                 Acto a = (Acto) it.next();
-                if(!actoDate.contains(a)){
+                if (!actoDate.contains(a)) {
                     it.remove();
                 }
 
@@ -215,26 +200,6 @@ public class MainActivity extends AppCompatActivity
             String dayString = currentDayFilter == -1 ? "Todos los días" : "Día " + currentDayFilter;
             Snackbar.make(toolbar, dayString + "  |  " + distanceString, Snackbar.LENGTH_LONG).show();
         }
-    }
-
-    @Override
-    public void onLocationChanged(Location location) {
-        mLocation = location;
-    }
-
-    @Override
-    public void onStatusChanged(String s, int i, Bundle bundle) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String s) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String s) {
-
     }
 
     @Override
