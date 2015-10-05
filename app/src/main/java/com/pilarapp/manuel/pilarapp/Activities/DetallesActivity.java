@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,6 +21,8 @@ import com.pilarapp.manuel.pilarapp.Objects.Acto;
 import com.pilarapp.manuel.pilarapp.R;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.safety.Whitelist;
 
 import java.text.SimpleDateFormat;
 import java.util.Locale;
@@ -40,6 +41,7 @@ public class DetallesActivity extends AppCompatActivity {
     private TextView titleView;
     private TextView contentView;
     private TextView precioView;
+    private TextView horarioView, horarioTituloView;
     private TextView temaView;
     private ImageView eventImage;
     private DaoActos DA;
@@ -64,6 +66,8 @@ public class DetallesActivity extends AppCompatActivity {
         titleView = (TextView) findViewById(R.id.title);
         contentView = (TextView) findViewById(R.id.content);
         precioView = (TextView) findViewById(R.id.precio);
+        horarioView = (TextView) findViewById(R.id.horario);
+        horarioTituloView = (TextView) findViewById(R.id.horarioTitulo);
         temaView = (TextView) findViewById(R.id.tema);
         eventImage = (ImageView) findViewById(R.id.eventImage);
 
@@ -99,22 +103,30 @@ public class DetallesActivity extends AppCompatActivity {
         titleView.setText(acto.getTitle());
         Log.d("TAG", acto.getHorario());
         if (acto.getDescription() != null) {
-            contentView.setText(Html.fromHtml(acto.getDescription()));
+            contentView.setText(stringFromHtml(acto.getDescription()));
         } else {
             contentView.setText("Descripcion no establecida");
         }
-
+        setupHorario(acto, horarioView, horarioTituloView);
         setupDateText(acto, dateView);
         setupHeaderImage(acto.getLat(), acto.getLng());
 
         if (acto.getPrecioEntrada() != null && !acto.getPrecioEntrada().isEmpty()) {
-            precioView.setText(Jsoup.parse(acto.getPrecioEntrada()).text());
+            precioView.setText(stringFromHtml(acto.getPrecioEntrada()));
         } else {
             precioView.setText("Precio no establecido");
         }
         temaView.setText(acto.getTema());
         setupFab(acto.getTitle());
         Glide.with(this).load("http:" + acto.getImagen()).into(eventImage);
+    }
+
+    private void setupHorario(Acto acto, TextView horarioView, TextView horarioTituloView) {
+        if ((acto.getHoraInicio() == null || acto.getHoraInicio().isEmpty()) && acto.getHorario() != null && !acto.getHorario().isEmpty()) {
+            horarioTituloView.setVisibility(View.VISIBLE);
+            horarioView.setText(stringFromHtml(acto.getHorario()));
+            horarioView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void setupDateText(Acto acto, TextView dateView) {
@@ -173,5 +185,16 @@ public class DetallesActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setTitle("");
+    }
+
+    public static String stringFromHtml(String html) {
+        if (html == null)
+            return html;
+        Document document = Jsoup.parse(html);
+        document.outputSettings(new Document.OutputSettings().prettyPrint(false));//makes html() preserve linebreaks and spacing
+        document.select("br").append("\\n");
+        document.select("p").prepend("\\n");
+        String s = document.html().replaceAll("\\\\n", "\n");
+        return Jsoup.clean(s, "", Whitelist.none(), new Document.OutputSettings().prettyPrint(false)).trim().replaceAll("[ ]{2,}","").replaceAll("&nbsp;","");
     }
 }
