@@ -1,8 +1,6 @@
 package com.pilarapp.manuel.pilarapp.Database;
 
 import android.content.Context;
-import android.util.Log;
-
 
 import com.pilarapp.manuel.pilarapp.Objects.Acto;
 
@@ -66,7 +64,7 @@ public class DaoActos extends DaoBase {
         super.close();
     }
 
-    public List<Acto> getDestacados(){
+    public List<Acto> getDestacados() {
         super.open();
         ArrayList<Acto> actos = new ArrayList<Acto>();
         c = super.mDb.rawQuery("SELECT * FROM info WHERE destacada = 1;", null);
@@ -90,7 +88,6 @@ public class DaoActos extends DaoBase {
         if (a.getStartDate() != null)
             endd = new SimpleDateFormat("yyyy-MM-dd").format(a.getEndDate());
 
-        Log.d("TAG",a.getDestacada().toString()+"  destacada");
         if (a.getDestacada()) destacada = 1;
         else destacada = 0;
 
@@ -140,9 +137,9 @@ public class DaoActos extends DaoBase {
                 a.getBuses() + "', '" +
                 a.getAddress() + "', '" +
                 a.getAddressInfo() + "', '" +
-                a.getImagen() + "', '"+
-                a.getHorario()+"'"+
-        ");";
+                a.getImagen() + "', '" +
+                a.getHorario() + "'" +
+                ");";
         mDb.execSQL(consulta);
     }
 
@@ -164,7 +161,7 @@ public class DaoActos extends DaoBase {
         return actos;
     }
 
-    public List<Acto> getFilterActos(Date date){
+    public List<Acto> getFilterActos(Date date) {
         super.open();
         ArrayList<Acto> actos = new ArrayList<Acto>();
         String fecha = new SimpleDateFormat("yyyy-MM-dd").format(date);
@@ -182,7 +179,7 @@ public class DaoActos extends DaoBase {
         return actos;
     }
 
-    public Boolean hasItems(){
+    public Boolean hasItems() {
         super.open();
         c = super.mDb.rawQuery("SELECT * FROM info;", null);
         Boolean result = c.moveToFirst();
@@ -249,6 +246,5 @@ public class DaoActos extends DaoBase {
         }
         return aux;
     }
-
 
 }

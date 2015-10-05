@@ -10,7 +10,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +29,7 @@ import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
 
-public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItemClickListener{
+public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItemClickListener {
     private static final String ARG_DIA = "dia_de_las_fiestas";
 
     private long mDia;
@@ -59,7 +58,7 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
         super.onCreate(savedInstanceState);
 
         this.DA = new DaoActos(this.getContext());
-        cm = (ConnectivityManager)this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        cm = (ConnectivityManager) this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         activeNetwork = cm.getActiveNetworkInfo();
 
         if (getArguments() != null) {
@@ -91,9 +90,8 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
     }
 
     private void requestProgram() {
-        Log.d("TAG num",DA.getDestacados().size()+"num");
 
-        if(!DA.hasItems()) {
+        if (!DA.hasItems()) {
             ApiManager.getApiService().getRequest(getRequestQuery(mDia), new Callback<Request>() {
 
                 @Override
@@ -106,23 +104,21 @@ public class ProgramaFragment extends Fragment implements ProgramaAdapter.OnItem
                     Snackbar.make(mRecyclerView, "Error de conexión", Snackbar.LENGTH_LONG).show();
                 }
             });
-        }
-        else {
-            Log.d("TAG","in DB");
+        } else {
             mAdapter.setData(DA.getActos(new Date(mDia)));
         }
     }
 
     private String getRequestQuery(long l) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        return "programa==fiestas del pilar;endDate=ge="+sdf.format(new Date(l))+";startDate=le="+sdf.format(new Date(l));
+        return "programa==fiestas del pilar;endDate=ge=" + sdf.format(new Date(l)) + ";startDate=le=" + sdf.format(new Date(l));
         //return "programa==fiestas del pilar;startDate=="+sdf.format(new Date(l))+"T00:00:00Z";
     }
 
     @Override
     public void onItemClick(View v, Acto acto) {
         Intent i = new Intent(getActivity(), DetallesActivity.class);
-        i.putExtra("date",mDia);
+        i.putExtra("date", mDia);
         i.putExtra("id", acto.getId());
         startActivity(i);
     }

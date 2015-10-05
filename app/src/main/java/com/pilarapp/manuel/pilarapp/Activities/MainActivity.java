@@ -13,7 +13,6 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -113,8 +112,7 @@ public class MainActivity extends AppCompatActivity
                 public void failure(RetrofitError error) {
                 }
             });
-        }
-        else{
+        } else {
             mActos = DA.getActos();
             applyFilters();
         }
@@ -144,9 +142,8 @@ public class MainActivity extends AppCompatActivity
 
     public void applyFilters() {
         mFiltered = new ArrayList<>(mActos);
-        if(currentDayFilter != -1){
-            mFiltered = DA.getActos(parseDate("2015-10-"+currentDayFilter));
-            Log.d("TAG",mFiltered.size()+"");
+        if (currentDayFilter != -1) {
+            mFiltered = DA.getActos(parseDate("2015-10-" + currentDayFilter));
         }
         filterByDistance(mFiltered, currentDistanceFilter);
         fillMapWithMarkers(mFiltered, mMap);
@@ -171,12 +168,11 @@ public class MainActivity extends AppCompatActivity
         if (day > 0) {
             Date dia = parseDate("2015-10-" + day);
             List<Acto> actoDate = DA.getActos(dia);
-            Log.d("TAG", actoDate.size() + " ");
             Iterator it = list.iterator();
 
             while (it.hasNext()) {
                 Acto a = (Acto) it.next();
-                if(!actoDate.contains(a)){
+                if (!actoDate.contains(a)) {
                     it.remove();
                 }
 
