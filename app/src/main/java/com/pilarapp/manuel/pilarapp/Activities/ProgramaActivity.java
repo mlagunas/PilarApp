@@ -118,20 +118,26 @@ public class ProgramaActivity extends AppCompatActivity {
 
                         @Override
                         public void failure(RetrofitError error) {
-                            Snackbar.make(mViewPager, "Error de conexión", Snackbar.LENGTH_LONG).show();
+                            stopDialog();
+                            setSupportActionBar(toolbar);
+                            ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+                            setupViewPager(viewPager);
+                            tabLayout.setupWithViewPager(viewPager);
                         }
                     });
                 }
             });
         } else {
-            Snackbar.make(mViewPager, "Error de conexión", Snackbar.LENGTH_LONG).show();
-            finish();
+            stopDialog();
+            setSupportActionBar(toolbar);
+            ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+            setupViewPager(viewPager);
+            tabLayout.setupWithViewPager(viewPager);
         }
     }
 
     private void stopDialog() {
         sp.hide();
-        sp.dismiss();
     }
 
     private void setupViewPager(ViewPager viewPager) {
